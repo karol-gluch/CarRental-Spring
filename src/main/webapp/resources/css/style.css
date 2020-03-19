@@ -36,7 +36,10 @@ body {
     color: #fff;
     text-align: center;
 }
-
+h4 a {
+    color: #fff;
+    text-decoration: none;
+}
 /* menu */
 ul {
   list-style-type: none;

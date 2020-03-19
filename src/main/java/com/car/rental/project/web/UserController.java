@@ -10,6 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+import java.util.HashMap;
+
 @Controller
 public class UserController {
     @Autowired
@@ -24,7 +27,6 @@ public class UserController {
     @GetMapping("/registration")
     public String registration(Model model) {
         model.addAttribute("userForm", new User());
-
         return "registration";
     }
 
@@ -40,7 +42,7 @@ public class UserController {
 
         securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
 
-        return "redirect:/welcome";
+        return "redirect:/index";
     }
 
     @GetMapping("/login")
@@ -51,11 +53,11 @@ public class UserController {
         if (logout != null)
             model.addAttribute("message", "You have been logged out successfully.");
 
-        return "login";
+        return "index";
     }
 
-    @RequestMapping({"/","/index"})
-    public String welcome(Model model) {
+    @GetMapping({"/","/index"})
+    public String index(Model model) {
         return "index";
     }
 
@@ -71,5 +73,9 @@ public class UserController {
     @RequestMapping("/ofirmie")
     public String ofirmie(Model model) {
         return "ofirmie";
+    }
+    @RequestMapping("/welcome")
+    public String welcome(Model model) {
+        return "welcome";
     }
 }
