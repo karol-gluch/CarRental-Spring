@@ -117,3 +117,8 @@ input[type=submit]:hover {
   background-color: #f2f2f2;
   padding: 20px;
 }
+
+.fb {
+    background-color: #3B5998;
+    color: white;
+}

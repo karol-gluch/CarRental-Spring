@@ -9,6 +9,11 @@
           <meta charset="UTF-8">
           <title>G&G CarRent - Wypożyczalnia samochodów</title>
           <link href="${contextPath}/resources/css/style.css" rel="stylesheet">
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
       </head>
       <body>
           <div id="header">
@@ -18,36 +23,37 @@
           <div id = "aside">
               <ul>
                   <c:if test="${isAdmin}">
-                      <li><a href="${contextPath}/index">Panel administratora</a></li>
+                      <li><a href="${contextPath}/adminPanel">Panel administratora</a></li>
                   </c:if>
                   <li><a href="${contextPath}/index">Strona Główna</a></li>
                   <li><a class="active" href="${contextPath}/flota">Flota</a></li>
                   <li><a href="${contextPath}/ofirmie">O firmie</a></li>
                   <li><a href="${contextPath}/kontakt">Kontakt</a></li>
-                  <c:if test="${pageContext.request.userPrincipal.name == null}">
-                      <form method="POST" action="${contextPath}/login" class="form-signin">
-                          <h2 class="form-heading">Zaloguj się</h2>
 
-                          <div class="form-group ${error != null ? 'has-error' : ''}">
-                              <span>${message}</span>
-                              <span>${error}</span>
-                              <input name="username" type="text" placeholder="Username"
-                                     autofocus="true"/>
-                              <input name="password" type="password" placeholder="Password"/>
-                              <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-
-                              <button class="btn btn-lg btn-primary btn-block" type="submit">Zaloguj się!</button>
-                              <h4 ><a href="${contextPath}/registration">Stwórz konto</a></h4>
-                          </div>
-                      </form>
-                  </c:if>
                   <c:if test="${pageContext.request.userPrincipal.name != null}">
                       <form id="logoutForm" method="POST" action="${contextPath}/logout">
                       </form>
-                      <button onclick="document.forms['logoutForm'].submit()">Logout</button>
+                      <center>
+                          <h6 style = "color: white">Jesteś zalogowany jako: <b>${pageContext.request.userPrincipal.name}</b></h6>
+                          <button type="button" class="btn btn-dark" onclick="document.forms['logoutForm'].submit()">Wyloguj się
+                          </button>
+                      </center>
                   </c:if>
+
               </ul>
+              <c:if test="${pageContext.request.userPrincipal.name == null}">
+              <center>
+                  <button type="button" class="btn btn-light" data-toggle="modal" data-target="#myModalLogin">
+                      Zaloguj się
+                  </button>
+                  <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#myModalRegister">
+                      Rejestracja
+                  </button>
+              </center>
+              </c:if>
           </div>
+
+
           
           <div id = "main">
               <br><h1>Nasza flota:</h1>

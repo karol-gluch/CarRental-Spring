@@ -78,4 +78,6 @@ public class UserController {
     public String welcome(Model model) {
         return "welcome";
     }
+    @RequestMapping("/adminPanel")
+    public String adminPanel(Model model) { return "adminPanel"; }
 }
