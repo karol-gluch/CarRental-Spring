@@ -1,5 +1,6 @@
 package com.car.rental.project.service;
 
+import com.car.rental.project.model.Role;
 import com.car.rental.project.model.User;
 import com.car.rental.project.repository.RoleRepository;
 import com.car.rental.project.repository.UserRepository;
@@ -21,7 +22,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public void save(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setRoles(new HashSet<>());
+        HashSet<Role> roles = new HashSet<>();
+        roles.add(roleRepository.findByName("ROLE_USER"));
+        user.setRoles(roles);
         userRepository.save(user);
     }
 

@@ -3,9 +3,7 @@ package com.car.rental.project.securingweb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -30,7 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/resources/**", "/registration","/h2-console/**","/","/index","/login*","/signin/**","/signup/**","/welcome").permitAll()
+                .antMatchers("/resources/**", "/registration","/h2-console/**","/","/index","/login*","/auth/**", "/oauth2/**","/fblogin*").permitAll()
                 .antMatchers("/adminPanel").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
@@ -40,6 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .permitAll();
+
 
         http.csrf().disable();
         http.headers().frameOptions().disable();

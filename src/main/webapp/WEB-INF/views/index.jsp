@@ -2,6 +2,10 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@page import="com.car.rental.project.social.FBConnection"%>
+<%
+    FBConnection fbConnection = new FBConnection();
+%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <% request.setAttribute("isAdmin", request.isUserInRole("ADMIN")); %>
 <!DOCTYPE html>
@@ -52,6 +56,9 @@
             </button>
         </center>
     </c:if>
+
+
+
 </div>
 
 <div id="main">
@@ -127,11 +134,14 @@
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
                     <button class="btn btn-lg btn-primary btn-block" type="submit">Zaloguj się!</button>
-            </div>
+
             </form>
+                    <br />
+                    <button class="loginBtn loginBtn--facebook" onclick="window.location.href='<%=fbConnection.getFBAuthUrl()%>'">
+                        Login with Facebook
+                    </button>
             </c:if>
-
-
+        </div>
             <!-- Modal footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
@@ -159,14 +169,14 @@
                 <form action="/registration" method="post">
                     <div class="form-group">
                         <label for="username">Nazwa użytkownika:</label>
-                        <input type="text" minlength="6" class="form-control" id="username" placeholder="Podaj nazwe uzytkownika"
+                        <input type="text" minlength="6" class="form-control" id="RegisterUsername" placeholder="Podaj nazwe uzytkownika"
                                name="username" required>
                         <div class="valid-feedback">Uzupełniono</div>
                         <div class="invalid-feedback">Proszę wypełnić pole</div>
                     </div>
                     <div class="form-group">
                         <label for="password">Haslo:</label>
-                        <input type="password" minlength="8" class="form-control" id="password" placeholder="Podaj haslo"
+                        <input type="password" minlength="8" class="form-control" id="registerPassword" placeholder="Podaj haslo"
                                name="password" required>
                         <div class="valid-feedback">Uzupełniono</div>
                         <div class="invalid-feedback">Proszę wypełnić pole</div>
@@ -180,6 +190,10 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Zarejestruj</button>
                 </form>
+                <br />
+                <button class="loginBtn loginBtn--facebook" onclick="window.location.href='<%=fbConnection.getFBAuthUrl()%>'">
+                    Login with Facebook
+                </button>
             </div>
 
             <!-- Modal footer -->

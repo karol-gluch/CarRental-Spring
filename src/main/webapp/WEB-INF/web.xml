@@ -1,5 +1,5 @@
 <web-app xmlns="http://java.sun.com/xml/ns/javaee" version="2.5">
-    <display-name>Hello Spring MVC</display-name>
+    <display-name>Wypożyczalnia samochodów</display-name>
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
@@ -32,4 +32,5 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
+
 </web-app>
