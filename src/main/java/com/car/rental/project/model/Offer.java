@@ -1,7 +1,7 @@
+
 package com.car.rental.project.model;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name = "offer")
@@ -9,20 +9,20 @@ public class Offer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String name;
     private String description;
     private Integer price;
-    private String url;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "car_id", referencedColumnName = "id")
+    private Car car;
 
-    public Offer(String name, String description, Integer price, String mediaUrl) {
-        this.name = name;
+    public Offer(String description, Integer price, Car car) {
         this.description = description;
         this.price = price;
-        this.url = url;
+        this.car = car;
     }
 
-    public Offer() {};
+    public Offer() {
+    }
 
     public Long getId() {
         return id;
@@ -30,14 +30,6 @@ public class Offer {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getDescription() {
@@ -56,11 +48,11 @@ public class Offer {
         this.price = price;
     }
 
-    public String getUrl() {
-        return url;
+    public Car getCar() {
+        return car;
     }
 
-    public void setUrl(String mediaUrl) {
-        this.url = url;
+    public void setCar(Car car) {
+        this.car = car;
     }
 }

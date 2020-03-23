@@ -1,10 +1,16 @@
 insert into user (id,username,password) values (1,'admin123','$2a$10$g09DwEO7fAOPUWJfJRekIuJov8m1tIWbC7HODMMJK9d8qNarsgdCy');
 insert into user (id,username,password) values (2,'user123','$2a$10$BOt39Rnda0f0lSGPzR7y7.VOvVXC6Tyt.TFPXtVpKuxdB2G1BDqtS');
+
 insert into role (id,name) values (1,'ROLE_ADMIN');
 insert into role (id,name) values (2,'ROLE_USER');
+
 insert into user_roles (users_id,roles_id) values (1,1);
 insert into user_roles (users_id,roles_id) values (2,2);
-insert into offer (id, name, description, price, url) values (1, 'Audi A6', 'Samochody Audi A6  wyposażone są w nadwozie sedan lub kombi, pięć siedzeń i od 4 do 5 drzwi. Auta mają długość od 4,5 do ok. 5 metrów, szerokość w przedziale 1775–1992 mm, a wysokość może wynosić 1425–1480 mm. Pojemność bagażnika to 630–1660 litrów.', 440, '/resources/images/offer/Audi-A6.png');
+
+insert into car (id,mark,model,year_Of_Production) values (1,'Audi', 'A6', '2015');
+insert into car (id,mark,model,year_Of_Production) values (2,'BMW', 'M4', '2012');
+
+/*insert into offer (id, description, price) values (1, 'Samochody Audi A6  wyposażone są w nadwozie sedan lub kombi, pięć siedzeń i od 4 do 5 drzwi. Auta mają długość od 4,5 do ok. 5 metrów, szerokość w przedziale 1775–1992 mm, a wysokość może wynosić 1425–1480 mm. Pojemność bagażnika to 630–1660 litrów.', 440, '/resources/images/offer/Audi-A6.png');
 insert into offer (id, name, description, price, url) values (2, 'Mercedes C63', 'Model C63 AMG, wyposażony 457-konny ośmiocylindrowy silnik o pojemności 6.2 l, jest najmocniejszą odmianą obecnej generacji Klasy C.  Wersje AMG W204 są dostępne w każdym typu nadwozia: kombi, sedan oraz coupe.', 330, '/resources/images/offer/Mercedes-C63.png');
 insert into offer (id, name, description, price, url) values (3, 'Volkswagen Arteon', 'Produkowany od roku 2017, należący do segmentu E (wyższa klasa średnia) o nadwoziu typu fastback, Volkswagen Arteon to nowy model flagowy niemieckiej marki. Samochód bezpośrednio zastąpił Volkswagena CC i poprzedniego Passata CC', 280, '/resources/images/offer/Volkswagen-Arteon.png');
 insert into offer (id, name, description, price, url) values (4, 'Audi S3', 'Zużycie paliwa w Audi S3 8L wynosi średnio 9,3 l na 100 przejechanych kilometrów, a od zera do setki auto rozpędza się w niecałe 7 sekund. Wersja posiada nowe zderzaki z przodu, jak i z tyłu.', 400, '/resources/images/offer/Audi-S3.png');
@@ -17,4 +23,4 @@ insert into offer (id, name, description, price, url) values (10, 'Nissan GTR', 
 insert into offer (id, name, description, price, url) values (11, 'BMW 1', 'Maksymalna moc silnika BMW serii 1 ma od 95 do 340 koni mechanicznych, co przekłada się na maksymalną prędkość auta od 185 do 250 km/h. W BMW serii 1 może być silnik benzynowy lub silnik diesla. Średnie spalanie wynosi ok. 5 litrów na 100 km.', 300, '/resources/images/offer/BMW-1.png');
 insert into offer (id, name, description, price, url) values (12, 'Mercedes A45', 'Sam w sobie jest kieszonkową rakietą z zadziornym pakietem aerodynamicznym. Uroku dodaje mu 2,0-litrowy, turbodoładowany silnik generujący 360 KM. Napęd przekazywany jest na wszystkie przez siedmiobiegową przekładnie AMG SPEEDSHIFT.', 400, '/resources/images/offer/Mercedes-A45.png');
 insert into offer (id, name, description, price, url) values (13, 'Volkswagen Golf R', 'Pod maską tego auta pracuje 2-litrowy silnik benzynowy rozwijający pokaźną moc 300 KM. Połączenie takiego silnika z 6-biegową przekładnią DSG oraz napędem 4Motion pozwala katapultować Golfa R do pierwszej setki w 4,9 s.', 450, '/resources/images/offer/Volkswagen-Golf-R.png');
-insert into offer (id, name, description, price, url) values (14, 'Audi TT', 'Na tylnej klapie znajduje się spoiler wysuwany automatycznie po przekroczeniu 120 km/h, który za pomocą przycisku można wysunąć z miejsca kierowcy. W celu zapewnienia bezpiecznej jazdy modelem TT zastosowano system stabilizacji toru jazdy ESP.', 480, '/resources/images/offer/Audi-TT.png');
+insert into offer (id, name, description, price, url) values (14, 'Audi TT', 'Na tylnej klapie znajduje się spoiler wysuwany automatycznie po przekroczeniu 120 km/h, który za pomocą przycisku można wysunąć z miejsca kierowcy. W celu zapewnienia bezpiecznej jazdy modelem TT zastosowano system stabilizacji toru jazdy ESP.', 480, '/resources/images/offer/Audi-TT.png');*/

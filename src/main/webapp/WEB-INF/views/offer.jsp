@@ -56,17 +56,15 @@
 </div>
 <table>
     <c:forEach items="${offerList}" var="offer">
-<%--        <tr>--%>
-<%--            <td>${offer.name}</td>--%>
-<%--            <td>${offer.description}</td>--%>
-<%--            <td>${offer.price}</td>--%>
-<%--            <td><img src="<c:url value="${offer.url}" />"></td>--%>
-<%--        </tr>--%>
+        <%--        <tr>--%>
+        <%--            <td>${offer.name}</td>--%>
+        <%--            <td>${offer.description}</td>--%>
+        <%--            <td>${offer.price}</td>--%>
+        <%--            <td><img src="<c:url value="${offer.url}" />"></td>--%>
+        <%--        </tr>--%>
         <section class="offers">
             <div class="offer">
-                <img src="<c:url value="${offer.url}"/>">
                 <div class="description">
-                    <h2>${offer.name}</h2>
                     <p>${offer.description}</p>
                     <div class="price">
                         <p>Cena: ${offer.price} zł</p>

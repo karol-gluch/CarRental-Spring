@@ -34,6 +34,7 @@
         <li><a href="${contextPath}/flota">Flota</a></li>
         <li><a href="${contextPath}/ofirmie">O firmie</a></li>
         <li><a href="${contextPath}/kontakt">Kontakt</a></li>
+        <li><a href="${contextPath}/offer">Oferta</a></li>
 
         <c:if test="${pageContext.request.userPrincipal.name != null}">
             <form id="logoutForm" method="POST" action="${contextPath}/logout">
