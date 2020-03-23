@@ -1,6 +1,11 @@
 package com.car.rental.project.web;
 
+import com.car.rental.project.model.Car;
+import com.car.rental.project.model.CarPhoto;
+import com.car.rental.project.model.Offer;
 import com.car.rental.project.model.User;
+import com.car.rental.project.repository.CarPhotoRepository;
+import com.car.rental.project.service.OfferService;
 import com.car.rental.project.social.FBConnection;
 import com.car.rental.project.social.FBGraph;
 import com.car.rental.project.service.SecurityService;
@@ -15,18 +20,28 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.util.List;
 import java.util.Map;
 
 @Controller
 public class UserController {
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+    private final SecurityService securityService;
+    private final UserValidator userValidator;
+    private final OfferService offerService;
+    private final CarPhotoRepository carPhotoRepository;
+
 
     @Autowired
-    private SecurityService securityService;
+    public UserController(UserService userService, SecurityService securityService, UserValidator userValidator, OfferService offerService, CarPhotoRepository carPhotoRepository) {
+        this.userService = userService;
+        this.securityService = securityService;
+        this.userValidator = userValidator;
+        this.offerService = offerService;
+        this.carPhotoRepository = carPhotoRepository;
 
-    @Autowired
-    private UserValidator userValidator;
+    }
 
     @GetMapping("/registration")
     public String registration(Model model) {
@@ -85,7 +100,20 @@ public class UserController {
     }
 
     @GetMapping({"/","/index"})
-    public String index(Model model) {
+    public String index(Model model) throws IOException {
+
+        File file = new File("C:\\Users\\kikos\\OneDrive\\Pulpit\\Java\\car-rental\\src\\main\\webapp\\resources\\images\\offer\\Audi-A6.png");
+        byte[] picInBytes = new byte[(int) file.length()];
+        FileInputStream fileInputStream = new FileInputStream(file);
+        fileInputStream.read(picInBytes);
+        fileInputStream.close();
+
+        Car c1 = new Car("Skoda","Octavia","2018");
+        CarPhoto p1 = new CarPhoto(picInBytes,c1);
+        carPhotoRepository.save(p1);
+        Offer o1 = new Offer("Taka o",200,c1);
+        offerService.save(o1);
+
         return "index";
     }
 
@@ -108,4 +136,12 @@ public class UserController {
     }
     @RequestMapping("/adminPanel")
     public String adminPanel(Model model) { return "adminPanel"; }
+
+    @RequestMapping("/offer")
+    public String offer(Model model) {
+        List<Offer> offerList = offerService.findAll();
+        model.addAttribute ("offerList", offerList);
+        return "offer";
+    }
+
 }

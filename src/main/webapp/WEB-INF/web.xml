@@ -1,10 +1,6 @@
 <web-app xmlns="http://java.sun.com/xml/ns/javaee" version="2.5">
     <display-name>Wypożyczalnia samochodów</display-name>
 
-    <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/appconfig-root.xml</param-value>
-    </context-param>
     <filter>
         <filter-name>springSecurityFilterChain</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
