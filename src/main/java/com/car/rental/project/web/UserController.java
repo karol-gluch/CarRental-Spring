@@ -1,6 +1,8 @@
 package com.car.rental.project.web;
 
+import com.car.rental.project.model.Offer;
 import com.car.rental.project.model.User;
+import com.car.rental.project.service.OfferService;
 import com.car.rental.project.social.FBConnection;
 import com.car.rental.project.social.FBGraph;
 import com.car.rental.project.service.SecurityService;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -27,6 +30,9 @@ public class UserController {
 
     @Autowired
     private UserValidator userValidator;
+
+    @Autowired
+    private OfferService offerService;
 
     @GetMapping("/registration")
     public String registration(Model model) {
@@ -108,4 +114,11 @@ public class UserController {
     }
     @RequestMapping("/adminPanel")
     public String adminPanel(Model model) { return "adminPanel"; }
+
+    @RequestMapping("/offer")
+    public String offer(Model model) {
+        List<Offer> offerList = offerService.findAll();
+        model.addAttribute ("offerList", offerList);
+        return "offer";
+    }
 }
