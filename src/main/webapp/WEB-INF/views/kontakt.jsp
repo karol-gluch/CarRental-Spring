@@ -57,12 +57,12 @@
 
       <main class= "main">
         <h2>Kontakt:</h2>
-        <form action="index.jsp" class="center">
-            <input type="text" id="imie" name="imie" placeholder="Twoje imie..">
-            <input type="text" id="nazwisko" name="nazwisko" placeholder="Twoje nazwisko..">
-            <textarea id="temat" name="temat" placeholder="Twoj temat.." style="height:200px"></textarea><br>
-            <input type="submit" value="Wyslij wiadomosc">
-        </form>
+          <form method="post" action="sendMail" class="center">
+              <input type="text" id="email" name="email" placeholder="Twoj email..">
+              <input type="text" id="temat" name="temat" placeholder="Twoj temat..">
+              <textarea id="tresc" name="tresc" placeholder="Tresc.." style="height:200px"></textarea><br>
+              <input type="submit" value="Wyslij wiadomosc">
+          </form>
       </main>
 
       <footer class = "footer">
