@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.Base64" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <% request.setAttribute("isAdmin", request.isUserInRole("ADMIN")); %>
 <!DOCTYPE html>
@@ -68,33 +69,20 @@
 <%--            </div>--%>
 <%--        </section>--%>
 <%--    </c:forEach>--%>
-
+    <c:forEach items="${offerList}" var="offer">
         <section class="offers">
             <div class="offer">
-                <img src="../resources/images/offer/Audi-A6.png" alt=""/>
+                <c:forEach var="img" items="${offer.carPhoto}" end="0">
+                    <img src="data:image/*;base64,${Base64.getEncoder().encodeToString(img.photo)}"/>
+                </c:forEach>
                 <div class="description">
-                    <h2>Audi A6</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, modi odio repellendus eligendi dolorem blanditiis ullam fuga quasi reprehenderit soluta minus earum suscipit magni tempore quaerat itaque quod autem rem?</p>
-                    <h3>Cena 440zł/doba</h3>
-                </div>
-            </div>
-            <div class="offer">
-                <img src="../resources/images/offer/Audi-A6.png" alt=""/>
-                <div class="description">
-                    <h2>Audi A6</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, modi odio repellendus eligendi dolorem blanditiis ullam fuga quasi reprehenderit soluta minus earum suscipit magni tempore quaerat itaque quod autem rem?</p>
-                    <h3>Cena 440zł/doba</h3>
-                </div>
-            </div>
-            <div class="offer">
-                <img src="../resources/images/offer/Audi-A6.png" alt=""/>
-                <div class="description">
-                    <h2>Audi A6</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, modi odio repellendus eligendi dolorem blanditiis ullam fuga quasi reprehenderit soluta minus earum suscipit magni tempore quaerat itaque quod autem rem?</p>
-                    <h3>Cena 440zł/doba</h3>
+                    <h2>${offer.mark} ${offer.model}</h2>
+                    <p>${offer.description}</p>
+                    <h3>Cena ${offer.price}zł/doba</h3>
                 </div>
             </div>
         </section>
+    </c:forEach>
     </main>
 
     <footer class = "footer">

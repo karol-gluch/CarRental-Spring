@@ -1,10 +1,8 @@
 package com.car.rental.project.web;
 
-import com.car.rental.project.model.Car;
-import com.car.rental.project.model.CarPhoto;
-import com.car.rental.project.model.Offer;
-import com.car.rental.project.model.User;
+import com.car.rental.project.model.*;
 import com.car.rental.project.repository.CarPhotoRepository;
+import com.car.rental.project.repository.CarRepository;
 import com.car.rental.project.service.OfferService;
 import com.car.rental.project.social.FBConnection;
 import com.car.rental.project.social.FBGraph;
@@ -31,16 +29,16 @@ public class UserController {
     private final UserValidator userValidator;
     private final OfferService offerService;
     private final CarPhotoRepository carPhotoRepository;
-
+    private final CarRepository carRepository;
 
     @Autowired
-    public UserController(UserService userService, SecurityService securityService, UserValidator userValidator, OfferService offerService, CarPhotoRepository carPhotoRepository) {
+    public UserController(UserService userService, SecurityService securityService, UserValidator userValidator, OfferService offerService, CarPhotoRepository carPhotoRepository, CarRepository carRepository) {
         this.userService = userService;
         this.securityService = securityService;
         this.userValidator = userValidator;
         this.offerService = offerService;
         this.carPhotoRepository = carPhotoRepository;
-
+        this.carRepository = carRepository;
     }
 
     @GetMapping("/registration")
@@ -76,7 +74,7 @@ public class UserController {
         return "index";
     }
 
-    @RequestMapping("/fblogin")
+    @GetMapping("/fblogin")
     public String service(HttpServletRequest req, HttpServletResponse res) {
         String code = req.getParameter("code");
         if (code.equals("")) {
@@ -100,50 +98,50 @@ public class UserController {
     }
 
     @GetMapping({"/","/index"})
-    public String index(Model model) throws IOException {
- //Michał       File file = new File("C:\\Users\\kikos\\OneDrive\\Pulpit\\Java\\car-rental\\src\\main\\webapp\\resources\\images\\offer\\Audi-A6.png");
-// Sławek       File file = new File("C:\\Users\\Ramzi\\Desktop\\Projekt\\car-rental-spring\\src\\main\\webapp\\resources\\images\\offer\\Audi-A6.png");
-   /*Karol*/    File file = new File("C:\\Users\\karol\\Desktop\\car-rental-spring\\src\\main\\webapp\\resources\\images\\offer\\Audi-A6.png");
-
-        byte[] picInBytes = new byte[(int) file.length()];
-        FileInputStream fileInputStream = new FileInputStream(file);
-        fileInputStream.read(picInBytes);
-        fileInputStream.close();
-
-        Car c1 = new Car("Skoda","Octavia","2018");
-        CarPhoto p1 = new CarPhoto(picInBytes,c1);
-        carPhotoRepository.save(p1);
-        Offer o1 = new Offer("Taka o",200,c1);
-        offerService.save(o1);
+    public String index(Model model) {
 
         return "index";
     }
 
 
-    @RequestMapping("/flota")
+    @GetMapping("/flota")
     public String flota(Model model) {
+        List<Car> cars = carRepository.findAll();
+        model.addAttribute("cars",cars);
         return "flota";
     }
-    @RequestMapping("/kontakt")
+    @GetMapping("/kontakt")
     public String kontakt(Model model) {
         return "kontakt";
     }
-    @RequestMapping("/ofirmie")
+    @GetMapping("/ofirmie")
     public String ofirmie(Model model) {
         return "ofirmie";
     }
-    @RequestMapping("/welcome")
+    @GetMapping("/welcome")
     public String welcome(Model model) {
         return "welcome";
     }
-    @RequestMapping("/adminPanel")
+    @GetMapping("/adminPanel")
     public String adminPanel(Model model) { return "adminPanel"; }
 
-    @RequestMapping("/offer")
+    @GetMapping("/offer")
     public String offer(Model model) {
-        List<Offer> offerList = offerService.findAll();
-        model.addAttribute ("offerList", offerList);
+        List<OfferWithCar>offers = offerService.findAllOffersWithCars();
+        model.addAttribute ("offerList", offers);
         return "offer";
+    }
+
+    @PostMapping("/addCar")
+    public String addCar(@ModelAttribute("carForm") Car carForm){
+        carRepository.save(carForm);
+        return "redirect:/index";
+    }
+
+    @PostMapping("/addOffer")
+    public String addOffer(@ModelAttribute("offerForm") Offer offerForm){
+        offerService.save(offerForm);
+        return "redirect:/index";
     }
 
 }

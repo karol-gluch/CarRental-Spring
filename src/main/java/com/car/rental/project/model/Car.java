@@ -15,7 +15,6 @@ public class Car {
     private String yearOfProduction;
     @OneToMany(mappedBy = "car")
     private Set<CarPhoto> carPhoto;
-
     @OneToOne(mappedBy = "car")
     private Offer offer;
 
@@ -75,7 +74,7 @@ public class Car {
         this.offer = offer;
     }
 
-    public Set getCarPhoto() {
+    public Set<CarPhoto> getCarPhoto() {
         return carPhoto;
     }
 

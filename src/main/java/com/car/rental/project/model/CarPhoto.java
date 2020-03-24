@@ -1,6 +1,7 @@
 package com.car.rental.project.model;
 
 import javax.persistence.*;
+import java.util.Base64;
 
 @Entity
 @Table(name = "car_photo")
@@ -32,6 +33,10 @@ public class CarPhoto {
 
     public byte[] getPhoto() {
         return photo;
+    }
+
+    public String getPhoto1(){
+        return Base64.getEncoder().encodeToString(photo);
     }
 
     public void setPhoto(byte[] photo) {

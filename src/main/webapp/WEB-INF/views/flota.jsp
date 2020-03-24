@@ -61,78 +61,13 @@
           <tr>
             <th>Marka</th>
             <th>Rok produkcji</th>
-            <th>Cena za dobę</th>
           </tr>
-          <tr>
-            <td>Audi A6</td>
-            <td>2018</td>
-            <td>440zł</td>
-          </tr>
-          <tr>
-            <td>Mercedes C63</td>
-            <td>2016</td>
-            <td>320zł</td>
-          </tr>
-          <tr>
-            <td>Volkswagen Arteon</td>
-            <td>2018</td>
-            <td>280zł</td>
-          </tr>
-          <tr>
-            <td>Audi S3</td>
-            <td>2019</td>
-            <td>400zł</td>
-          </tr>
-          <tr>
-            <td>Audi RS4</td>
-            <td>2019</td>
-            <td>520zł</td>
-          </tr>
-          <tr>
-            <td>BMW M3</td>
-            <td>2016</td>
-            <td>430zł</td>
-          </tr>
-          <tr>
-            <td>Toyota Avensis</td>
-            <td>2018</td>
-            <td>220zł</td>
-          </tr>
-          <tr>
-            <td>Audi S6</td>
-            <td>2017</td>
-            <td>320zł</td>
-          </tr>
-          <tr>
-            <td>BMW M4</td>
-            <td>2018</td>
-            <td>550zł</td>
-          </tr>
-          <tr>
-            <td>Nissan GTR</td>
-            <td>2018</td>
-            <td>600zł</td>
-          </tr>
-          <tr>
-            <td>BMW 1</td>
-            <td>2019</td>
-            <td>300zł</td>
-          </tr>
-          <tr>
-            <td>Mercedes A45</td>
-            <td>2019</td>
-            <td>400zł</td>
-          </tr>
-          <tr>
-            <td>Volkswagen Golf R</td>
-            <td>2019</td>
-            <td>450zł</td>
-          </tr>
-          <tr>
-            <td>Audi TT</td>
-            <td>2018</td>
-            <td>480zł</td>
-          </tr>
+          <c:forEach items="${cars}" var="cars">
+              <tr>
+                  <td>${cars.mark} ${cars.model}</td>
+                  <td>${cars.yearOfProduction}</td>
+              </tr>
+          </c:forEach>
         </table>
      </main>
           

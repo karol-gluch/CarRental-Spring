@@ -8,7 +8,19 @@ insert into user_roles (users_id,roles_id) values (1,1);
 insert into user_roles (users_id,roles_id) values (2,2);
 
 insert into car (id,mark,model,year_Of_Production) values (1,'Audi', 'A6', '2015');
-insert into car (id,mark,model,year_Of_Production) values (2,'BMW', 'M4', '2012');
+insert into car (id,mark,model,year_Of_Production) values (2,'BMW', 'M3', '2012');
+insert into car (id,mark,model,year_Of_Production) values (3,'Audi', 'S3', '2019');
+insert into car (id,mark,model,year_Of_Production) values (4,'Toyota', 'Avensis', '2013');
+
+insert into car_photo(id,photo,car_id) values (1,FILE_READ('classpath:static/Audi-A6.png'),1);
+insert into car_photo(id,photo,car_id) values (2,FILE_READ('classpath:static/BMW-M3.png'),2);
+insert into car_photo(id,photo,car_id) values (3,FILE_READ('classpath:static/Audi-S3.png'),3);
+insert into car_photo(id,photo,car_id) values (4,FILE_READ('classpath:static/Toyota-Avensis.png'),4);
+
+insert into offer(id,description,price,car_id) values (1,'Samochód legancki taki fajny',500,1);
+insert into offer(id,description,price,car_id) values (2,'Samochód legancki taki fajny z kołami',300,2);
+insert into offer(id,description,price,car_id) values (3,'Samochód legancki taki fajny z 4 zerami',700,3);
+insert into offer(id,description,price,car_id) values (4,'Samochód legancki taki fajny z koronawirusem',150,4);
 
 /*insert into offer (id, description, price) values (1, 'Samochody Audi A6  wyposażone są w nadwozie sedan lub kombi, pięć siedzeń i od 4 do 5 drzwi. Auta mają długość od 4,5 do ok. 5 metrów, szerokość w przedziale 1775–1992 mm, a wysokość może wynosić 1425–1480 mm. Pojemność bagażnika to 630–1660 litrów.', 440, '/resources/images/offer/Audi-A6.png');
 insert into offer (id, name, description, price, url) values (2, 'Mercedes C63', 'Model C63 AMG, wyposażony 457-konny ośmiocylindrowy silnik o pojemności 6.2 l, jest najmocniejszą odmianą obecnej generacji Klasy C.  Wersje AMG W204 są dostępne w każdym typu nadwozia: kombi, sedan oraz coupe.', 330, '/resources/images/offer/Mercedes-C63.png');
