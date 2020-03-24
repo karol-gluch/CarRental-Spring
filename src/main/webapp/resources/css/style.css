@@ -1,85 +1,116 @@
-body {
-    margin: 0px;
-    margin: auto;
-    padding: 0px;
-    font-family: "Calibri";
+@import url('https://fonts.googleapis.com/css?family=Calligraffitti&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
 }
 
-#header {    
-    width: 100%;
-    height: 300px;
-    text-align: center;
-    background-color: #434343;
+body{
+    width:1350px;
+    margin:0 auto;
 }
 
-#aside {    
-    width: 20%;
-    height: 800px;
-    float: left;
-    background-color: #434343;
+
+
+/*Nawigacja*/
+
+.navtop{
+    display:flex;
+    justify-content: space-between;
+    width:100%;
+    padding: 20px 10px;
+
 }
 
-#main {
-    width: 80%;
-    height: 800px;
-    background-color: #f1f1f1;    
-    float: right;
-    color: #555;
-    text-align: center;
+.navtop ul{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin:0 20px;
+    list-style:none;
 }
 
-#footer {
-    width: 100%;
-    height: 100px;
-    background-color: #434343;
-    float:left;
-    color: #fff;
-    text-align: center;
+.navtop li{
+    display: block;
+    margin:0 10px;
 }
-h4 a {
-    color: #fff;
+
+.navtop a{
+    text-decoration: none;
+    font-size: 16px;
+    font-family: 'Roboto Condensed', sans-serif;
+    color:#555;
+    transition: .3s;
+}
+
+.navtop a:hover{
+    padding-bottom: 5px;
+    border-bottom: 2px solid black;
+    color:black;
     text-decoration: none;
 }
-/* menu */
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  background-color: #434343;
+
+.navtop img{
+    width:300px;
 }
 
-li a {
-  display: block;
-  color: #fff;
-  padding: 8px 16px;
-  text-decoration: none;
+.logreg{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width:244px;
+    padding:0 30px;
 }
 
-li a.active {
-  background-color: #555;
-  color: #fff;
+.logreg button{
+    margin-bottom:5px;
+    padding:5px 50px;
 }
 
-li a:hover:not(.active) {
-  background-color: #555;
-  color: white;
+.logreg h6{
+    color:black;
+    font-size: 16px;
+    text-align: center;
 }
 
-/* table */
-#cars {
+
+/*Header*/
+.header{
+    height:300px;
+    background-image: url(/resources/images/header.jpg);
+    background-size: cover;
+    background-position-y: -100px;
+}
+
+.header h3{
+    width:100%;
+    height:inherit;
+    padding:85px 150px;
+    line-height: 50px;
+    background-color: rgba(0, 0, 0, 0.85);
+    text-align: center;
+    color:white;
+    font-family: 'Calligraffitti', cursive, sans-serif;
+}
+
+
+
+/* TABLE */
+.cars {
   border-collapse: collapse;
   width: 60%;
   margin: 0 auto;
 }
 
-#cars td, #cars th {
+.cars td, .cars th {
   border: 1px solid #ddd;
   padding: 8px;
 }
 
-#cars tr:hover {background-color: #ddd;}
+.cars tr:hover {background-color: #ddd;}
 
-#cars th {
+.cars th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: center;
@@ -87,7 +118,7 @@ li a:hover:not(.active) {
   color: white;
 }
 
-/* kontakt */
+/* KONTAKT */
 input[type=text], select, textarea {
   width: 50%;
   padding: 12px;
@@ -169,4 +200,102 @@ input[type=submit]:hover {
 .loginBtn--facebook:focus {
     background-color: #5B7BD5;
     background-image: linear-gradient(#5B7BD5, #4864B1);
+}
+
+
+/*Main*/
+.main{
+    width:100%;
+    min-height:700px;
+    padding-bottom: 35px;
+}
+.main h1,p{
+    text-align: center;
+}
+
+.main h2{
+    margin:20px 0;
+    text-align: center;
+    color: black;
+    font-family: Verdana, Arial, sans-serif;
+}
+.main p{
+    line-height:20px;
+    margin:0;
+    padding:3px 100px;
+}
+
+.main .center{
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/*Footer*/
+.footer{
+    padding:20px;
+    color:white;
+    text-align: center;
+    background-color: #434343;
+}
+
+.footer p{
+    margin:5px 0 10px;
+}
+
+
+/*Oferty*/
+.offers{
+    max-width:1440px;
+    margin:0 auto;
+    background:rgba(216, 211, 211);
+    display:flex;
+    flex-direction: column;
+    width:100%;
+}
+
+.offer{
+    display: flex;
+    height:300px;
+    width:90%;
+    margin:10px auto;
+    padding:10px 30px 0 0;
+    border: 2px solid black;
+    background-color: white;
+}
+
+.offer img{
+    width:290px;
+    margin:  10px 20px;
+}
+
+.description{
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-content: flex-start;
+    margin-top: 10px;
+}
+
+.description h2{
+    font-size: 50px;
+    font-family: 'Roboto', sans-serif;
+    margin: 10px 0;
+    text-align: left;
+}
+
+.description h3{
+    margin-top:20px;
+    font-size: 40px;
+    text-align:right;
+}
+
+.description p{
+    font-size: 20px;
+    text-align: left;
+    font-family: 'Roboto', sans-serif;
+    padding:0;
+    line-height:25px;
 }

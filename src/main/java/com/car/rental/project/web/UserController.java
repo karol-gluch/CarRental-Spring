@@ -101,8 +101,8 @@ public class UserController {
 
     @GetMapping({"/","/index"})
     public String index(Model model) throws IOException {
-
-        File file = new File("C:\\Users\\kikos\\OneDrive\\Pulpit\\Java\\car-rental\\src\\main\\webapp\\resources\\images\\offer\\Audi-A6.png");
+ /*Michał*/     File file = new File("C:\\Users\\kikos\\OneDrive\\Pulpit\\Java\\car-rental\\src\\main\\webapp\\resources\\images\\offer\\Audi-A6.png");
+// Sławek       File file = new File("C:\\Users\\Ramzi\\Desktop\\Projekt\\car-rental-spring\\src\\main\\webapp\\resources\\images\\offer\\Audi-A6.png");
         byte[] picInBytes = new byte[(int) file.length()];
         FileInputStream fileInputStream = new FileInputStream(file);
         fileInputStream.read(picInBytes);
