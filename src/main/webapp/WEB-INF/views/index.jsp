@@ -19,7 +19,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
- </head>
+    <script>
+        <c:if test="${pageContext.request.userPrincipal.name == null}">
+            $(document).ready(function(){
+                $("#myModalLogin").modal('show');
+            });
+        </c:if>
+    </script>
+
+</head>
 <body>
     <nav class="navtop">
         <img src="../../resources/images/newlogo.png">
