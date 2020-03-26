@@ -1,5 +1,6 @@
 package com.car.rental.project.service;
 
+import com.car.rental.project.model.Car;
 import com.car.rental.project.model.CarPhoto;
 import com.car.rental.project.model.Offer;
 import com.car.rental.project.model.OfferWithCar;

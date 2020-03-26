@@ -11,7 +11,7 @@ public class CarPhoto {
     private Long id;
     @Lob
     private byte[] photo;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "car_id", referencedColumnName = "id")
     private Car car;
 

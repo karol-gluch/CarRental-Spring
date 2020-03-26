@@ -16,6 +16,7 @@ public class Car {
     @OneToMany(mappedBy = "car")
     private Set<CarPhoto> carPhoto;
     @OneToOne(mappedBy = "car")
+    @JoinColumn(name = "offer_id", referencedColumnName = "id")
     private Offer offer;
 
     public Car(String mark, String model, String yearOfProduction) {

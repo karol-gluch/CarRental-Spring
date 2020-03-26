@@ -1,7 +1,6 @@
 package com.car.rental.project.web;
 
 import com.car.rental.project.model.*;
-import com.car.rental.project.repository.CarPhotoRepository;
 import com.car.rental.project.repository.CarRepository;
 import com.car.rental.project.service.OfferService;
 import com.car.rental.project.social.FBConnection;
@@ -18,9 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class UserController {
@@ -28,16 +25,14 @@ public class UserController {
     private final SecurityService securityService;
     private final UserValidator userValidator;
     private final OfferService offerService;
-    private final CarPhotoRepository carPhotoRepository;
     private final CarRepository carRepository;
 
     @Autowired
-    public UserController(UserService userService, SecurityService securityService, UserValidator userValidator, OfferService offerService, CarPhotoRepository carPhotoRepository, CarRepository carRepository) {
+    public UserController(UserService userService, SecurityService securityService, UserValidator userValidator, OfferService offerService, CarRepository carRepository) {
         this.userService = userService;
         this.securityService = securityService;
         this.userValidator = userValidator;
         this.offerService = offerService;
-        this.carPhotoRepository = carPhotoRepository;
         this.carRepository = carRepository;
     }
 
@@ -54,23 +49,14 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             return "registration";
         }
-
         userService.save(userForm);
-
         securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
-
         return "redirect:/index";
     }
 
 
     @GetMapping("/login")
-    public String login(Model model, String error, String logout) {
-        if (error != null)
-            model.addAttribute("error", "Your username and password is invalid.");
-
-        if (logout != null)
-            model.addAttribute("message", "You have been logged out successfully.");
-
+    public String login(Model model) {
         return "index";
     }
 
@@ -99,7 +85,6 @@ public class UserController {
 
     @GetMapping({"/","/index"})
     public String index(Model model) {
-
         return "index";
     }
 
@@ -123,25 +108,15 @@ public class UserController {
         return "welcome";
     }
     @GetMapping("/adminPanel")
-    public String adminPanel(Model model) { return "adminPanel"; }
+    public String adminPanel(Model model) {
+        return "adminPanel";
+    }
 
     @GetMapping("/offer")
     public String offer(Model model) {
         List<OfferWithCar>offers = offerService.findAllOffersWithCars();
         model.addAttribute ("offerList", offers);
         return "offer";
-    }
-
-    @PostMapping("/addCar")
-    public String addCar(@ModelAttribute("carForm") Car carForm){
-        carRepository.save(carForm);
-        return "redirect:/index";
-    }
-
-    @PostMapping("/addOffer")
-    public String addOffer(@ModelAttribute("offerForm") Offer offerForm){
-        offerService.save(offerForm);
-        return "redirect:/index";
     }
 
 }
