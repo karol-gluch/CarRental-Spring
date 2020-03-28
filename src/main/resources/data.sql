@@ -22,6 +22,10 @@ insert into offer(id,description,price,car_id) values (2,'Samochód legancki tak
 insert into offer(id,description,price,car_id) values (3,'Samochód legancki taki fajny z 4 zerami',700,3);
 insert into offer(id,description,price,car_id) values (4,'Samochód legancki taki fajny z koronawirusem',150,4);
 
+insert into location(id,miasto,adres,telefon) values (1, 'Kielce', 'Warszawska 125', '+48 665 700 000');
+insert into location(id,miasto,adres,telefon) values (2, 'Kielce', 'Wojska Polskiego 32', '+48 665 700 300');
+
+
 /*insert into offer (id, description, price) values (1, 'Samochody Audi A6  wyposażone są w nadwozie sedan lub kombi, pięć siedzeń i od 4 do 5 drzwi. Auta mają długość od 4,5 do ok. 5 metrów, szerokość w przedziale 1775–1992 mm, a wysokość może wynosić 1425–1480 mm. Pojemność bagażnika to 630–1660 litrów.', 440, '/resources/images/offer/Audi-A6.png');
 insert into offer (id, name, description, price, url) values (2, 'Mercedes C63', 'Model C63 AMG, wyposażony 457-konny ośmiocylindrowy silnik o pojemności 6.2 l, jest najmocniejszą odmianą obecnej generacji Klasy C.  Wersje AMG W204 są dostępne w każdym typu nadwozia: kombi, sedan oraz coupe.', 330, '/resources/images/offer/Mercedes-C63.png');
 insert into offer (id, name, description, price, url) values (3, 'Volkswagen Arteon', 'Produkowany od roku 2017, należący do segmentu E (wyższa klasa średnia) o nadwoziu typu fastback, Volkswagen Arteon to nowy model flagowy niemieckiej marki. Samochód bezpośrednio zastąpił Volkswagena CC i poprzedniego Passata CC', 280, '/resources/images/offer/Volkswagen-Arteon.png');

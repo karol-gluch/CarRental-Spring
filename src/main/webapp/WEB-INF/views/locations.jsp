@@ -1,10 +1,9 @@
-
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <% request.setAttribute("isAdmin", request.isUserInRole("ADMIN")); %>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -21,11 +20,11 @@
     <img src="../../resources/images/newlogo.png">
     <ul>
         <c:if test="${isAdmin}">
-            <li><a class="active"  href="${contextPath}/adminPanel">Panel administratora</a></li>
+            <li><a href="${contextPath}/adminPanel">Panel administratora</a></li>
         </c:if>
         <li><a href="${contextPath}/index">Strona Główna</a></li>
         <li><a href="${contextPath}/flota">Flota</a></li>
-        <li><a href="${contextPath}/locations">Lokalizacje</a></li>
+        <li><a class="active" href="${contextPath}/locations">Lokalizacje</a></li>
         <li><a href="${contextPath}/ofirmie">O firmie</a></li>
         <li><a href="${contextPath}/kontakt">Kontakt</a></li>
         <li><a href="${contextPath}/offer">Oferta</a></li>
@@ -39,31 +38,45 @@
             </button>
         </div>
     </c:if>
+
+
+    <c:if test="${pageContext.request.userPrincipal.name == null}">
+        <div class="logreg">
+            <button type="button" class="btn btn-light" data-toggle="modal" data-target="#myModalLogin">
+                Zaloguj się
+            </button>
+            <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#myModalRegister">
+                Rejestracja
+            </button>
+        </div>
+    </c:if>
 </nav>
 
 <header class="header">
     <h3>"Bądź wzorcem jakości. Niektórzy ludzie nie przywykli do środowiska, gdzie oczekuje się doskonałości."</h3>
 </header>
 
-<main class= "main">
-    <h2>Panel administratora:</h2>
-    <form action="${contextPath}/addOffer" method="post">
-        <select name="car">
-            <c:forEach var="car" items="${cars}">
-                <option value="${car.id}"}>${car.mark} ${car.model}</option>
-            </c:forEach>
-        </select>
-        <h2><a href="${contextPath}/carform">Dodaj samochód</a></h2>
-        <input type="text" id="description" placeholder="Podaj opis samochodu" name="description" required>
-        <input type="number" id="price" placeholder="Podaj cene samochodu" name="price" required>
-        <button type="submit">Dodaj ofertę</button>
-    </form>
+<main class = "main">
+    <h2>Nasze lokalizacje:</h2>
+    <table class="cars">
+        <tr>
+            <th>Miasto</th>
+            <th>Ulica</th>
+            <th>Telefon kontaktowy</th>
+        </tr>
+        <c:forEach items="${locations}" var="locations">
+            <tr>
+                <td>${locations.miasto}</td>
+                <td>${locations.adres}</td>
+                <td>${locations.telefon}</td>
+            </tr>
+        </c:forEach>
+    </table>
 </main>
 
 <footer class = "footer">
     <p>Autorzy: Karol Głuch, Michał Galas, Sławomir Faron.</p>
     <p>Copyright &copy 2020 G-F-G CarRent. Wszelkie prawa zastrzeżone.</p>
 </footer>
-
 </body>
 </html>

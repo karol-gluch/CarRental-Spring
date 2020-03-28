@@ -26,7 +26,6 @@
             });
         </c:if>
     </script>
-
 </head>
 <body>
     <nav class="navtop">
@@ -37,6 +36,7 @@
             </c:if>
             <li><a class="active" href="${contextPath}/index">Strona Główna</a></li>
             <li><a href="${contextPath}/flota">Flota</a></li>
+            <li><a href="${contextPath}/locations">Lokalizacje</a></li>
             <li><a href="${contextPath}/ofirmie">O firmie</a></li>
             <li><a href="${contextPath}/kontakt">Kontakt</a></li>
             <li><a href="${contextPath}/offer">Oferta</a></li>

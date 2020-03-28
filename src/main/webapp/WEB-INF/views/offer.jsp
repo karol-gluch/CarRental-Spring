@@ -25,6 +25,7 @@
             </c:if>
             <li><a href="${contextPath}/index">Strona Główna</a></li>
             <li><a href="${contextPath}/flota">Flota</a></li>
+            <li><a href="${contextPath}/locations">Lokalizacje</a></li>
             <li><a href="${contextPath}/ofirmie">O firmie</a></li>
             <li><a href="${contextPath}/kontakt">Kontakt</a></li>
             <li><a class="active" href="${contextPath}/offer">Oferta</a></li>
@@ -81,6 +82,7 @@
                     <h3>Cena ${offer.price}zł/doba</h3>
                 </div>
             </div>
+            <button type="button" class="btn btn-success">Wynajmij!</button>
         </section>
     </c:forEach>
     </main>

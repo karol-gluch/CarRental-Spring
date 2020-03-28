@@ -25,6 +25,7 @@
             </c:if>
             <li><a href="${contextPath}/index">Strona Główna</a></li>
             <li><a href="${contextPath}/flota">Flota</a></li>
+            <li><a href="${contextPath}/locations">Lokalizacje</a></li>
             <li><a href="${contextPath}/ofirmie">O firmie</a></li>
             <li><a href="${contextPath}/kontakt">Kontakt</a></li>
             <li><a href="${contextPath}/offer">Oferta</a></li>
@@ -48,6 +49,7 @@
         <h2>Panel administratora:</h2>
         <h2><a href="${contextPath}/carform"> Dodaj samochód</a></h2>
         <h2><a href="${contextPath}/offerform"> Dodaj ofertę</a></h2>
+        <h2><a href="${contextPath}/locationform"> Dodaj lokalizacje</a></h2>
 
     </main>
 

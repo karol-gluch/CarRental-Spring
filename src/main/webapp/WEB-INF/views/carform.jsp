@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<% request.setAttribute("isAdmin", request.isUserInRole("ADMIN")); %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -23,6 +24,7 @@
         </c:if>
         <li><a href="${contextPath}/index">Strona Główna</a></li>
         <li><a href="${contextPath}/flota">Flota</a></li>
+        <li><a href="${contextPath}/locations">Lokalizacje</a></li>
         <li><a href="${contextPath}/ofirmie">O firmie</a></li>
         <li><a href="${contextPath}/kontakt">Kontakt</a></li>
         <li><a href="${contextPath}/offer">Oferta</a></li>

@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -47,17 +46,13 @@
 
 <main class= "main">
     <h2>Panel administratora:</h2>
-    <form action="${contextPath}/addOffer" method="post">
-        <select name="car">
-            <c:forEach var="car" items="${cars}">
-                <option value="${car.id}"}>${car.mark} ${car.model}</option>
-            </c:forEach>
-        </select>
-        <h2><a href="${contextPath}/carform">Dodaj samochód</a></h2>
-        <input type="text" id="description" placeholder="Podaj opis samochodu" name="description" required>
-        <input type="number" id="price" placeholder="Podaj cene samochodu" name="price" required>
-        <button type="submit">Dodaj ofertę</button>
+    <form action="${contextPath}/addLocation/${id}" method="post">
+        <input type="text" id="miasto" placeholder="Podaj miasto" name="miasto" required>
+        <input type="text" id="adres" placeholder="Podaj ulice" name="adres" required>
+        <input type="text" id="telefon" placeholder="Podaj numer kontaktowy" name="telefon" required>
+        <button type="submit">Dodaj lokalizacje</button>
     </form>
+
 </main>
 
 <footer class = "footer">

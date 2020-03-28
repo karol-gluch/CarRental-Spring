@@ -2,6 +2,7 @@ package com.car.rental.project.web;
 
 import com.car.rental.project.model.*;
 import com.car.rental.project.repository.CarRepository;
+import com.car.rental.project.repository.LocationRepository;
 import com.car.rental.project.service.OfferService;
 import com.car.rental.project.social.FBConnection;
 import com.car.rental.project.social.FBGraph;
@@ -26,14 +27,16 @@ public class UserController {
     private final UserValidator userValidator;
     private final OfferService offerService;
     private final CarRepository carRepository;
+    private final LocationRepository locationRepository;
 
     @Autowired
-    public UserController(UserService userService, SecurityService securityService, UserValidator userValidator, OfferService offerService, CarRepository carRepository) {
+    public UserController(UserService userService, SecurityService securityService, UserValidator userValidator, OfferService offerService, CarRepository carRepository, LocationRepository locationRepository) {
         this.userService = userService;
         this.securityService = securityService;
         this.userValidator = userValidator;
         this.offerService = offerService;
         this.carRepository = carRepository;
+        this.locationRepository = locationRepository;
     }
 
     @GetMapping("/registration")
@@ -117,6 +120,13 @@ public class UserController {
         List<OfferWithCar>offers = offerService.findAllOffersWithCars();
         model.addAttribute ("offerList", offers);
         return "offer";
+    }
+
+    @GetMapping("/locations")
+    public String locations(Model model) {
+        List<Location> locations = locationRepository.findAll();
+        model.addAttribute("locations",locations);
+        return "locations";
     }
 
 }
