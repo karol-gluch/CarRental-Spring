@@ -15,6 +15,37 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" rel="stylesheet">
+
+    <script>
+        $(document).ready(function () {
+            var minDate = new Date();
+            $("#rentDate").datepicker({
+                showAnim: 'drop',
+                numberOfMonth: 1,
+                minDate: minDate,
+                dateFormat: 'yy-mm-dd',
+                onClose: function (selectedDate) {
+                    $('#returnDate').datepicker("option", "minDate", selectedDate);
+                }
+            });
+
+            $("#returnDate").datepicker({
+                showAnim: 'drop',
+                numberOfMonth: 1,
+                minDate: minDate,
+                dateFormat: 'yy-mm-dd',
+                onClose: function (selectedDate) {
+                    $('#rentDate').datepicker("option", "maxDate", selectedDate);
+                }
+            });
+
+        });
+
+    </script>
+
 </head>
 <body>
 <nav class="navtop">
@@ -62,11 +93,11 @@
     <center>
         <form action="${contextPath}/podsumowanieWypozyczenia/${ide}" method="post">
             Data wypożyczenia: </br>
-            <input type="date" id="rentDate" name="rentDate">
+            <input type="text" id="rentDate" name="rentDate" placeholder="Data wypożyczenia" required>
             </br>
             Data zwrotu:
             </br>
-            <input type="date" id="returnDate" name="returnDate">
+            <input type="text" id="returnDate" name="returnDate" placeholder="Data zwrotu" required>
             </br>
             Miejsce wypożyczenia: </br>
             <select name="locationsW">

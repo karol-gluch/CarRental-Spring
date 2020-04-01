@@ -3,16 +3,12 @@ package com.car.rental.project.web;
 import com.car.rental.project.model.*;
 import com.car.rental.project.repository.*;
 import com.car.rental.project.service.OfferService;
-import org.hibernate.Session;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.HashSet;
@@ -140,6 +136,8 @@ public class FormController {
         LocalDate rentDateL = LocalDate.parse(rentDate);
         LocalDate returnDateL = LocalDate.parse(returnDate);
         long numberOfDays = ChronoUnit.DAYS.between(rentDateL, returnDateL);
+        if(numberOfDays == 0)
+            numberOfDays = 1;
 
         //calculate price
         Offer o = offerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Empty offer"));
