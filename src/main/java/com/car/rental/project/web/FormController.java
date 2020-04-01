@@ -1,19 +1,21 @@
 package com.car.rental.project.web;
 
-import com.car.rental.project.model.Car;
-import com.car.rental.project.model.CarPhoto;
-import com.car.rental.project.model.Location;
-import com.car.rental.project.model.Offer;
-import com.car.rental.project.repository.CarPhotoRepository;
-import com.car.rental.project.repository.CarRepository;
-import com.car.rental.project.repository.LocationRepository;
+import com.car.rental.project.model.*;
+import com.car.rental.project.repository.*;
 import com.car.rental.project.service.OfferService;
+import org.hibernate.Session;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,12 +26,19 @@ public class FormController {
     private final CarPhotoRepository carPhotoRepository;
     private final CarRepository carRepository;
     private final LocationRepository locationRepository;
+    private final OfferRepository offerRepository;
+    private final RentRepository rentRepository;
+    private final UserRepository userRepository;
 
-    public FormController(OfferService offerService, CarPhotoRepository carPhotoRepository, CarRepository carRepository, LocationRepository locationRepository) {
+
+    public FormController(OfferService offerService, CarPhotoRepository carPhotoRepository, CarRepository carRepository, LocationRepository locationRepository, OfferRepository offerRepository, RentRepository rentRepository, UserRepository userRepository) {
         this.offerService = offerService;
         this.carPhotoRepository = carPhotoRepository;
         this.carRepository = carRepository;
         this.locationRepository = locationRepository;
+        this.offerRepository = offerRepository;
+        this.rentRepository = rentRepository;
+        this.userRepository = userRepository;
     }
 
     @GetMapping({"/carform","/carform/{id}"})
@@ -110,4 +119,73 @@ public class FormController {
         locationRepository.save(l);
         return "redirect:/adminPanel";
     }
+
+    @PostMapping({"/wypozycz","/wypozycz/{id}"})
+    public String wypozycz(@PathVariable long id, Model model) {
+        List<Location> locations = locationRepository.findAll();
+        model.addAttribute("locations",locations);
+        model.addAttribute("ide", id);
+        return "wypozycz";
+    }
+
+    @PostMapping({"/podsumowanieWypozyczenia", "/podsumowanieWypozyczenia/{id}"})
+    public String podsumowanieWypozyczenia(@PathVariable long id, HttpServletRequest request, Model model, @ModelAttribute("rentForm") Rent rentForm){
+
+        String rentDate = request.getParameter("rentDate");
+        String returnDate = request.getParameter("returnDate");
+        String idRentLocation = request.getParameter("locationsW");
+        String idReturnLocation = request.getParameter("locationsZ");
+
+        //calculate number of days
+        LocalDate rentDateL = LocalDate.parse(rentDate);
+        LocalDate returnDateL = LocalDate.parse(returnDate);
+        long numberOfDays = ChronoUnit.DAYS.between(rentDateL, returnDateL);
+
+        //calculate price
+        Offer o = offerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Empty offer"));
+        int price = o.getPrice();
+        Long kwota = numberOfDays * price;
+
+        //show location
+        Location lRent = locationRepository.findById(Long.valueOf(idRentLocation)).orElseThrow(() -> new IllegalArgumentException("Empty rent location"));
+        String rentLocation = lRent.getMiasto() + ", ul. " +lRent.getAdres();
+        Location lReturn = locationRepository.findById(Long.valueOf(idReturnLocation)).orElseThrow(() -> new IllegalArgumentException("Empty return location"));
+        String returnLocation = lReturn.getMiasto() + ", ul. " +lReturn.getAdres();
+
+        //show car
+        Car c = carRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Empty car"));
+        String nameCar = c.getMark() + " " +c.getModel();
+
+        //add do database
+        Rent r = new Rent();
+        r.setKwota(Integer.valueOf(Math.toIntExact(kwota)));
+        r.setMiejsceWypozyczenia(rentLocation);
+        r.setMiejsceOddania(returnLocation);
+        r.setDataWypozyczenia(rentDate);
+        r.setDataOddania(returnDate);
+        r.setStatus("Rezerwacja");
+
+        //add to rent_offers
+        HashSet<Offer> offers = new HashSet<>();
+        offers.add(offerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Empty offer")));
+        r.setOffers(offers);
+
+        //add to rent_users
+        String userName = request.getUserPrincipal().getName();
+        HashSet<User> users = new HashSet<>();
+        users.add(userRepository.findByUsername(userName));
+        r.setUsers(users);
+        rentRepository.save(r);
+
+        //show information in podsumowanieWypozyczenia.jsp
+        model.addAttribute("kwota",kwota);
+        model.addAttribute("rentDate", rentDate);
+        model.addAttribute("returnDate", returnDate);
+        model.addAttribute("rentLocation", rentLocation);
+        model.addAttribute("returnLocation", returnLocation);
+        model.addAttribute("nameCar", nameCar);
+
+        return "podsumowanieWypozyczenia";
+    }
+
 }

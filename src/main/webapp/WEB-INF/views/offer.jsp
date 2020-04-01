@@ -82,7 +82,9 @@
                     <h3>Cena ${offer.price}zł/doba</h3>
                 </div>
             </div>
-            <button type="button" class="btn btn-success">Wynajmij!</button>
+            <form action="${contextPath}/wypozycz/${offer.getId()}" method="post">
+                <button type="submit">Wypozycz</button>
+            </form>
         </section>
     </c:forEach>
     </main>

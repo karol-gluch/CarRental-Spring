@@ -2,6 +2,7 @@
 package com.car.rental.project.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "offer")
@@ -14,6 +15,9 @@ public class Offer {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "car_id", referencedColumnName = "id")
     private Car car;
+
+    @ManyToMany(mappedBy = "offers")
+    private Set<Rent> rent;
 
     public Offer(String description, Integer price, Car car) {
         this.description = description;
@@ -54,5 +58,13 @@ public class Offer {
 
     public void setCar(Car car) {
         this.car = car;
+    }
+
+    public Set<Rent> getRent() {
+        return rent;
+    }
+
+    public void setRent(Set<Rent> rent) {
+        this.rent = rent;
     }
 }

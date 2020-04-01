@@ -20,6 +20,9 @@ public class User {
     @ManyToMany
     private Set<Role> roles;
 
+    @ManyToMany(mappedBy = "users")
+    private Set<Rent> rent;
+
     public User(String username, String password) {
         this.username = username;
         this.password = password;
@@ -64,5 +67,13 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Set<Rent> getRent() {
+        return rent;
+    }
+
+    public void setRent(Set<Rent> rent) {
+        this.rent = rent;
     }
 }

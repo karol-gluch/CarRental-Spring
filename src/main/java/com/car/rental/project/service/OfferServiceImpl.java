@@ -37,6 +37,7 @@ public class OfferServiceImpl implements OfferService {
         List<OfferWithCar> offersWithCars = new ArrayList<>();
         offers.forEach(o ->{
             OfferWithCar x = new OfferWithCar();
+            x.setId(o.getCar().getId());
             x.setCarPhoto(o.getCar().getCarPhoto());
             x.setMark(o.getCar().getMark());
             x.setModel(o.getCar().getModel());
@@ -47,6 +48,7 @@ public class OfferServiceImpl implements OfferService {
         });
         return offersWithCars;
     }
+
 
 
 }

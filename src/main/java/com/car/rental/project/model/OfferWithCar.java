@@ -3,12 +3,21 @@ package com.car.rental.project.model;
 import java.util.Set;
 
 public class OfferWithCar {
+    private Long id;
     private String mark;
     private String model;
     private String yearOfProduction;
     private Set<CarPhoto> carPhoto;
     private String description;
     private Integer price;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getMark() {
         return mark;
