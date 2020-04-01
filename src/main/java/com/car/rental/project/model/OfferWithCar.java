@@ -10,6 +10,7 @@ public class OfferWithCar {
     private Set<CarPhoto> carPhoto;
     private String description;
     private Integer price;
+    private Long carId;
 
     public Long getId() {
         return id;
@@ -67,4 +68,11 @@ public class OfferWithCar {
         this.price = price;
     }
 
+    public Long getCarId() {
+        return carId;
+    }
+
+    public void setCarId(Long carId) {
+        this.carId = carId;
+    }
 }
