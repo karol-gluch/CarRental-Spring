@@ -128,5 +128,4 @@ public class UserController {
         model.addAttribute("locations",locations);
         return "locations";
     }
-
 }

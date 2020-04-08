@@ -1,6 +1,8 @@
 package com.car.rental.project.web;
 
 import com.car.rental.project.model.*;
+import com.car.rental.project.payment.Order;
+import com.car.rental.project.payment.Product;
 import com.car.rental.project.repository.*;
 import com.car.rental.project.service.OfferService;
 import org.springframework.stereotype.Controller;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -151,7 +154,7 @@ public class FormController {
         String returnLocation = lReturn.getMiasto() + ", ul. " +lReturn.getAdres();
 
         //show car
-        Car c = carRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Empty car"));
+        Car c = carRepository.findById(o.getCar().getId()).orElseThrow(() -> new IllegalArgumentException("Empty car"));
         String nameCar = c.getMark() + " " +c.getModel();
 
         //add do database
@@ -175,7 +178,13 @@ public class FormController {
         r.setUsers(users);
         rentRepository.save(r);
 
+        //add order
+        List<Product> list = new ArrayList<>();
+        list.add(new Product(nameCar,kwota.toString()));
+        Order order = new Order("Wypożyczenie "+nameCar,kwota.toString(),list);
+
         //show information in podsumowanieWypozyczenia.jsp
+        model.addAttribute("order", order);
         model.addAttribute("kwota",kwota);
         model.addAttribute("rentDate", rentDate);
         model.addAttribute("returnDate", returnDate);

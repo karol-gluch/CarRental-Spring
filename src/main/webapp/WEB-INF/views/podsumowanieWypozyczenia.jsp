@@ -1,9 +1,15 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page import="java.util.Base64" %>
+<%@ page import="com.car.rental.project.payment.PayUConnection" %>
+<%@ page import="com.car.rental.project.payment.Order" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-<% request.setAttribute("isAdmin", request.isUserInRole("ADMIN")); %>
+<% request.setAttribute("isAdmin", request.isUserInRole("ADMIN"));
+    PayUConnection payUConnection = new PayUConnection();
+    String url = payUConnection.payUUrl((Order)request.getAttribute("order"));
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -72,10 +78,7 @@
     <b>Informacja!</b><br>
     Przed dokonaniem zakupu otrzymujesz rezerwację na 24h. Jeśli w tym czasie nie wykonasz płatności Twoje zamówienie zostaje usunięte.
     <br><br>
-    <button type="button" class="btn btn-success">Przejdź do płatności</button>
-
-
-
+    <button type="button" class="btn btn-success" onclick="window.location.href='<%=url%>'">Przejdź do płatności</button>
 </center>
 
 </main>
