@@ -25,6 +25,10 @@ insert into offer(id,description,price,car_id) values (4,'Samochód legancki tak
 insert into location(id,miasto,adres,telefon) values (1, 'Kielce', 'Warszawska 125', '+48 665 700 000');
 insert into location(id,miasto,adres,telefon) values (2, 'Kielce', 'Wojska Polskiego 32', '+48 665 700 300');
 
+insert into rent(id,kwota,miejsce_Wypozyczenia,miejsce_Oddania,data_Wypozyczenia,data_Oddania,status) values (1, '1000', 'Kielce a', 'Kielce b', '2020-05-18', '2020-05-20', 'Rezerwacja');
+insert into rent_offers(rent_id,offer_id) values (1,1);
+insert into rent_users(rent_id, user_id) values (1,1);
+
 
 /*insert into offer (id, description, price) values (1, 'Samochody Audi A6  wyposażone są w nadwozie sedan lub kombi, pięć siedzeń i od 4 do 5 drzwi. Auta mają długość od 4,5 do ok. 5 metrów, szerokość w przedziale 1775–1992 mm, a wysokość może wynosić 1425–1480 mm. Pojemność bagażnika to 630–1660 litrów.', 440, '/resources/images/offer/Audi-A6.png');
 insert into offer (id, name, description, price, url) values (2, 'Mercedes C63', 'Model C63 AMG, wyposażony 457-konny ośmiocylindrowy silnik o pojemności 6.2 l, jest najmocniejszą odmianą obecnej generacji Klasy C.  Wersje AMG W204 są dostępne w każdym typu nadwozia: kombi, sedan oraz coupe.', 330, '/resources/images/offer/Mercedes-C63.png');

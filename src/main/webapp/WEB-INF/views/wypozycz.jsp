@@ -19,7 +19,15 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" rel="stylesheet">
 
-    <script>
+    <script type="text/javascript">
+
+        var dates = '${dates}';
+
+        function DisableDates(date) {
+            var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+            return [dates.indexOf(string) == -1];
+        }
+
         $(document).ready(function () {
             var minDate = new Date();
             $("#rentDate").datepicker({
@@ -27,6 +35,7 @@
                 numberOfMonth: 1,
                 minDate: minDate,
                 dateFormat: 'yy-mm-dd',
+                beforeShowDay: DisableDates,
                 onClose: function (selectedDate) {
                     $('#returnDate').datepicker("option", "minDate", selectedDate);
                 }
@@ -37,6 +46,7 @@
                 numberOfMonth: 1,
                 minDate: minDate,
                 dateFormat: 'yy-mm-dd',
+                beforeShowDay: DisableDates,
                 onClose: function (selectedDate) {
                     $('#rentDate').datepicker("option", "maxDate", selectedDate);
                 }
@@ -116,7 +126,6 @@
             <button type="submit" class="btn btn-dark">Przejdz do podsumowania</button>
         </form>
     </center>
-
 
 </main>
 

@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 public class FormController {
@@ -122,8 +123,32 @@ public class FormController {
     @PostMapping({"/wypozycz","/wypozycz/{id}"})
     public String wypozycz(@PathVariable long id, Model model) {
         List<Location> locations = locationRepository.findAll();
+
+        List<Rent> r = rentRepository.find(id);
+        List<String> date = new ArrayList<>();
+
+        r.forEach(e -> {
+            String odd = e.getDataOddania();
+            String wyp = e.getDataWypozyczenia();
+            LocalDate oddD = LocalDate.parse(odd);
+            LocalDate wypD = LocalDate.parse(wyp);
+
+            date.add(oddD.toString());
+            date.add(wypD.toString());
+            while(wypD.isBefore(oddD)){
+                wypD = wypD.plusDays(1);
+                if(wypD.isBefore(oddD)){
+                    date.add(wypD.toString());
+                }
+            }
+        });
+
+        String dates = String.join("\",\"", date);
+        dates = "[\"" + dates + "\"]";
+
         model.addAttribute("locations",locations);
         model.addAttribute("ide", id);
+        model.addAttribute("dates", dates);
         return "wypozycz";
     }
 
@@ -182,6 +207,7 @@ public class FormController {
         List<Product> list = new ArrayList<>();
         list.add(new Product(nameCar,kwota.toString()));
         Order order = new Order("Wypożyczenie "+nameCar,kwota.toString(),list);
+
 
         //show information in podsumowanieWypozyczenia.jsp
         model.addAttribute("order", order);
