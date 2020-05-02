@@ -13,6 +13,11 @@ public class Car {
     private String mark;
     private String model;
     private String yearOfProduction;
+    private String fuelType;
+    private String engineCapacity;
+    private String bodyType;
+    private String numberOfPlaces;
+
     @OneToMany(mappedBy = "car")
     private Set<CarPhoto> carPhoto;
     @OneToOne(mappedBy = "car")
@@ -82,4 +87,37 @@ public class Car {
     public void setCarPhoto(Set carPhoto) {
         this.carPhoto = carPhoto;
     }
+
+    public String getFuelType() {
+        return fuelType;
+    }
+
+    public void setFuelType(String fuelType) {
+        this.fuelType = fuelType;
+    }
+
+    public String getEngineCapacity() {
+        return engineCapacity;
+    }
+
+    public void setEngineCapacity(String engineCapacity) {
+        this.engineCapacity = engineCapacity;
+    }
+
+    public String getBodyType() {
+        return bodyType;
+    }
+
+    public void setBodyType(String bodyType) {
+        this.bodyType = bodyType;
+    }
+
+    public String getNumberOfPlaces() {
+        return numberOfPlaces;
+    }
+
+    public void setNumberOfPlaces(String numberOfPlaces) {
+        this.numberOfPlaces = numberOfPlaces;
+    }
+
 }

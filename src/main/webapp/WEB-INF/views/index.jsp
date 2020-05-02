@@ -69,6 +69,38 @@
     </header>
 
     <main class="main">
+
+        <center>
+        </br></br>
+            <h2>Znajdz odpowiedni samochod dla siebie!</h2></br>
+            <h6>Wypełnij krótki formularz i znajdź wymarzone auto do wypożyczenia.</h6>
+            <form action="${contextPath}/searchCar" method="post">
+                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Cena od" id="cenaOd" name="cenaOd" required>
+                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Cena do" id="cenaDo" name="cenaDo" required>
+                <select class="custom-select my-1 mr-sm-2" id="rodzajpaliwa" name="rodzajpaliwa" style="width: 50%" required>
+                    <option selected>Rodzaj paliwa</option>
+                    <option value="Benzyna">Benzyna</option>
+                    <option value="Ropa">Ropa</option>
+                </select>
+                <select class="custom-select my-1 mr-sm-2" id="typnadwozia" name="typnadwozia" style="width: 50%" required>
+                    <option selected>Typ nadwozia</option>
+                    <option value="Sedan">Sedan</option>
+                    <option value="Kombi">Kombi</option>
+                    <option value="Hatchback">Hatchback</option>
+                </select>
+                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Rok produkcji od" id="rokOd" name="rokOd" required>
+                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Rok produkcji do" id="rokDo" name="rokDo" required>
+                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Pojemnosc od (litry)" id="pojemnoscOd" name="pojemnoscOd" required>
+                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Pojemnosc do (litry)" id="pojemnoscDo" name="pojemnoscDo" required>
+                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Liczba miejsc od" id="liczbaOd" name="liczbaOd" required>
+                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Liczba miejsc do" id="liczbaDo" name="liczbaDo" required>
+
+
+                <button type="submit" class="btn btn-dark mb-2">Szukaj</button>
+            </form>
+        </center>
+        </br></br>
+
         <h1>Firma:</h1>
         <h2>Wynajem aut w G&G CarRent ma szereg atutów:</h2>
 

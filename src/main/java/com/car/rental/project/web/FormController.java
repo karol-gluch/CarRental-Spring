@@ -57,6 +57,10 @@ public class FormController {
         c.setMark(carForm.getMark());
         c.setModel(carForm.getModel());
         c.setYearOfProduction(carForm.getYearOfProduction());
+        c.setFuelType(carForm.getFuelType());
+        c.setEngineCapacity(carForm.getEngineCapacity());
+        c.setBodyType(carForm.getBodyType());
+        c.setNumberOfPlaces(carForm.getNumberOfPlaces());
         carRepository.save(c);
         return "redirect:/adminPanel";
     }
@@ -219,6 +223,29 @@ public class FormController {
         model.addAttribute("nameCar", nameCar);
 
         return "podsumowanieWypozyczenia";
+    }
+
+    @PostMapping({"/searchCar"})
+    public String searchCar(HttpServletRequest request, Model model){
+
+        String cenaOd = request.getParameter("cenaOd");
+        String cenaDo = request.getParameter("cenaDo");
+        String rodzajPaliwa = request.getParameter("rodzajpaliwa");
+        String typNadwozia = request.getParameter("typnadwozia");
+        String rokOd = request.getParameter("rokOd");
+        String rokDo = request.getParameter("rokDo");
+        String pojemnoscOd = request.getParameter("pojemnoscOd");
+        String pojemnoscDo = request.getParameter("pojemnoscDo");
+        String liczbaOd = request.getParameter("liczbaOd");
+        String liczbaDo = request.getParameter("liczbaDo");
+
+        System.out.println(cenaOd +" " +cenaDo +" " +rodzajPaliwa +" " +typNadwozia+" " +rokOd+" " +rokDo +" " +pojemnoscOd +" " +pojemnoscDo +" " +liczbaOd+" " +liczbaDo);
+
+        List<Car> cars = carRepository.findO(cenaOd, cenaDo, rodzajPaliwa, typNadwozia, rokOd, rokDo, pojemnoscOd, pojemnoscDo, liczbaOd, liczbaDo);
+
+        model.addAttribute("cars", cars);
+
+        return "searchCar";
     }
 
 }

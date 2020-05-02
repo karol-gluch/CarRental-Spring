@@ -7,6 +7,11 @@ public class OfferWithCar {
     private String mark;
     private String model;
     private String yearOfProduction;
+    private String fuelType;
+    private String engineCapacity;
+    private String bodyType;
+    private String numberOfPlaces;
+
     private Set<CarPhoto> carPhoto;
     private String description;
     private Integer price;
@@ -74,5 +79,38 @@ public class OfferWithCar {
 
     public void setCarId(Long carId) {
         this.carId = carId;
+    }
+
+
+    public String getFuelType() {
+        return fuelType;
+    }
+
+    public void setFuelType(String fuelType) {
+        this.fuelType = fuelType;
+    }
+
+    public String getEngineCapacity() {
+        return engineCapacity;
+    }
+
+    public void setEngineCapacity(String engineCapacity) {
+        this.engineCapacity = engineCapacity;
+    }
+
+    public String getBodyType() {
+        return bodyType;
+    }
+
+    public void setBodyType(String bodyType) {
+        this.bodyType = bodyType;
+    }
+
+    public String getNumberOfPlaces() {
+        return numberOfPlaces;
+    }
+
+    public void setNumberOfPlaces(String numberOfPlaces) {
+        this.numberOfPlaces = numberOfPlaces;
     }
 }

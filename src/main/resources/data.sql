@@ -7,10 +7,10 @@ insert into role (id,name) values (2,'ROLE_USER');
 insert into user_roles (users_id,roles_id) values (1,1);
 insert into user_roles (users_id,roles_id) values (2,2);
 
-insert into car (id,mark,model,year_Of_Production) values (1,'Audi', 'A6', '2015');
-insert into car (id,mark,model,year_Of_Production) values (2,'BMW', 'M3', '2012');
-insert into car (id,mark,model,year_Of_Production) values (3,'Audi', 'S3', '2019');
-insert into car (id,mark,model,year_Of_Production) values (4,'Toyota', 'Avensis', '2013');
+insert into car (id,mark,model,year_Of_Production,fuel_Type, engine_Capacity, body_Type, number_Of_Places) values (1,'Audi', 'A6', '2015', 'Benzyna', '3.0', 'Sedan', '5');
+insert into car (id,mark,model,year_Of_Production,fuel_Type, engine_Capacity, body_Type, number_Of_Places) values (2,'BMW', 'M3', '2012', 'Benzyna', '2.0', 'Sedan', '2');
+insert into car (id,mark,model,year_Of_Production,fuel_Type, engine_Capacity, body_Type, number_Of_Places) values (3,'Audi', 'S3', '2019', 'Benzyna', '2.5', 'Hatchback', '5');
+insert into car (id,mark,model,year_Of_Production,fuel_Type, engine_Capacity, body_Type, number_Of_Places) values (4,'Toyota', 'Avensis', '2013', 'Ropa', '1.6', 'Kombi', '5');
 
 insert into car_photo(id,photo,car_id) values (1,FILE_READ('classpath:static/Audi-A6.png'),1);
 insert into car_photo(id,photo,car_id) values (2,FILE_READ('classpath:static/BMW-M3.png'),2);
