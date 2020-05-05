@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +22,7 @@ public class RegistrationController {
     private NotificationService notificationService;
 
     @PostMapping("/sendMail")
-    public RedirectView sendMailSuccess(HttpServletRequest request){
+    public RedirectView sendMailSuccess(HttpServletRequest request, RedirectAttributes redirectAttributes){
 
         String email = request.getParameter("email");
         String temat = request.getParameter("temat");
@@ -40,7 +41,9 @@ public class RegistrationController {
             // catch error
             logger.info("Error Sending Email: " + e.getMessage());
         }
-        return new RedirectView("index");
+        redirectAttributes.addFlashAttribute("mail", "true");
+
+        return new RedirectView("kontakt");
     }
 
 }

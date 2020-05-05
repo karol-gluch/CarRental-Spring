@@ -9,6 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -52,7 +55,7 @@ public class FormController {
     }
 
     @PostMapping({"/addCar","/addCar/{id}"})
-    public String addCar(@PathVariable long id,@ModelAttribute("carForm") Car carForm){
+    public String addCar(@PathVariable long id, RedirectAttributes redirectAttributes, @ModelAttribute("carForm") Car carForm){
         Car c = carRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Empty car"));
         c.setMark(carForm.getMark());
         c.setModel(carForm.getModel());
@@ -62,6 +65,7 @@ public class FormController {
         c.setBodyType(carForm.getBodyType());
         c.setNumberOfPlaces(carForm.getNumberOfPlaces());
         carRepository.save(c);
+        redirectAttributes.addFlashAttribute("car", "true");
         return "redirect:/adminPanel";
     }
 
@@ -98,9 +102,10 @@ public class FormController {
     }
 
     @PostMapping("/addOffer")
-    public String addOffer(@ModelAttribute("offerForm") Offer offerForm){
+    public String addOffer(@ModelAttribute("offerForm") Offer offerForm, RedirectAttributes redirectAttributes){
         offerService.save(offerForm);
-        return "redirect:/offer";
+        redirectAttributes.addFlashAttribute("offer", "true");
+        return "redirect:/adminPanel";
     }
 
 
@@ -115,12 +120,13 @@ public class FormController {
     }
 
     @PostMapping({"/addLocation","/addLocation/{id}"})
-    public String addLocation(@PathVariable long id,@ModelAttribute("locationForm") Location locationForm){
+    public String addLocation(@PathVariable long id, RedirectAttributes redirectAttributes, @ModelAttribute("locationForm") Location locationForm){
         Location l = locationRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Empty location"));
         l.setMiasto(locationForm.getMiasto());
         l.setAdres(locationForm.getAdres());
         l.setTelefon(locationForm.getTelefon());
         locationRepository.save(l);
+        redirectAttributes.addFlashAttribute("location", "true");
         return "redirect:/adminPanel";
     }
 
@@ -239,13 +245,23 @@ public class FormController {
         String liczbaOd = request.getParameter("liczbaOd");
         String liczbaDo = request.getParameter("liczbaDo");
 
-        System.out.println(cenaOd +" " +cenaDo +" " +rodzajPaliwa +" " +typNadwozia+" " +rokOd+" " +rokDo +" " +pojemnoscOd +" " +pojemnoscDo +" " +liczbaOd+" " +liczbaDo);
-
-        List<Car> cars = carRepository.findO(cenaOd, cenaDo, rodzajPaliwa, typNadwozia, rokOd, rokDo, pojemnoscOd, pojemnoscDo, liczbaOd, liczbaDo);
+        //System.out.println(cenaOd +" " +cenaDo +" " +rodzajPaliwa +" " +typNadwozia+" " +rokOd+" " +rokDo +" " +pojemnoscOd +" " +pojemnoscDo +" " +liczbaOd+" " +liczbaDo);
+        List<Car> cars = carRepository.findO(cenaOd, cenaDo, rodzajPaliwa, typNadwozia, rokOd, rokDo, Double.valueOf(pojemnoscOd), Double.valueOf(pojemnoscDo), liczbaOd, liczbaDo);
 
         model.addAttribute("cars", cars);
 
         return "searchCar";
+    }
+
+    @GetMapping({"/deleteUser","/deleteUser/{id}"})
+    public String deleteUser(@PathVariable Optional<Long> id, RedirectAttributes redirectAttributes){
+        if(id.isPresent()){
+            User u = userRepository.findById(id.get()).orElseThrow();
+            u.getRent().clear();
+            userRepository.deleteById(id.get());
+            redirectAttributes.addFlashAttribute("success", "true");
+        }
+        return "redirect:/users";
     }
 
 }

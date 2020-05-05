@@ -57,6 +57,10 @@
       </header>
 
       <main class= "main">
+          </br>
+          <c:if test="${mail eq true}">
+              <div class="alert alert-success">Wiadomość została wysłana!</div>
+          </c:if>
         <h2>Kontakt:</h2>
           <form method="post" action="sendMail" class="center">
               <input type="text" id="email" name="email" placeholder="Twoj email..">

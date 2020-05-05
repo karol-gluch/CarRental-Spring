@@ -16,7 +16,7 @@ public class Rent {
     private String dataOddania;
     private String status; //rezerwacja lub wypozyczenie
 
-    @ManyToMany(cascade = { CascadeType.ALL })
+    @ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST,  })
     @JoinTable(
             name = "Rent_users",
             joinColumns = { @JoinColumn(name = "rent_id") },

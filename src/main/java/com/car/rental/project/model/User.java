@@ -1,5 +1,8 @@
 package com.car.rental.project.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -21,6 +24,7 @@ public class User {
     private Set<Role> roles;
 
     @ManyToMany(mappedBy = "users")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Rent> rent;
 
     public User(String username, String password) {

@@ -3,6 +3,7 @@ package com.car.rental.project.web;
 import com.car.rental.project.model.*;
 import com.car.rental.project.repository.CarRepository;
 import com.car.rental.project.repository.LocationRepository;
+import com.car.rental.project.repository.UserRepository;
 import com.car.rental.project.service.OfferService;
 import com.car.rental.project.social.FBConnection;
 import com.car.rental.project.social.FBGraph;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,15 +30,17 @@ public class UserController {
     private final OfferService offerService;
     private final CarRepository carRepository;
     private final LocationRepository locationRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public UserController(UserService userService, SecurityService securityService, UserValidator userValidator, OfferService offerService, CarRepository carRepository, LocationRepository locationRepository) {
+    public UserController(UserService userService, SecurityService securityService, UserValidator userValidator, OfferService offerService, CarRepository carRepository, LocationRepository locationRepository, UserRepository userRepository) {
         this.userService = userService;
         this.securityService = securityService;
         this.userValidator = userValidator;
         this.offerService = offerService;
         this.carRepository = carRepository;
         this.locationRepository = locationRepository;
+        this.userRepository = userRepository;
     }
 
     @GetMapping("/registration")
@@ -46,7 +50,7 @@ public class UserController {
     }
 
     @PostMapping("/registration")
-    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult) {
+    public String registration(@ModelAttribute("userForm") User userForm, RedirectAttributes redirectAttributes, BindingResult bindingResult) {
         userValidator.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
@@ -54,6 +58,7 @@ public class UserController {
         }
         userService.save(userForm);
         securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
+        redirectAttributes.addFlashAttribute("register", "true");
         return "redirect:/index";
     }
 
@@ -127,5 +132,12 @@ public class UserController {
         List<Location> locations = locationRepository.findAll();
         model.addAttribute("locations",locations);
         return "locations";
+    }
+
+    @GetMapping("/users")
+    public String users(Model model) {
+        List<User> users = userRepository.findAll();
+        model.addAttribute("users",users);
+        return "users";
     }
 }

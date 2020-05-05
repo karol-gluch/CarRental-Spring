@@ -69,7 +69,10 @@
     </header>
 
     <main class="main">
-
+        </br>
+        <c:if test="${register eq true}">
+            <div class="alert alert-success">Konto zostało utworzone. Zostałeś zalogowany do strony.</div>
+        </c:if>
         <center>
         </br></br>
             <h2>Znajdz odpowiedni samochod dla siebie!</h2></br>
@@ -156,23 +159,32 @@
                             <div class="form-group">-->
                         <label for="username">Nazwa użytkownika:</label>
                         <input type="username" class="form-control" id="username" placeholder="Podaj nazwę użytkownika"
-                               name="username">
+                               name="username" required>
                     </div>
                     <div class="form-group">
                         <label for="password">Hasło:</label>
                         <input type="password" class="form-control" id="password" placeholder="Podaj hasło"
-                               name="password">
+                               name="password" required>
                     </div>
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
-                    <button class="btn btn-lg btn-primary btn-block" type="submit">Zaloguj się!</button>
+                    <button class="btn btn-lg btn-dark btn-block" type="submit">Zaloguj się!</button>
 
             </form>
                     <br />
+                    <center>
                     <button class="loginBtn loginBtn--facebook" onclick="window.location.href='<%=fbConnection.getFBAuthUrl()%>'">
                         Login with Facebook
                     </button>
+                    </center>
             </c:if>
+                </br>
+                <center>
+                Nie masz konta? Utwórz je!</br>
+                <button type="button" data-dismiss="modal" class="btn btn-dark" data-toggle="modal" data-target="#myModalRegister">
+                    Rejestracja
+                </button>
+                </center>
         </div>
             <!-- Modal footer -->
             <div class="modal-footer">
@@ -214,13 +226,13 @@
                         <div class="invalid-feedback">Proszę wypełnić pole</div>
                     </div>
                     <div class="form-group">
-                        <label for="passwordConfirm">Tresc:</label>
+                        <label for="passwordConfirm">Podaj ponownie hasło:</label>
                         <input type="password" minlength="8" class="form-control" id="passwordConfirm"
                                placeholder="Podaj ponownie haslo" name="passwordConfirm" required>
                         <div class="valid-feedback">Uzupełniono</div>
                         <div class="invalid-feedback">Proszę wypełnić pole</div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Zarejestruj</button>
+                    <button type="submit" class="btn btn-lg btn-dark btn-block">Zarejestruj</button>
                 </form>
                 <br />
                 <button class="loginBtn loginBtn--facebook" onclick="window.location.href='<%=fbConnection.getFBAuthUrl()%>'">

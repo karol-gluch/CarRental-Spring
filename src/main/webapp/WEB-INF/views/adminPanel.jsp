@@ -46,10 +46,21 @@
     </header>
 
     <main class= "main">
+        </br>
+        <c:if test="${location eq true}">
+            <div class="alert alert-success">Dodano nową lokalizację!</div>
+        </c:if>
+        <c:if test="${car eq true}">
+            <div class="alert alert-success">Dodano nowy samochód!</div>
+        </c:if>
+        <c:if test="${offer eq true}">
+            <div class="alert alert-success">Dodano nową ofertę!</div>
+        </c:if>
         <h2>Panel administratora:</h2>
         <h2><a href="${contextPath}/carform"> Dodaj samochód</a></h2>
         <h2><a href="${contextPath}/offerform"> Dodaj ofertę</a></h2>
         <h2><a href="${contextPath}/locationform"> Dodaj lokalizacje</a></h2>
+        <h2><a href="${contextPath}/users"> Zarządzaj użytkownikami</a></h2>
 
     </main>
 
