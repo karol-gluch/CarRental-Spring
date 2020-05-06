@@ -12,8 +12,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.net.http.HttpRequest;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -202,9 +204,8 @@ public class FormController {
         r.setStatus("Rezerwacja");
 
         //add to rent_offers
-        HashSet<Offer> offers = new HashSet<>();
-        offers.add(offerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Empty offer")));
-        r.setOffers(offers);
+        Offer offer = offerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Empty offer"));
+        r.setOffer(offer);
 
         //add to rent_users
         String userName = request.getUserPrincipal().getName();
@@ -212,11 +213,10 @@ public class FormController {
         users.add(userRepository.findByUsername(userName));
         r.setUsers(users);
         rentRepository.save(r);
-
         //add order
         List<Product> list = new ArrayList<>();
         list.add(new Product(nameCar, kwota.toString()));
-        Order order = new Order("Wypożyczenie " + nameCar, kwota.toString(), list);
+        Order order = new Order(r.getId().toString(),"Wypożyczenie " + nameCar, kwota.toString(), list);
 
 
         //show information in podsumowanieWypozyczenia.jsp
@@ -245,7 +245,6 @@ public class FormController {
         String liczbaOd = request.getParameter("liczbaOd");
         String liczbaDo = request.getParameter("liczbaDo");
 
-        //System.out.println(cenaOd +" " +cenaDo +" " +rodzajPaliwa +" " +typNadwozia+" " +rokOd+" " +rokDo +" " +pojemnoscOd +" " +pojemnoscDo +" " +liczbaOd+" " +liczbaDo);
         List<Car> cars = carRepository.findO(cenaOd, cenaDo, rodzajPaliwa, typNadwozia, rokOd, rokDo, Double.valueOf(pojemnoscOd), Double.valueOf(pojemnoscDo), liczbaOd, liczbaDo);
 
         model.addAttribute("cars", cars);
@@ -264,11 +263,20 @@ public class FormController {
         return "redirect:/users";
     }
 
+    @GetMapping("/deletebyname/{name}")
+    public String deleteUserByName(@PathVariable String name, RedirectAttributes redirectAttributes) {
+            User u = userRepository.findByUsername(name);
+            userRepository.deleteById(u.getId());
+            redirectAttributes.addFlashAttribute("success", "true");
+        return "redirect:/logout";
+    }
+
     @GetMapping("/panel/{name}")
     public String userPanel(@PathVariable String name, Model model) {
         User u = userRepository.findByUsername(name);
         Long id = u.getId();
-        model.addAttribute("userId", id);
+        List<Rent> rents = rentRepository.findUserRents(id);
+        model.addAttribute("rents", rents);
 
         return "userPanel";
     }
@@ -291,4 +299,12 @@ public class FormController {
         return "redirect:/cars";
     }
 
+    @GetMapping("/callback/{id}")
+    public String callback(@PathVariable String id, HttpServletRequest request){
+        Rent r = rentRepository.findById(Long.valueOf(id)).orElseThrow();
+        r.setStatus("Opłacone");
+        rentRepository.save(r);
+        String userName = request.getUserPrincipal().getName();
+        return "redirect:/panel/"+userName;
+    }
 }

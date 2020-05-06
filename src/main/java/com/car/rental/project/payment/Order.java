@@ -3,7 +3,8 @@ package com.car.rental.project.payment;
 import java.util.List;
 
 public class Order {
-    private String notifyUrl;
+    private String continueUrl;
+    private String extOrderId;
     private String customerIp;
     private String merchantPosId;
     private String description;
@@ -11,8 +12,8 @@ public class Order {
     private String totalAmount;
     private List<Product> products;
 
-    public Order(String notifyUrl, String customoerIp, String merchantPosId, String description, String currencyCode, String totalAmount, List<Product> products) {
-        this.notifyUrl = notifyUrl;
+    public Order(String continueUrl, String customoerIp, String merchantPosId, String description, String currencyCode, String totalAmount, List<Product> products) {
+        this.continueUrl = continueUrl;
         this.customerIp = customoerIp;
         this.merchantPosId = merchantPosId;
         this.description = description;
@@ -21,8 +22,9 @@ public class Order {
         this.products = products;
     }
 
-    public Order(String description, String totalAmount, List<Product> products) {
-        this.notifyUrl = "https://localhost:9090/";
+    public Order(String extOrderId,String description, String totalAmount, List<Product> products) {
+        this.continueUrl = "http://localhost:9090/callback/"+extOrderId;
+        this.extOrderId = extOrderId;
         this.customerIp = "127.0.0.1";
         this.merchantPosId = "383389";
         this.currencyCode = "PLN";
@@ -34,12 +36,12 @@ public class Order {
     public Order() {
     }
 
-    public String getNotifyUrl() {
-        return notifyUrl;
+    public String getcontinueUrl() {
+        return continueUrl;
     }
 
-    public void setNotifyUrl(String notifyUrl) {
-        this.notifyUrl = notifyUrl;
+    public void setcontinueUrl(String notifyUrl) {
+        this.continueUrl = notifyUrl;
     }
 
     public String getCustomerIp() {

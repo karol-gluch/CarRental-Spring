@@ -19,9 +19,9 @@ public class Offer {
     @JoinColumn(name = "car_id", referencedColumnName = "id")
     private Car car;
 
-    @ManyToMany(mappedBy = "offers")
+    @OneToMany(mappedBy = "offer")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Set<Rent> rent;
+    private Set<Rent> rents;
 
     public Offer(String description, Integer price, Car car) {
         this.description = description;
@@ -65,10 +65,10 @@ public class Offer {
     }
 
     public Set<Rent> getRent() {
-        return rent;
+        return rents;
     }
 
-    public void setRent(Set<Rent> rent) {
-        this.rent = rent;
+    public void setRent(Set<Rent> rents) {
+        this.rents = rents;
     }
 }

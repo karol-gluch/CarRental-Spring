@@ -24,13 +24,13 @@ public class Rent {
     )
     private Set<User> users;
 
-    @ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+    @ManyToOne
     @JoinTable(
-            name = "Rent_offers",
-            joinColumns = { @JoinColumn(name = "rent_id") },
-            inverseJoinColumns = { @JoinColumn(name = "offer_id") }
+            name="offer_rents",
+            joinColumns = @JoinColumn( name="rent_id"),
+            inverseJoinColumns = @JoinColumn( name="offer_id")
     )
-    private Set<Offer> offers;
+    private Offer offer;
 
     public Long getId() {
         return id;
@@ -96,11 +96,11 @@ public class Rent {
         this.users = users;
     }
 
-    public Set<Offer> getOffers() {
-        return offers;
+    public Offer getOffer() {
+        return offer;
     }
 
-    public void setOffers(Set<Offer> offers) {
-        this.offers = offers;
+    public void setOffer(Offer offer) {
+        this.offer = offer;
     }
 }

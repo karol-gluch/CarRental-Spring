@@ -11,6 +11,7 @@ import com.car.rental.project.service.SecurityService;
 import com.car.rental.project.service.UserService;
 import com.car.rental.project.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.common.util.RandomValueStringGenerator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,9 +32,10 @@ public class UserController {
     private final CarRepository carRepository;
     private final LocationRepository locationRepository;
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UserController(UserService userService, SecurityService securityService, UserValidator userValidator, OfferService offerService, CarRepository carRepository, LocationRepository locationRepository, UserRepository userRepository) {
+    public UserController(UserService userService, SecurityService securityService, UserValidator userValidator, OfferService offerService, CarRepository carRepository, LocationRepository locationRepository, UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userService = userService;
         this.securityService = securityService;
         this.userValidator = userValidator;
@@ -41,6 +43,7 @@ public class UserController {
         this.carRepository = carRepository;
         this.locationRepository = locationRepository;
         this.userRepository = userRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @GetMapping("/registration")
@@ -87,6 +90,24 @@ public class UserController {
         securityService.autoLogin(fbProfileData.get("name"), fbProfileData.get("id"));
 
         return "redirect:/index";
+    }
+
+    @PostMapping("/changepassword")
+    public String changePassword(RedirectAttributes redirectAttributes, HttpServletRequest request) {
+        User u = userRepository.findByUsername(request.getParameter("username"));
+        String newPass = request.getParameter("newPassword");
+        String confPass = request.getParameter("passwordConfirm");
+        String oldPass = request.getParameter("oldPassword");
+
+        if(newPass.equals(confPass) && bCryptPasswordEncoder.matches(oldPass,u.getPassword())) {
+            u.setPassword(newPass);
+            userService.save(u);
+            redirectAttributes.addFlashAttribute("changed", "true");
+        }
+        else {
+            redirectAttributes.addFlashAttribute("notchanged", "true");
+        }
+        return "redirect:/panel/"+u.getUsername();
     }
 
     @GetMapping({"/","/index"})

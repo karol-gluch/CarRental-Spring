@@ -151,12 +151,6 @@
                 <form method="POST" action="${contextPath}/login" class="form-signin">
 
                     <div class="form-group ${error != null ? 'has-error' : ''}">
-                        <!--<span>${message}</span>
-                            <span>${error}</span>
-                            <input name="username" type="text" placeholder="Username"
-                                   autofocus="true"/>
-                            <input name="password" type="password" placeholder="Password"/>
-                            <div class="form-group">-->
                         <label for="username">Nazwa użytkownika:</label>
                         <input type="username" class="form-control" id="username" placeholder="Podaj nazwę użytkownika"
                                name="username" required>
