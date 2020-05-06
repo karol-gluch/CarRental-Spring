@@ -61,6 +61,13 @@
         <div class="alert alert-success">Usunięto samochód!</div>
     </c:if>
 
+    <c:if test="${modifycar eq true}">
+        <div class="alert alert-success">Zmodyfikowano samochód!</div>
+    </c:if>
+    <c:if test="${car eq true}">
+        <div class="alert alert-success">Dodano nowy samochód!</div>
+    </c:if>
+
     <h2>Lista samochodów:</h2>
     <table class="table table-hover">
         <thead class="thead-light">
@@ -74,16 +81,15 @@
             <tr>
                 <td>${cars.mark} ${cars.model}</td>
                 <td>
-                    <form action="${contextPath}/deleteCarPanel/${cars.getId()}" method="get">
-                        <button type="submit" class="btn btn-danger btn-xs">Usuń</button>
-                    </form>
+                    <a href="${contextPath}/deleteCarPanel/${cars.getId()}" class="btn btn-outline-danger btn-sm">Usuń</a>
+                    <a href="${contextPath}/modifyCar/${cars.getId()}" class="btn btn-outline-warning btn-sm">Modyfikuj</a>
                 </td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
     <form action="${contextPath}/carform" method="get">
-        <button type="submit" class="btn btn-success">Dodaj samochód</button>
+        <button type="submit" class="btn btn-outline-success">Dodaj samochód</button>
     </form>
 
 </main>

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -20,7 +20,7 @@
     <img src="../../resources/images/newlogo.png">
     <ul>
         <c:if test="${isAdmin}">
-            <li><a class="active"  href="${contextPath}/adminPanel">Panel administratora</a></li>
+            <li><a class="active" href="${contextPath}/adminPanel">Panel administratora</a></li>
         </c:if>
         <li><a href="${contextPath}/index">Strona Główna</a></li>
         <li><a href="${contextPath}/flota">Flota</a></li>
@@ -44,36 +44,45 @@
     <h3>"Bądź wzorcem jakości. Niektórzy ludzie nie przywykli do środowiska, gdzie oczekuje się doskonałości."</h3>
 </header>
 
-<main class= "main">
-    <h2>Panel administratora:</h2>
-    <form action="${contextPath}/addCar/${id}" method="post">
-        <input type="text" id="mark" placeholder="Podaj marke samochodu" name="mark" required>
-        <input type="text" id="model" placeholder="Podaj model samochodu" name="model" required>
-        <input type="text" id="yearOfProduction" placeholder="Podaj rok produkcji samochodu" name="yearOfProduction" required>
-        <select class="custom-select my-1 mr-sm-2" id="fuelType" name="fuelType" style="width: 50%" required>
-            <option selected>Rodzaj paliwa</option>
-            <option value="Benzyna">Benzyna</option>
-            <option value="Ropa">Ropa</option>
-        </select>
-        <select class="custom-select my-1 mr-sm-2" id="bodyType" name="bodyType" style="width: 50%" required>
-            <option selected>Typ nadwozia</option>
-            <option value="Sedan">Sedan</option>
-            <option value="Kombi">Kombi</option>
-            <option value="Hatchback">Hatchback</option>
-        </select>
-        <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Podaj pojemność silnika:" id="engineCapacity" name="engineCapacity" required>
-        <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Podaj ilość miejsc w samochodzie:" id="numberOfPlaces" name="numberOfPlaces" required>
-        </br>
-        <button type="submit">Dodaj samochód</button>
-    </form>
-    <form action="${contextPath}/addImage/${id}" enctype="multipart/form-data" method="post">
-        <input type="file" accept="image/*" id="photos" name="photos" multiple="multiple">
-        <button type="submit">Dodaj zdjecia</button>
-    </form>
-    <button onclick="window.location.href='/deleteCar/${id}'">Anuluj</button>
+<main class="main">
+
+    <center>
+        <h4>Dodaj samochód</h4>
+        <form action="${contextPath}/addImage/${id}" enctype="multipart/form-data" method="post">
+            <input type="file" accept="image/*" id="photos" name="photos" multiple="multiple"></br>
+            <button type="submit" class="btn btn-dark">Dodaj zdjecia</button>
+        </form>
+
+        <form action="${contextPath}/addCar/${id}" method="post">
+            <input type="text" class="form-control mb-2 mr-sm-2" id="mark" placeholder="Podaj marke samochodu"
+                   name="mark" required>
+            <input type="text" class="form-control mb-2 mr-sm-2" id="model" placeholder="Podaj model samochodu"
+                   name="model" required>
+            <input type="text" class="form-control mb-2 mr-sm-2" id="yearOfProduction"
+                   placeholder="Podaj rok produkcji samochodu" name="yearOfProduction" required>
+            <select class="custom-select my-1 mr-sm-2" id="fuelType" name="fuelType" style="width: 50%" required>
+                <option selected>Rodzaj paliwa</option>
+                <option value="Benzyna">Benzyna</option>
+                <option value="Ropa">Ropa</option>
+            </select>
+            <select class="custom-select my-1 mr-sm-2" id="bodyType" name="bodyType" style="width: 50%" required>
+                <option selected>Typ nadwozia</option>
+                <option value="Sedan">Sedan</option>
+                <option value="Kombi">Kombi</option>
+                <option value="Hatchback">Hatchback</option>
+            </select>
+            <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Podaj pojemność silnika:"
+                   id="engineCapacity" name="engineCapacity" required>
+            <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Podaj ilość miejsc w samochodzie:"
+                   id="numberOfPlaces" name="numberOfPlaces" required>
+            </br>
+            <button type="submit" class="btn btn-dark">Dodaj samochód</button>
+        </form></br>
+        <button onclick="window.location.href='/deleteCar/${id}'" class="btn btn-dark">Anuluj</button>
+    </center>
 </main>
 
-<footer class = "footer">
+<footer class="footer">
     <p>Autorzy: Karol Głuch, Michał Galas, Sławomir Faron.</p>
     <p>Copyright &copy 2020 G-F-G CarRent. Wszelkie prawa zastrzeżone.</p>
 </footer>

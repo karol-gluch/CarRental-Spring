@@ -76,7 +76,7 @@
                 <td>${users.username}</td>
                 <td>
                     <form action="${contextPath}/deleteUser/${users.getId()}" method="get">
-                        <button type="submit" class="btn btn-danger btn-xs">Usuń</button>
+                        <button type="submit" class="btn btn-outline-danger btn-sm">Usuń</button>
                     </form>
                 </td>
             </tr>

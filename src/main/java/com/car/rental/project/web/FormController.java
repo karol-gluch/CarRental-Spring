@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.persistence.EntityManager;
@@ -68,7 +69,7 @@ public class FormController {
         c.setNumberOfPlaces(carForm.getNumberOfPlaces());
         carRepository.save(c);
         redirectAttributes.addFlashAttribute("car", "true");
-        return "redirect:/adminPanel";
+        return "redirect:/cars";
     }
 
     @PostMapping({"/addImage", "/addImage/{id}"})
@@ -93,7 +94,7 @@ public class FormController {
             photos.forEach(photo -> carPhotoRepository.deleteById(photo.getId()));
             carRepository.deleteById(id.get());
         }
-        return "adminPanel";
+        return "redirect:/cars";
     }
 
     @GetMapping("/offerform")
@@ -213,6 +214,7 @@ public class FormController {
         users.add(userRepository.findByUsername(userName));
         r.setUsers(users);
         rentRepository.save(r);
+
         //add order
         List<Product> list = new ArrayList<>();
         list.add(new Product(nameCar, kwota.toString()));
@@ -306,5 +308,21 @@ public class FormController {
         rentRepository.save(r);
         String userName = request.getUserPrincipal().getName();
         return "redirect:/panel/"+userName;
+    }
+    @RequestMapping({"/modifyCar", "/modifyCar/{id}"})
+    public ModelAndView modifyCar(@PathVariable Optional<Long> id) {
+
+        ModelAndView mav = new ModelAndView("modifyCar");
+        Car car = carRepository.findById(id.get()).orElseThrow();
+        mav.addObject("car", car);
+
+        return mav;
+    }
+
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public String saveModifyCar(@ModelAttribute("car") Car car, RedirectAttributes redirectAttributes) {
+        carRepository.save(car);
+        redirectAttributes.addFlashAttribute("modifycar", "true");
+        return "redirect:/cars";
     }
 }
