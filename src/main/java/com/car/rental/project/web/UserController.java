@@ -81,12 +81,10 @@ public class UserController {
         FBGraph fbGraph = new FBGraph(accessToken);
         String graph = fbGraph.getFBGraph();
         Map<String, String> fbProfileData = fbGraph.getGraphData(graph);
-        RandomValueStringGenerator x = new RandomValueStringGenerator();
-        x.setLength(8);
-        String random = x.generate();
+        if(!userService.existsByUsername(fbProfileData.get("name")))
+        userService.save(new User(fbProfileData.get("name"),fbProfileData.get("id")));
 
-        userService.save(new User(fbProfileData.get("name"),random));
-        securityService.autoLogin(fbProfileData.get("name"), random);
+        securityService.autoLogin(fbProfileData.get("name"), fbProfileData.get("id"));
 
         return "redirect:/index";
     }
@@ -122,7 +120,7 @@ public class UserController {
 
     @GetMapping("/offer")
     public String offer(Model model) {
-        List<OfferWithCar>offers = offerService.findAllOffersWithCars();
+        List<Offer>offers = offerService.findAll();
         model.addAttribute ("offerList", offers);
         return "offer";
     }

@@ -35,7 +35,7 @@
             <form id="logoutForm" method="POST" action="${contextPath}/logout">
             </form>
             <div class="logreg">
-                <h6>Zalogowany: <b>${pageContext.request.userPrincipal.name}</b></h6>
+                <button type="button" class="btn btn-dark" onclick="window.location.href='/panel/${pageContext.request.userPrincipal.name}'">Otwórz profil</button>
                 <button type="button" class="btn btn-dark" onclick="document.forms['logoutForm'].submit()">Wyloguj się
                 </button>
             </div>
@@ -58,31 +58,19 @@
     </header>
 
     <main class="main">
-<%--    <c:forEach items="${offerList}" var="offer">--%>
-<%--        <section class="offers">--%>
-<%--            <div class="offer">--%>
-<%--                <div class="description">--%>
-<%--                    <p>${offer.description}</p>--%>
-<%--                    <div class="price">--%>
-<%--                        <p>Cena: ${offer.price} zł</p>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--        </section>--%>
-<%--    </c:forEach>--%>
     <c:forEach items="${offerList}" var="offer">
         <section class="offers">
             <div class="offer">
-                <c:forEach var="img" items="${offer.carPhoto}" end="0">
+                <c:forEach var="img" items="${offer.car.carPhoto}" end="0">
                     <img src="data:image/*;base64,${Base64.getEncoder().encodeToString(img.photo)}"/>
                 </c:forEach>
                 <div class="description">
-                    <h2>${offer.mark} ${offer.model}</h2>
+                    <h2>${offer.car.mark} ${offer.car.model}</h2>
                     <p>${offer.description}</p>
                     <h3>Cena ${offer.price}zł/doba</h3>
                 </div>
             </div>
-            <form action="${contextPath}/wypozycz/${offer.getId()}" method="post">
+            <form action="${contextPath}/wypozycz/${offer.id}" method="post">
                 <button type="submit">Wypozycz</button>
             </form>
         </section>

@@ -37,7 +37,6 @@ public class PayUConnection {
         ResponseEntity<String> response = client.getForEntity(tokenUrl,String.class);
         ObjectMapper mapper = new ObjectMapper();
         JsonNode root = mapper.readTree(response.getBody());
-
         return root.get("access_token").asText();
     }
 }

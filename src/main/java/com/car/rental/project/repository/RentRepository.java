@@ -12,4 +12,5 @@ public interface RentRepository extends JpaRepository<Rent, Long> {
 
     @Query(value = "SELECT * FROM Rent r inner join rent_offers o on o.rent_id = r.id where o.offer_id = ?1", nativeQuery = true)
     Rent findR(Long id);
+
 }

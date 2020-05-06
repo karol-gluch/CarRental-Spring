@@ -44,18 +44,18 @@ public class FormController {
         this.userRepository = userRepository;
     }
 
-    @GetMapping({"/carform","/carform/{id}"})
+    @GetMapping({"/carform", "/carform/{id}"})
     public String carForm(@PathVariable Optional<Long> id, Model model) {
-        if(id.isEmpty()){
+        if (id.isEmpty()) {
             Car newCar = new Car();
             carRepository.save(newCar);
-            model.addAttribute("id",newCar.getId());
+            model.addAttribute("id", newCar.getId());
         }
         return "carform";
     }
 
-    @PostMapping({"/addCar","/addCar/{id}"})
-    public String addCar(@PathVariable long id, RedirectAttributes redirectAttributes, @ModelAttribute("carForm") Car carForm){
+    @PostMapping({"/addCar", "/addCar/{id}"})
+    public String addCar(@PathVariable long id, RedirectAttributes redirectAttributes, @ModelAttribute("carForm") Car carForm) {
         Car c = carRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Empty car"));
         c.setMark(carForm.getMark());
         c.setModel(carForm.getModel());
@@ -69,23 +69,23 @@ public class FormController {
         return "redirect:/adminPanel";
     }
 
-    @PostMapping({"/addImage","/addImage/{id}"})
-    public String addImage(@PathVariable long id , @ModelAttribute("photos") List<MultipartFile> photos, Model model){
-        photos.forEach( x -> {
+    @PostMapping({"/addImage", "/addImage/{id}"})
+    public String addImage(@PathVariable long id, @ModelAttribute("photos") List<MultipartFile> photos, Model model) {
+        photos.forEach(x -> {
             try {
                 byte[] xd = x.getBytes();
-                carPhotoRepository.save(new CarPhoto(xd,carRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Car is empty!"))));
+                carPhotoRepository.save(new CarPhoto(xd, carRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Car is empty!"))));
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
-        model.addAttribute("id",id);
+        model.addAttribute("id", id);
         return "carform";
     }
 
-    @GetMapping({"/deleteCar","/deleteCar/{id}"})
-    public String deleteCar(@PathVariable Optional<Long> id){
-        if(id.isPresent()){
+    @GetMapping({"/deleteCar", "/deleteCar/{id}"})
+    public String deleteCar(@PathVariable Optional<Long> id) {
+        if (id.isPresent()) {
             Car c = carRepository.findById(id.get()).orElseThrow();
             List<CarPhoto> photos = carPhotoRepository.findPhotoWithCarId(c);
             photos.forEach(photo -> carPhotoRepository.deleteById(photo.getId()));
@@ -95,32 +95,32 @@ public class FormController {
     }
 
     @GetMapping("/offerform")
-    public String offerForm(Model model){
+    public String offerForm(Model model) {
         List<Car> cars = carRepository.find();
-        model.addAttribute("cars",cars);
+        model.addAttribute("cars", cars);
         return "offerform";
     }
 
     @PostMapping("/addOffer")
-    public String addOffer(@ModelAttribute("offerForm") Offer offerForm, RedirectAttributes redirectAttributes){
+    public String addOffer(@ModelAttribute("offerForm") Offer offerForm, RedirectAttributes redirectAttributes) {
         offerService.save(offerForm);
         redirectAttributes.addFlashAttribute("offer", "true");
         return "redirect:/adminPanel";
     }
 
 
-    @GetMapping({"/locationform","/locationform/{id}"})
+    @GetMapping({"/locationform", "/locationform/{id}"})
     public String locationForm(@PathVariable Optional<Long> id, Model model) {
-        if(id.isEmpty()){
+        if (id.isEmpty()) {
             Location newLocation = new Location();
             locationRepository.save(newLocation);
-            model.addAttribute("id",newLocation.getId());
+            model.addAttribute("id", newLocation.getId());
         }
         return "locationform";
     }
 
-    @PostMapping({"/addLocation","/addLocation/{id}"})
-    public String addLocation(@PathVariable long id, RedirectAttributes redirectAttributes, @ModelAttribute("locationForm") Location locationForm){
+    @PostMapping({"/addLocation", "/addLocation/{id}"})
+    public String addLocation(@PathVariable long id, RedirectAttributes redirectAttributes, @ModelAttribute("locationForm") Location locationForm) {
         Location l = locationRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Empty location"));
         l.setMiasto(locationForm.getMiasto());
         l.setAdres(locationForm.getAdres());
@@ -130,7 +130,7 @@ public class FormController {
         return "redirect:/adminPanel";
     }
 
-    @PostMapping({"/wypozycz","/wypozycz/{id}"})
+    @PostMapping({"/wypozycz", "/wypozycz/{id}"})
     public String wypozycz(@PathVariable long id, Model model) {
         List<Location> locations = locationRepository.findAll();
 
@@ -145,9 +145,9 @@ public class FormController {
 
             date.add(oddD.toString());
             date.add(wypD.toString());
-            while(wypD.isBefore(oddD)){
+            while (wypD.isBefore(oddD)) {
                 wypD = wypD.plusDays(1);
-                if(wypD.isBefore(oddD)){
+                if (wypD.isBefore(oddD)) {
                     date.add(wypD.toString());
                 }
             }
@@ -156,14 +156,14 @@ public class FormController {
         String dates = String.join("\",\"", date);
         dates = "[\"" + dates + "\"]";
 
-        model.addAttribute("locations",locations);
+        model.addAttribute("locations", locations);
         model.addAttribute("ide", id);
         model.addAttribute("dates", dates);
         return "wypozycz";
     }
 
     @PostMapping({"/podsumowanieWypozyczenia", "/podsumowanieWypozyczenia/{id}"})
-    public String podsumowanieWypozyczenia(@PathVariable long id, HttpServletRequest request, Model model, @ModelAttribute("rentForm") Rent rentForm){
+    public String podsumowanieWypozyczenia(@PathVariable long id, HttpServletRequest request, Model model, @ModelAttribute("rentForm") Rent rentForm) {
 
         String rentDate = request.getParameter("rentDate");
         String returnDate = request.getParameter("returnDate");
@@ -174,7 +174,7 @@ public class FormController {
         LocalDate rentDateL = LocalDate.parse(rentDate);
         LocalDate returnDateL = LocalDate.parse(returnDate);
         long numberOfDays = ChronoUnit.DAYS.between(rentDateL, returnDateL);
-        if(numberOfDays == 0)
+        if (numberOfDays == 0)
             numberOfDays = 1;
 
         //calculate price
@@ -184,13 +184,13 @@ public class FormController {
 
         //show location
         Location lRent = locationRepository.findById(Long.valueOf(idRentLocation)).orElseThrow(() -> new IllegalArgumentException("Empty rent location"));
-        String rentLocation = lRent.getMiasto() + ", ul. " +lRent.getAdres();
+        String rentLocation = lRent.getMiasto() + ", ul. " + lRent.getAdres();
         Location lReturn = locationRepository.findById(Long.valueOf(idReturnLocation)).orElseThrow(() -> new IllegalArgumentException("Empty return location"));
-        String returnLocation = lReturn.getMiasto() + ", ul. " +lReturn.getAdres();
+        String returnLocation = lReturn.getMiasto() + ", ul. " + lReturn.getAdres();
 
         //show car
         Car c = carRepository.findById(o.getCar().getId()).orElseThrow(() -> new IllegalArgumentException("Empty car"));
-        String nameCar = c.getMark() + " " +c.getModel();
+        String nameCar = c.getMark() + " " + c.getModel();
 
         //add do database
         Rent r = new Rent();
@@ -215,13 +215,13 @@ public class FormController {
 
         //add order
         List<Product> list = new ArrayList<>();
-        list.add(new Product(nameCar,kwota.toString()));
-        Order order = new Order("Wypożyczenie "+nameCar,kwota.toString(),list);
+        list.add(new Product(nameCar, kwota.toString()));
+        Order order = new Order("Wypożyczenie " + nameCar, kwota.toString(), list);
 
 
         //show information in podsumowanieWypozyczenia.jsp
         model.addAttribute("order", order);
-        model.addAttribute("kwota",kwota);
+        model.addAttribute("kwota", kwota);
         model.addAttribute("rentDate", rentDate);
         model.addAttribute("returnDate", returnDate);
         model.addAttribute("rentLocation", rentLocation);
@@ -232,7 +232,7 @@ public class FormController {
     }
 
     @PostMapping({"/searchCar"})
-    public String searchCar(HttpServletRequest request, Model model){
+    public String searchCar(HttpServletRequest request, Model model) {
 
         String cenaOd = request.getParameter("cenaOd");
         String cenaDo = request.getParameter("cenaDo");
@@ -240,8 +240,8 @@ public class FormController {
         String typNadwozia = request.getParameter("typnadwozia");
         String rokOd = request.getParameter("rokOd");
         String rokDo = request.getParameter("rokDo");
-        String pojemnoscOd = request.getParameter("pojemnoscOd");
-        String pojemnoscDo = request.getParameter("pojemnoscDo");
+        String pojemnoscOd = String.valueOf(Double.parseDouble(request.getParameter("pojemnoscOd")));
+        String pojemnoscDo = String.valueOf(Double.parseDouble(request.getParameter("pojemnoscDo")));
         String liczbaOd = request.getParameter("liczbaOd");
         String liczbaDo = request.getParameter("liczbaDo");
 
@@ -253,9 +253,9 @@ public class FormController {
         return "searchCar";
     }
 
-    @GetMapping({"/deleteUser","/deleteUser/{id}"})
-    public String deleteUser(@PathVariable Optional<Long> id, RedirectAttributes redirectAttributes){
-        if(id.isPresent()){
+    @GetMapping({"/deleteUser", "/deleteUser/{id}"})
+    public String deleteUser(@PathVariable Optional<Long> id, RedirectAttributes redirectAttributes) {
+        if (id.isPresent()) {
             User u = userRepository.findById(id.get()).orElseThrow();
             u.getRent().clear();
             userRepository.deleteById(id.get());
@@ -264,17 +264,26 @@ public class FormController {
         return "redirect:/users";
     }
 
+    @GetMapping("/panel/{name}")
+    public String userPanel(@PathVariable String name, Model model) {
+        User u = userRepository.findByUsername(name);
+        Long id = u.getId();
+        model.addAttribute("userId", id);
+
+        return "userPanel";
+    }
+
     @GetMapping({"/deleteCarPanel", "/deleteCarPanel/{id}"})
     public String deleteCar(@PathVariable Optional<Long> id, RedirectAttributes redirectAttributes) {
-        if(id.isPresent()) {
+        if (id.isPresent()) {
             Car c = carRepository.findById(id.get()).orElseThrow();
             List<CarPhoto> photos = carPhotoRepository.findPhotoWithCarId(c);
             photos.forEach(photo -> carPhotoRepository.deleteById(photo.getId()));
             Offer o = c.getOffer();
-            if(o != null)
+            if (o != null)
                 offerRepository.deleteById(o.getId());
 
-            if(c != null)
+            if (c != null)
                 carRepository.delete(c);
 
             redirectAttributes.addFlashAttribute("deletecar", "true");

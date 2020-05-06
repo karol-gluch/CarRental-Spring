@@ -5,4 +5,6 @@ import com.car.rental.project.model.User;
 public interface UserService {
     void save(User user);
     User findByUsername(String username);
+    boolean existsByUsername(String name);
+
 }

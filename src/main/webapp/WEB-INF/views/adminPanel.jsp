@@ -34,7 +34,7 @@
                 <form id="logoutForm" method="POST" action="${contextPath}/logout">
                 </form>
                 <div class="logreg">
-                    <h6>Zalogowany: <b>${pageContext.request.userPrincipal.name}</b></h6>
+                    <button type="button" class="btn btn-dark" onclick="window.location.href='/panel/${pageContext.request.userPrincipal.name}'">Otwórz profil</button>
                     <button type="button" class="btn btn-dark" onclick="document.forms['logoutForm'].submit()">Wyloguj się
                     </button>
                 </div>
@@ -58,6 +58,7 @@
         </c:if>
         <h2>Panel administratora:</h2>
         <h2><a href="${contextPath}/carform"> Dodaj samochód</a></h2>
+        <h2><a href="${contextPath}/cars"> Zarządzaj samochodami</a></h2>
         <h2><a href="${contextPath}/offerform"> Dodaj ofertę</a></h2>
         <h2><a href="${contextPath}/locationform"> Dodaj lokalizacje</a></h2>
         <h2><a href="${contextPath}/users"> Zarządzaj użytkownikami</a></h2>
