@@ -136,8 +136,15 @@ public class UserController {
 
     @GetMapping("/users")
     public String users(Model model) {
-        List<User> users = userRepository.findAll();
+        List<User> users = userRepository.findUsers();
         model.addAttribute("users",users);
         return "users";
+    }
+
+    @GetMapping("/cars")
+    public String cars(Model model) {
+        List<Car> cars = carRepository.findAll();
+        model.addAttribute("cars", cars);
+        return "cars";
     }
 }

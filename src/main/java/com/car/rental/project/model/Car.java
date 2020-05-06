@@ -1,5 +1,8 @@
 package com.car.rental.project.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -19,8 +22,11 @@ public class Car {
     private String numberOfPlaces;
 
     @OneToMany(mappedBy = "car")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<CarPhoto> carPhoto;
+
     @OneToOne(mappedBy = "car")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "offer_id", referencedColumnName = "id")
     private Offer offer;
 

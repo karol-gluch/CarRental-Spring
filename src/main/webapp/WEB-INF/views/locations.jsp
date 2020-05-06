@@ -14,6 +14,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        .table tr {
+            text-align: center;
+        }
+
+        .table td {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 <nav class="navtop">
@@ -58,12 +68,15 @@
 
 <main class = "main">
     <h2>Nasze lokalizacje:</h2>
-    <table class="cars">
+    <table class="table table-hover">
+        <thead class="thead-light">
         <tr>
             <th>Miasto</th>
             <th>Ulica</th>
             <th>Telefon kontaktowy</th>
         </tr>
+        </thead>
+        <tbody>
         <c:forEach items="${locations}" var="locations">
             <tr>
                 <td>${locations.miasto}</td>
@@ -71,6 +84,7 @@
                 <td>${locations.telefon}</td>
             </tr>
         </c:forEach>
+        </tbody>
     </table>
 </main>
 

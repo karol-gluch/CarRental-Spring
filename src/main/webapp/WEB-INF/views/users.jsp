@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -15,13 +15,24 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        .table tr {
+            text-align: center;
+        }
+
+        .table td {
+            text-align: center;
+        }
+    </style>
+
 </head>
 <body>
 <nav class="navtop">
     <img src="../../resources/images/newlogo.png">
     <ul>
         <c:if test="${isAdmin}">
-            <li><a class="active"  href="${contextPath}/adminPanel">Panel administratora</a></li>
+            <li><a class="active" href="${contextPath}/adminPanel">Panel administratora</a></li>
         </c:if>
         <li><a href="${contextPath}/index">Strona Główna</a></li>
         <li><a href="${contextPath}/flota">Flota</a></li>
@@ -45,18 +56,21 @@
     <h3>"Bądź wzorcem jakości. Niektórzy ludzie nie przywykli do środowiska, gdzie oczekuje się doskonałości."</h3>
 </header>
 
-<main class= "main">
+<main class="main">
     </br>
     <c:if test="${success eq true}">
         <div class="alert alert-success">Usunięto użytkownika!</div>
     </c:if>
 
     <h2>Lista użytkowników:</h2>
-    <table class="cars">
+    <table class="table table-hover">
+        <thead class="thead-light">
         <tr>
             <th>Nazwa użytkownika</th>
             <th>Działania</th>
         </tr>
+        </thead>
+        <tbody>
         <c:forEach items="${users}" var="users">
             <tr>
                 <td>${users.username}</td>
@@ -67,11 +81,12 @@
                 </td>
             </tr>
         </c:forEach>
+        </tbody>
     </table>
 
 </main>
 
-<footer class = "footer">
+<footer class="footer">
     <p>Autorzy: Karol Głuch, Michał Galas, Sławomir Faron.</p>
     <p>Copyright &copy 2020 G-F-G CarRent. Wszelkie prawa zastrzeżone.</p>
 </footer>

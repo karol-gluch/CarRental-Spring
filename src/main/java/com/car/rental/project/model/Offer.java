@@ -1,6 +1,9 @@
 
 package com.car.rental.project.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -17,6 +20,7 @@ public class Offer {
     private Car car;
 
     @ManyToMany(mappedBy = "offers")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Rent> rent;
 
     public Offer(String description, Integer price, Car car) {

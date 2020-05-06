@@ -61,6 +61,7 @@
         <h2><a href="${contextPath}/offerform"> Dodaj ofertę</a></h2>
         <h2><a href="${contextPath}/locationform"> Dodaj lokalizacje</a></h2>
         <h2><a href="${contextPath}/users"> Zarządzaj użytkownikami</a></h2>
+        <h2><a href="${contextPath}/cars"> Zarządzaj samochodami</a></h2>
 
     </main>
 

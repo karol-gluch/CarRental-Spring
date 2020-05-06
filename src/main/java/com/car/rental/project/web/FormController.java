@@ -264,4 +264,22 @@ public class FormController {
         return "redirect:/users";
     }
 
+    @GetMapping({"/deleteCarPanel", "/deleteCarPanel/{id}"})
+    public String deleteCar(@PathVariable Optional<Long> id, RedirectAttributes redirectAttributes) {
+        if(id.isPresent()) {
+            Car c = carRepository.findById(id.get()).orElseThrow();
+            List<CarPhoto> photos = carPhotoRepository.findPhotoWithCarId(c);
+            photos.forEach(photo -> carPhotoRepository.deleteById(photo.getId()));
+            Offer o = c.getOffer();
+            if(o != null)
+                offerRepository.deleteById(o.getId());
+
+            if(c != null)
+                carRepository.delete(c);
+
+            redirectAttributes.addFlashAttribute("deletecar", "true");
+        }
+        return "redirect:/cars";
+    }
+
 }
