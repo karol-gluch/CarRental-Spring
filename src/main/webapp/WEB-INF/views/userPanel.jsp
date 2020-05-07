@@ -135,7 +135,7 @@
                         </div>
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
-                        <button class="btn btn-lg btn-dark btn-block" type="submit">Zaloguj się!</button>
+                        <button class="btn btn-lg btn-dark btn-block" type="submit">Zmień hasło</button>
 
                     </form>
             </div>

@@ -236,18 +236,84 @@ public class FormController {
     @PostMapping({"/searchCar"})
     public String searchCar(HttpServletRequest request, Model model) {
 
-        String cenaOd = request.getParameter("cenaOd");
-        String cenaDo = request.getParameter("cenaDo");
-        String rodzajPaliwa = request.getParameter("rodzajpaliwa");
-        String typNadwozia = request.getParameter("typnadwozia");
-        String rokOd = request.getParameter("rokOd");
-        String rokDo = request.getParameter("rokDo");
-        String pojemnoscOd = String.valueOf(Double.parseDouble(request.getParameter("pojemnoscOd")));
-        String pojemnoscDo = String.valueOf(Double.parseDouble(request.getParameter("pojemnoscDo")));
-        String liczbaOd = request.getParameter("liczbaOd");
-        String liczbaDo = request.getParameter("liczbaDo");
+        String cenaOd = null;
+        String cenaDo = null;
+        String rodzajPaliwa = null;
+        String typNadwozia = null;
+        String rokOd = null;
+        String rokDo = null;
+        String pojemnoscOd = null;
+        String pojemnoscDo = null;
+        String liczbaOd = null;
+        String liczbaDo = null;
 
-        List<Car> cars = carRepository.findO(cenaOd, cenaDo, rodzajPaliwa, typNadwozia, rokOd, rokDo, Double.valueOf(pojemnoscOd), Double.valueOf(pojemnoscDo), liczbaOd, liczbaDo);
+        if(request.getParameter("cenaOd") != null && !request.getParameter("cenaOd").isEmpty()) {
+             cenaOd = request.getParameter("cenaOd");
+        }
+        if(request.getParameter("cenaOd") == null && request.getParameter("cenaOd").isEmpty()) {
+            cenaOd.concat("null");
+        }
+
+        if(request.getParameter("cenaDo") != null && !request.getParameter("cenaDo").isEmpty()) {
+            cenaDo = request.getParameter("cenaDo");
+        }
+        if(request.getParameter("cenaDo") == null && request.getParameter("cenaDo").isEmpty()) {
+            cenaDo.concat("null");
+        }
+
+        if(!request.getParameter("rodzajpaliwa").equals("Rodzaj paliwa")) {
+            rodzajPaliwa = request.getParameter("rodzajpaliwa");
+        }
+
+        if(!request.getParameter("typnadwozia").equals("Typ nadwozia")) {
+            typNadwozia = request.getParameter("typnadwozia");
+        }
+
+        if(request.getParameter("rokOd") != null && !request.getParameter("rokOd").isEmpty()) {
+            rokOd = request.getParameter("rokOd");
+        }
+        if(request.getParameter("rokOd") == null && request.getParameter("rokOd").isEmpty()) {
+            rokOd.concat("null");
+        }
+
+        if(request.getParameter("rokDo") != null && !request.getParameter("rokDo").isEmpty()) {
+            rokDo = request.getParameter("rokDo");
+        }
+        if(request.getParameter("rokDo") == null && request.getParameter("rokDo").isEmpty()) {
+            rokDo.concat("null");
+        }
+
+        if(request.getParameter("pojemnoscOd") != null && !request.getParameter("pojemnoscOd").isEmpty()) {
+            pojemnoscOd = request.getParameter("pojemnoscOd");
+        }
+        if(request.getParameter("pojemnoscOd") == null && request.getParameter("pojemnoscOd").isEmpty()) {
+            pojemnoscOd.concat("null");
+        }
+
+        if(request.getParameter("pojemnoscDo") != null && !request.getParameter("pojemnoscDo").isEmpty()) {
+            pojemnoscDo = request.getParameter("pojemnoscDo");
+        }
+        if(request.getParameter("pojemnoscDo") == null && request.getParameter("pojemnoscDo").isEmpty()) {
+            pojemnoscDo.concat("null");
+        }
+
+        if(request.getParameter("liczbaOd") != null && !request.getParameter("liczbaOd").isEmpty()) {
+            liczbaOd = request.getParameter("liczbaOd");
+        }
+        if(request.getParameter("liczbaOd") == null && request.getParameter("liczbaOd").isEmpty()) {
+            liczbaOd.concat("null");
+        }
+
+        if(request.getParameter("liczbaDo") != null && !request.getParameter("liczbaDo").isEmpty()) {
+            liczbaDo = request.getParameter("liczbaDo");
+        }
+        if(request.getParameter("liczbaDo") == null && request.getParameter("liczbaDo").isEmpty()) {
+            liczbaDo.concat("null");
+        }
+
+        System.out.println(cenaOd + " " + cenaDo+ " " +rodzajPaliwa+ " " +typNadwozia+ " " +rokOd+ " " +rokDo+ " " +pojemnoscOd+ " " +pojemnoscDo+ " " +liczbaOd+ " " +liczbaDo);
+
+        List<Car> cars = carRepository.findOf(cenaOd, cenaDo, rodzajPaliwa, typNadwozia, rokOd, rokDo, pojemnoscOd, pojemnoscDo, liczbaOd, liczbaDo);
 
         model.addAttribute("cars", cars);
 
@@ -309,6 +375,7 @@ public class FormController {
         String userName = request.getUserPrincipal().getName();
         return "redirect:/panel/"+userName;
     }
+
     @RequestMapping({"/modifyCar", "/modifyCar/{id}"})
     public ModelAndView modifyCar(@PathVariable Optional<Long> id) {
 
