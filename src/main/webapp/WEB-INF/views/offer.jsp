@@ -14,6 +14,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="${contextPath}/resources/scripts/main.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
@@ -57,22 +58,43 @@
         <h3>"Bądź wzorcem jakości. Niektórzy ludzie nie przywykli do środowiska, gdzie oczekuje się doskonałości."</h3>
     </header>
 
+    <div class="modal-offer modal" id="mymodal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="modal-header" class="modal-title"></h2>
+                    <img src="../../resources/images/cross.png"  data-dismiss="modal">
+                </div>
+                <div class="modal-body">
+                    <img id="modal-image" src=""/>
+                    <p id="modal-description"></p>
+                    <h3 id="modal-price"></h3>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
     <main class="main">
     <c:forEach items="${offerList}" var="offer">
         <section class="offers">
-            <div class="offer">
+            <div class="offer offer-data">
                 <c:forEach var="img" items="${offer.car.carPhoto}" end="0">
-                    <img src="data:image/*;base64,${Base64.getEncoder().encodeToString(img.photo)}"/>
+                    <img class="offer-image" src="data:image/*;base64,${Base64.getEncoder().encodeToString(img.photo)}"/>
                 </c:forEach>
                 <div class="description">
-                    <h2>${offer.car.mark} ${offer.car.model}</h2>
-                    <p>${offer.description}</p>
-                    <h3>Cena ${offer.price}zł/doba</h3>
+                    <h2 class="offer-header">${offer.car.mark} ${offer.car.model}</h2>
+                    <p class="offer-description">${offer.description}</p>
+                    <h3 class="offer-price">Cena ${offer.price}zł/doba</h3>
                 </div>
-            </div>
-            <form action="${contextPath}/wypozycz/${offer.id}" method="post">
-                <button type="submit">Wypozycz</button>
-            </form>
+                <div class="buttons">
+                    <button class="offer-button-show" data-toggle="modal" data-target="#mymodal">Pokaż</button>
+                    <form action="${contextPath}/wypozycz/${offer.id}" method="post">
+                        <button class="buy" type="submit">Wypożycz</button>
+                    </form>
+                </div>
+            </div
         </section>
     </c:forEach>
     </main>

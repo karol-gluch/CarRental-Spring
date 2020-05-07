@@ -261,7 +261,6 @@ input[type=submit]:hover {
     height:300px;
     width:90%;
     margin:10px auto;
-    padding:10px 30px 0 0;
     border: 2px solid black;
     background-color: white;
 }
@@ -271,11 +270,31 @@ input[type=submit]:hover {
     margin:  10px 20px;
 }
 
+.buttons{
+    width:150px;
+}
+
+.buttons button{
+    width:100%;
+    height:148px;
+    margin:0;
+    border:none;
+    color:white;
+    font-size: 20px;
+    font-family: Verdana, Arial, sans-serif;
+    background-color: skyblue;
+}
+
+.buttons button.buy{
+    background-color: red;
+}
+
 .description{
     display:flex;
     flex-direction: column;
     justify-content: flex-start;
     align-content: flex-start;
+    width:750px;
     margin-top: 10px;
 }
 
@@ -288,6 +307,7 @@ input[type=submit]:hover {
 
 .description h3{
     margin-top:20px;
+    padding-right: 10px;
     font-size: 40px;
     text-align:right;
 }
@@ -298,4 +318,60 @@ input[type=submit]:hover {
     font-family: 'Roboto', sans-serif;
     padding:0;
     line-height:25px;
+}
+
+.modal-offer .modal {
+    width: 810px;
+    height: 500px;
+    min-height: 300px;
+    margin: 100px auto;
+    padding: 0;
+    overflow-y: auto;
+}
+
+.modal-offer .modal-title{
+    text-align: center;
+}
+
+.modal-offer .modal-header img{
+    width:50px;
+    cursor:pointer;
+}
+
+
+.modal-offer .modal-dialog{
+    width:100%;
+    max-width:900px;
+    margin:150px auto;
+    border: 1px solid black;
+}
+
+.modal-offer {
+    width:100vw;
+    border:none;
+    margin:0 auto;
+}
+
+.modal-offer .modal-body {
+    background-color: rgb(250, 237, 237);
+    padding: 20px;
+}
+
+.modal-offer .modal-body p{
+    padding: 20px 0;
+    font-size: 18px;
+}
+
+.modal-offer .modal-body img{
+    width:760px;
+    height: 300px;
+}
+
+.modal-offer .modal-footer button{
+    width:150px;
+    background-color: rgb(9, 134, 236);
+    color:rgb(160, 148, 148) !important;
+    font-size: 20px;
+    text-align: center;
+    font-family: Lato,Arial,sans-serif;
 }
