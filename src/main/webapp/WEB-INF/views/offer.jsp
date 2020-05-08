@@ -68,35 +68,51 @@
                 <div class="modal-body">
                     <img id="modal-image" src=""/>
                     <p id="modal-description"></p>
-                    <h3 id="modal-price"></h3>
+                    <div class="informations">
+                        <div class="info">
+                            <p id="modal-price"></p>
+                            <p id="modal-year"></p>
+                            <p id="modal-body"></p>
+                        </div>
+                        <div class="info">
+                            <p id="modal-fuel"></p>
+                            <p id="modal-engine"></p>
+                            <p id="modal-places"></p>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
+                    <form id="modal-id" method="post">
+                        <button class="buy" type="submit">Wypożycz</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 
     <main class="main">
-    <c:forEach items="${offerList}" var="offer">
-        <section class="offers">
-            <div class="offer offer-data">
-                <c:forEach var="img" items="${offer.car.carPhoto}" end="0">
-                    <img class="offer-image" src="data:image/*;base64,${Base64.getEncoder().encodeToString(img.photo)}"/>
-                </c:forEach>
-                <div class="description">
-                    <h2 class="offer-header">${offer.car.mark} ${offer.car.model}</h2>
-                    <p class="offer-description">${offer.description}</p>
-                    <h3 class="offer-price">Cena ${offer.price}zł/doba</h3>
-                </div>
-                <div class="buttons">
-                    <button class="offer-button-show" data-toggle="modal" data-target="#mymodal">Pokaż</button>
-                    <form action="${contextPath}/wypozycz/${offer.id}" method="post">
-                        <button class="buy" type="submit">Wypożycz</button>
-                    </form>
-                </div>
-            </div
-        </section>
-    </c:forEach>
+        <c:forEach items="${offerList}" var="offer">
+            <section class="offers">
+                <div class="offer offer-data offer-button-show" data-toggle="modal" data-target="#mymodal">
+                    <c:forEach var="img" items="${offer.car.carPhoto}" end="0">
+                        <img class="offer-image" src="data:image/*;base64,${Base64.getEncoder().encodeToString(img.photo)}"/>
+                    </c:forEach>
+                    <div class="description">
+                        <h2 class="offer-header">${offer.car.mark} ${offer.car.model}</h2>
+                        <p class="offer-description">${offer.description}</p>
+                        <h3 class="offer-price">Cena: ${offer.price}zł/doba</h3>
+                        <div class="display-none">
+                            <p class="offer-year">${offer.car.yearOfProduction}</p>
+                            <p class="offer-body">${offer.car.bodyType}</p>
+                            <p class="offer-fuel">${offer.car.fuelType}</p>
+                            <p class="offer-engine">${offer.car.engineCapacity}</p>
+                            <p class="offer-places">${offer.car.numberOfPlaces}</p>
+                            <form class="offer-id" action="${contextPath}/wypozycz/${offer.id}" method="post"> </form>
+                        </div>
+                    </div>
+                </div
+            </section>
+        </c:forEach>
     </main>
 
     <footer class = "footer">

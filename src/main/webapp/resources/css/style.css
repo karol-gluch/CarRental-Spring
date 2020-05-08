@@ -6,6 +6,10 @@
     box-sizing: border-box;
 }
 
+.display-none{
+    display:none;
+}
+
 body{
     width:1350px;
     margin:0 auto;
@@ -263,6 +267,7 @@ input[type=submit]:hover {
     margin:10px auto;
     border: 2px solid black;
     background-color: white;
+    cursor: pointer;
 }
 
 .offer img{
@@ -270,31 +275,12 @@ input[type=submit]:hover {
     margin:  10px 20px;
 }
 
-.buttons{
-    width:150px;
-}
-
-.buttons button{
-    width:100%;
-    height:148px;
-    margin:0;
-    border:none;
-    color:white;
-    font-size: 20px;
-    font-family: Verdana, Arial, sans-serif;
-    background-color: skyblue;
-}
-
-.buttons button.buy{
-    background-color: red;
-}
-
 .description{
     display:flex;
     flex-direction: column;
     justify-content: flex-start;
     align-content: flex-start;
-    width:750px;
+    width:875px;
     margin-top: 10px;
 }
 
@@ -313,6 +299,7 @@ input[type=submit]:hover {
 }
 
 .description p{
+    height: 220px;
     font-size: 20px;
     text-align: left;
     font-family: 'Roboto', sans-serif;
@@ -330,6 +317,7 @@ input[type=submit]:hover {
 }
 
 .modal-offer .modal-title{
+    width:100%;
     text-align: center;
 }
 
@@ -367,11 +355,47 @@ input[type=submit]:hover {
     height: 300px;
 }
 
+
+.informations {
+    display:flex;
+    justify-content: space-between;
+    padding: 20px 50px;
+}
+.info{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-right:20px;
+    width:50%;
+}
+
+.informations:nth-child(even) {
+    padding-right: 0;
+}
+
+.informations p{
+    padding-left:30px;
+    padding-right: 0;
+}
+
+.modal-offer .modal-footer{
+    display: flex;
+    justify-content: center;
+}
 .modal-offer .modal-footer button{
     width:150px;
-    background-color: rgb(9, 134, 236);
-    color:rgb(160, 148, 148) !important;
+    height:40px;
+    margin:0 auto;
+    border: 1px solid silver;
+    border-radius: 25px;
+    background: linear-gradient(0deg, rgba(12,152,28,1) 0%, rgba(1,252,0,1) 100%);
+    color:rgba(48,50,48, .9)!important;
     font-size: 20px;
     text-align: center;
     font-family: Lato,Arial,sans-serif;
+    transition: .4s;
+}
+
+.modal-offer .modal-footer button:hover{
+    background: linear-gradient(0deg, rgba(0,252,42,1) 0%, rgba(12,152,28,1) 100%);
 }

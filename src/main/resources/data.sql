@@ -17,10 +17,10 @@ insert into car_photo(id,photo,car_id) values (2,FILE_READ('classpath:static/BMW
 insert into car_photo(id,photo,car_id) values (3,FILE_READ('classpath:static/Audi-S3.png'),3);
 insert into car_photo(id,photo,car_id) values (4,FILE_READ('classpath:static/Toyota-Avensis.png'),4);
 
-insert into offer(id,description,price,car_id) values (1,'Samochód legancki taki fajny',500,1);
-insert into offer(id,description,price,car_id) values (2,'Samochód legancki taki fajny z kołami',300,2);
-insert into offer(id,description,price,car_id) values (3,'Samochód legancki taki fajny z 4 zerami',700,3);
-insert into offer(id,description,price,car_id) values (4,'Samochód legancki taki fajny z koronawirusem',150,4);
+insert into offer(id,description,price,car_id) values (1,'Samochody Audi A6  wyposażone są w nadwozie sedan lub kombi, pięć siedzeń i od 4 do 5 drzwi. Auta mają długość od 4,5 do ok. 5 metrów, szerokość w przedziale 1775–1992 mm, a wysokość może wynosić 1425–1480 mm. Pojemność bagażnika to 630–1660 litrów.',500,1);
+insert into offer(id,description,price,car_id) values (2,'Wśród samochodów BMW serii 3 znajdziemy modele jeżdżące na benzynę, benzynowo-elektryczne oraz wersje z dieslem. Posiadane wersje wyposażane są w 2–5 drzwi i 4 lub 5 siedzeń, natomiast pojemność bagażnika miesi się do 1500 litrów. ',300,2);
+insert into offer(id,description,price,car_id) values (3,'Zużycie paliwa w Audi S3 8L wynosi średnio 9,3 l na 100 przejechanych kilometrów, a od zera do setki auto rozpędza się w niecałe 7 sekund. Wersja posiada nowe zderzaki z przodu, jak i z tyłu.',700,3);
+insert into offer(id,description,price,car_id) values (4,'Wyposażenie samochodu nawet w wersji podstawowej jest dość bogate i obejmuje pięć poduszek powietrznych (dwie przednie i boczne oraz poduszka kolanowa dla pasażera), ABS z EBD, ESP, manualną klimatyzację i radioodtwarzacz z CD i MP3.',150,4);
 
 insert into location(id,miasto,adres,telefon) values (1, 'Kielce', 'Warszawska 125', '+48 665 700 000');
 insert into location(id,miasto,adres,telefon) values (2, 'Kielce', 'Wojska Polskiego 32', '+48 665 700 300');
