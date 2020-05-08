@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Calligraffitti&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 /*RESET*/
 *{
     margin:0;
@@ -224,7 +226,6 @@ input[type=submit]:hover {
 .main{
     width:100%;
     min-height:700px;
-    padding-bottom: 35px;
 }
 .main h1,p{
     text-align: center;
@@ -454,11 +455,47 @@ input[type=submit]:hover {
     margin-top:10px;
 }
 
+/*Menu w panelu administratora*/
+.adminMenu{
+    display: flex;
+    justify-content: space-around;
+    background-color: #343A40;
+}
 
+.adminMenu a{
+    display:block;
+    padding: 0 20px;
+    line-height: 70px;
+    font-size: 18px;
+    color:#bbb;
+    text-decoration: none;
+    letter-spacing: 1px;
+    font-family:'Roboto', sans-serif;
+}
 
+.adminMenu a+a{
+    border-left:2px solid black;
+}
+
+.adminMenu a:hover{
+    color:white;
+}
+
+.adminMenu i{
+    padding-right: 10px;
+    font-size: 24px;
+}
 
 
 /*Marginesy*/
 .margin-right10{
     margin-right:10px;
+}
+
+.margin-top15{
+    margin-top:15px;
+}
+
+.padding-bottom35{
+    padding-bottom:35px;
 }

@@ -15,6 +15,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css">
 </head>
 <body>
     <nav class="navtop">
@@ -46,20 +47,22 @@
     </header>
 
     <main class= "main">
-        </br>
-        <c:if test="${location eq true}">
-            <div class="alert alert-success">Dodano nową lokalizację!</div>
-        </c:if>
-        <c:if test="${offer eq true}">
-            <div class="alert alert-success">Dodano nową ofertę!</div>
-        </c:if>
-        <h2>Panel administratora:</h2>
-        <h2><a href="${contextPath}/carform"> Dodaj samochód</a></h2>
-        <h2><a href="${contextPath}/cars"> Zarządzaj samochodami</a></h2>
-        <h2><a href="${contextPath}/offerform"> Dodaj ofertę</a></h2>
-        <h2><a href="${contextPath}/locationform"> Dodaj lokalizacje</a></h2>
-        <h2><a href="${contextPath}/users"> Zarządzaj użytkownikami</a></h2>
-
+           <div class="adminMenu">
+               <a href="${contextPath}/carform"><i class="fas fa-car"></i>Dodaj samochód</a>
+               <a href="${contextPath}/cars"><i class="fas fa-list-ol"></i>Zarządzaj samochodami</a>
+               <a href="${contextPath}/offerform"><i class="fas fa-donate"></i>Dodaj ofertę</a>
+               <a href="${contextPath}/locationform"><i class="fas fa-home"></i>Dodaj lokalizacje</a>
+               <a href="${contextPath}/users"><i class="fas fa-users"></i>Zarządzaj użytkownikami</a>
+           </div>
+            <div class="margin-top15">
+                <c:if test="${location eq true}">
+                    <div class="alert alert-success">Dodano nową lokalizację!</div>
+                </c:if>
+                <c:if test="${offer eq true}">
+                    <div class="alert alert-success">Dodano nową ofertę!</div>
+                </c:if>
+                <h2>Panel administratora:</h2>
+            </div>
     </main>
 
     <footer class = "footer">

@@ -68,7 +68,7 @@
         <h3>"Bądź wzorcem jakości. Niektórzy ludzie nie przywykli do środowiska, gdzie oczekuje się doskonałości."</h3>
     </header>
 
-    <main class="main">
+    <main class="main padding-bottom35">
         </br>
         <c:if test="${register eq true}">
             <div class="alert alert-success">Konto zostało utworzone. Zostałeś zalogowany do strony.</div>
