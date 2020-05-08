@@ -8,7 +8,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>G&G CarRent - Wypożyczalnia samochodów</title>
+    <title>G-F-G CarRent - Wypożyczalnia samochodów</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link href="${contextPath}/resources/css/style.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -45,18 +45,20 @@
     <h3>"Bądź wzorcem jakości. Niektórzy ludzie nie przywykli do środowiska, gdzie oczekuje się doskonałości."</h3>
 </header>
 
-<main class= "main">
+<main class= "main offerform">
     <h2>Panel administratora:</h2>
     <form action="${contextPath}/addOffer" method="post">
-        <select name="car">
+        <select class="column centerform" name="car">
             <c:forEach var="car" items="${cars}">
                 <option value="${car.id}"}>${car.mark} ${car.model}</option>
             </c:forEach>
         </select>
-        <h2><a href="${contextPath}/carform">Dodaj samochód</a></h2>
-        <input type="text" id="description" placeholder="Podaj opis samochodu" name="description" required>
-        <input type="number" id="price" placeholder="Podaj cene samochodu" name="price" required>
-        <button type="submit">Dodaj ofertę</button>
+        <div class="column">
+            <h2><a href="${contextPath}/carform">Dodaj samochód</a></h2>
+            <input type="text" id="description" placeholder="Podaj opis samochodu" name="description" required>
+            <input type="number" id="price" placeholder="Podaj cene samochodu" name="price" required>
+            <button type="submit" class="btn btn-dark">Dodaj ofertę</button>
+        </div>
     </form>
 </main>
 

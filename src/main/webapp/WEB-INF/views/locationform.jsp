@@ -7,7 +7,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>G&G CarRent - Wypożyczalnia samochodów</title>
+    <title>G-F-G CarRent - Wypożyczalnia samochodów</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link href="${contextPath}/resources/css/style.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -44,13 +44,13 @@
     <h3>"Bądź wzorcem jakości. Niektórzy ludzie nie przywykli do środowiska, gdzie oczekuje się doskonałości."</h3>
 </header>
 
-<main class= "main">
+<main class= "main locationform">
     <h2>Panel administratora:</h2>
-    <form action="${contextPath}/addLocation/${id}" method="post">
+    <form class="column" action="${contextPath}/addLocation/${id}" method="post">
         <input type="text" id="miasto" placeholder="Podaj miasto" name="miasto" required>
         <input type="text" id="adres" placeholder="Podaj ulice" name="adres" required>
         <input type="text" id="telefon" placeholder="Podaj numer kontaktowy" name="telefon" required>
-        <button type="submit">Dodaj lokalizacje</button>
+        <button type="submit" class="btn btn-dark">Dodaj lokalizacje</button>
     </form>
 
 </main>

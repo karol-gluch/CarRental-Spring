@@ -7,7 +7,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>G&G CarRent - Wypożyczalnia samochodów</title>
+    <title>G-F-G CarRent - Wypożyczalnia samochodów</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link href="${contextPath}/resources/css/style.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -47,11 +47,13 @@
 <main class="main">
 
     <center>
-        <h4>Dodaj samochód</h4>
-        <form action="${contextPath}/addImage/${id}" enctype="multipart/form-data" method="post">
-            <input type="file" accept="image/*" id="photos" name="photos" multiple="multiple"></br>
-            <button type="submit" class="btn btn-dark">Dodaj zdjecia</button>
-        </form>
+        <div class="carform">
+            <h4>Dodaj samochód</h4>
+            <form class="column" action="${contextPath}/addImage/${id}" enctype="multipart/form-data" method="post">
+                <input type="file" accept="image/*" id="photos" name="photos" multiple="multiple">
+                <button type="submit" class="btn btn-dark">Dodaj zdjecia</button>
+            </form>
+        </div>
 
         <form action="${contextPath}/addCar/${id}" method="post">
             <input type="text" class="form-control mb-2 mr-sm-2" id="mark" placeholder="Podaj marke samochodu"

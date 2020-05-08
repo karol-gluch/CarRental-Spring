@@ -12,7 +12,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>G&G CarRent - Wypożyczalnia samochodów</title>
+    <title>G-F-G CarRent - Wypożyczalnia samochodów</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link href="${contextPath}/resources/css/style.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -105,7 +105,7 @@
         </br></br>
 
         <h1>Firma:</h1>
-        <h2>Wynajem aut w G&G CarRent ma szereg atutów:</h2>
+        <h2>Wynajem aut w G-F-G CarRent ma szereg atutów:</h2>
 
         <p>- elastyczna oferta najmu krótkoterminowego i średnioterminowego,</p>
         <p>- zróżnicowana flota sprawdzonych marek w różnych klasach wielkościowych (łącznie ponad 1500 modeli),</p>

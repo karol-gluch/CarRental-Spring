@@ -8,7 +8,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>G&G CarRent - Wypożyczalnia samochodów</title>
+    <title>G-F-G CarRent - Wypożyczalnia samochodów</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link href="${contextPath}/resources/css/style.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -88,7 +88,7 @@
         </c:forEach>
         </tbody>
     </table>
-    <form action="${contextPath}/carform" method="get">
+    <form class="row cars" action="${contextPath}/carform" method="get">
         <button type="submit" class="btn btn-outline-success">Dodaj samochód</button>
     </form>
 

@@ -7,7 +7,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>G&G CarRent - Wypożyczalnia samochodów</title>
+    <title>G-F-G CarRent - Wypożyczalnia samochodów</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link href="${contextPath}/resources/css/style.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -67,15 +67,20 @@
 </header>
 
 <main class = "main">
-    <c:if test="${changed eq true}">
-        <div class="alert alert-success">Hasło zostało zmienione!</div>
-    </c:if>
-    <c:if test="${notchanged eq true}">
-        <div class="alert alert-danger">Nie zmieniono hasła!</div>
-    </c:if>
+    <div class="column">
+        <h2>Ustawienia konta:</h2>
+        <div class="row">
+            <c:if test="${changed eq true}">
+                <div class="alert alert-success">Hasło zostało zmienione!</div>
+            </c:if>
+            <c:if test="${notchanged eq true}">
+                <div class="alert alert-danger">Nie zmieniono hasła!</div>
+            </c:if>
 
-    <button class="btn btn-danger" onclick="window.location.href='${contextPath}/deletebyname/${pageContext.request.userPrincipal.name}'">Usuń konto</button>
-    <button class="btn btn-success" data-toggle="modal" data-target="#changePasswordModal">Zmień hasło</button>
+            <button class="btn btn-danger margin-right10" onclick="window.location.href='${contextPath}/deletebyname/${pageContext.request.userPrincipal.name}'">Usuń konto</button>
+            <button class="btn btn-success" data-toggle="modal" data-target="#changePasswordModal">Zmień hasło</button>
+        </div>
+    </div>
     <h2>Twoje wypożyczenia:</h2>
     <table class="table table-hover">
         <thead class="thead-light">
