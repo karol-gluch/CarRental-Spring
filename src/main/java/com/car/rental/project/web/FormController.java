@@ -172,18 +172,39 @@ public class FormController {
         String returnDate = request.getParameter("returnDate");
         String idRentLocation = request.getParameter("locationsW");
         String idReturnLocation = request.getParameter("locationsZ");
+        String rentHour = request.getParameter("rentHour");
+        String returnHour = request.getParameter("returnHour");
 
         //calculate number of days
         LocalDate rentDateL = LocalDate.parse(rentDate);
         LocalDate returnDateL = LocalDate.parse(returnDate);
         long numberOfDays = ChronoUnit.DAYS.between(rentDateL, returnDateL);
-        if (numberOfDays == 0)
-            numberOfDays = 1;
 
         //calculate price
         Offer o = offerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Empty offer"));
+
+        Long kwota;
         int price = o.getPrice();
-        Long kwota = numberOfDays * price;
+        if (numberOfDays == 0)
+        {
+            Long liczbaGodzin = Long.parseLong(returnHour) - Long.parseLong(rentHour);
+
+            if(liczbaGodzin == 0)
+                liczbaGodzin = Long.valueOf(1);
+
+            kwota = liczbaGodzin * price / 24;
+        }
+        else {
+            if(numberOfDays > 13 && numberOfDays < 30)
+                price = price * 9 / 10;
+
+            if(numberOfDays > 29)
+                price = price * 8 / 10;
+
+             kwota = numberOfDays * price;
+
+            //System.out.println("cena: " + price + " ile dni: " +numberOfDays);
+        }
 
         //show location
         Location lRent = locationRepository.findById(Long.valueOf(idRentLocation)).orElseThrow(() -> new IllegalArgumentException("Empty rent location"));
@@ -202,6 +223,8 @@ public class FormController {
         r.setMiejsceOddania(returnLocation);
         r.setDataWypozyczenia(rentDate);
         r.setDataOddania(returnDate);
+        r.setGodzinaWypozyczenia(rentHour + ":00");
+        r.setGodzinaOddania(returnHour + ":00");
         r.setStatus("Rezerwacja");
 
         //add to rent_offers
@@ -228,6 +251,8 @@ public class FormController {
         model.addAttribute("returnDate", returnDate);
         model.addAttribute("rentLocation", rentLocation);
         model.addAttribute("returnLocation", returnLocation);
+        model.addAttribute("rentHour", rentHour);
+        model.addAttribute("returnHour", returnHour);
         model.addAttribute("nameCar", nameCar);
 
         return "podsumowanieWypozyczenia";

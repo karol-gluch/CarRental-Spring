@@ -71,9 +71,9 @@
     <b>Samochód: </b>${nameCar}<br>
     <b>Kwota za wypożyczenie: </b>${kwota} zł<br>
     <b>Miejsce wypożyczenia: </b>${rentLocation}<br>
-    <b>Data wypożyczenia: </b>${rentDate}<br>
-    <b>Miejsce oddania: </b>${returnLocation}<br>
-    <b>Data oddania: </b>${returnDate}<br><br>
+    <b>Data wypożyczenia: </b>${rentDate}, godzina: ${rentHour}:00<br>
+    <b>Data oddania: </b>${returnDate}, godzina: ${returnHour}:00<br>
+    <b>Miejsce oddania: </b>${returnLocation}<br><br>
 
     <b>Informacja!</b><br>
     Przed dokonaniem zakupu otrzymujesz rezerwację na 24h. Jeśli w tym czasie nie wykonasz płatności Twoje zamówienie zostaje usunięte.

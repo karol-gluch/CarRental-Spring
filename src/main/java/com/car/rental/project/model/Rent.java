@@ -14,6 +14,8 @@ public class Rent {
     private String miejsceOddania;
     private String dataWypozyczenia;
     private String dataOddania;
+    private String godzinaWypozyczenia;
+    private String godzinaOddania;
     private String status; //rezerwacja lub wypozyczenie
 
     @ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
@@ -102,5 +104,21 @@ public class Rent {
 
     public void setOffer(Offer offer) {
         this.offer = offer;
+    }
+
+    public String getGodzinaWypozyczenia() {
+        return godzinaWypozyczenia;
+    }
+
+    public void setGodzinaWypozyczenia(String godzinaWypozyczenia) {
+        this.godzinaWypozyczenia = godzinaWypozyczenia;
+    }
+
+    public String getGodzinaOddania() {
+        return godzinaOddania;
+    }
+
+    public void setGodzinaOddania(String godzinaOddania) {
+        this.godzinaOddania = godzinaOddania;
     }
 }

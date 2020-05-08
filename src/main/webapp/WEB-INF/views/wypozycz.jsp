@@ -103,24 +103,52 @@
     <center>
         <form action="${contextPath}/podsumowanieWypozyczenia/${ide}" method="post">
             Data wypożyczenia: </br>
-            <input type="text" id="rentDate" name="rentDate" placeholder="Data wypożyczenia" required>
-            </br>
+            <input type="text" class="form-control mb-2 mr-sm-2" id="rentDate" name="rentDate" placeholder="Data wypożyczenia" required>
             Data zwrotu:
             </br>
-            <input type="text" id="returnDate" name="returnDate" placeholder="Data zwrotu" required>
-            </br>
+            <input type="text" class="form-control mb-2 mr-sm-2" id="returnDate" name="returnDate" placeholder="Data zwrotu" required>
             Miejsce wypożyczenia: </br>
-            <select name="locationsW">
+            <select name="locationsW" class="custom-select my-1 mr-sm-2" style="width: 50%">
                 <c:forEach var="locations" items="${locations}">
                     <option value="${locations.id}" }>${locations.miasto} ${locations.adres}</option>
                 </c:forEach>
             </select>
             </br>
             Miejsce zwrotu: </br>
-            <select name="locationsZ">
+            <select name="locationsZ" class="custom-select my-1 mr-sm-2" style="width: 50%">
                 <c:forEach var="locations" items="${locations}">
                     <option value="${locations.id}" }>${locations.miasto} ${locations.adres}</option>
                 </c:forEach>
+            </select>
+            </br>
+            Godzina wypożyczenia: </br>
+            <select class="custom-select my-1 mr-sm-2" id="rentHour" name="rentHour" style="width: 50%">
+                <option value="8">8:00</option>
+                <option value="9">9:00</option>
+                <option value="10">10:00</option>
+                <option value="11">11:00</option>
+                <option value="12">12:00</option>
+                <option value="13">13:00</option>
+                <option value="14">14:00</option>
+                <option value="15">15:00</option>
+                <option value="16">16:00</option>
+                <option value="17">17:00</option>
+                <option value="18">18:00</option>
+            </select>
+            </br>
+            Godzina zwrotu: </br>
+            <select class="custom-select my-1 mr-sm-2" id="returnHour" name="returnHour" style="width: 50%">
+                <option value="8">8:00</option>
+                <option value="9">9:00</option>
+                <option value="10">10:00</option>
+                <option value="11">11:00</option>
+                <option value="12">12:00</option>
+                <option value="13">13:00</option>
+                <option value="14">14:00</option>
+                <option value="15">15:00</option>
+                <option value="16">16:00</option>
+                <option value="17">17:00</option>
+                <option value="18">18:00</option>
             </select>
             </br>
             <button type="submit" class="btn btn-dark">Przejdz do podsumowania</button>

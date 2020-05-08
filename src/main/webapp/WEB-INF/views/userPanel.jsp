@@ -14,6 +14,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        .table tr {
+            text-align: center;
+        }
+
+        .table td {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 <nav class="navtop">
@@ -73,8 +83,8 @@
             <th>Samochód </th>
             <th>Miejsce wypożyczenia</th>
             <th>Miejsce oddania</th>
-            <th>Data wypożyczenia</th>
-            <th>Data oddania</th>
+            <th>Data i godzina wypożyczenia</th>
+            <th>Data i godzina oddania</th>
             <th>Status</th>
             <th>Kwota</th>
         </tr>
@@ -85,8 +95,8 @@
                 <td>${rent.offer.car.mark} ${rent.offer.car.model}</td>
                 <td>${rent.miejsceWypozyczenia}</td>
                 <td>${rent.miejsceOddania}</td>
-                <td>${rent.dataWypozyczenia}</td>
-                <td>${rent.dataOddania}</td>
+                <td>${rent.dataWypozyczenia}, godz. ${rent.godzinaWypozyczenia}</td>
+                <td>${rent.dataOddania}, godz. ${rent.godzinaOddania}</td>
                 <td>${rent.status}</td>
                 <td>${rent.kwota}</td>
             </tr>

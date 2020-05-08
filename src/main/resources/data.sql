@@ -25,7 +25,7 @@ insert into offer(id,description,price,car_id) values (4,'Samochód legancki tak
 insert into location(id,miasto,adres,telefon) values (1, 'Kielce', 'Warszawska 125', '+48 665 700 000');
 insert into location(id,miasto,adres,telefon) values (2, 'Kielce', 'Wojska Polskiego 32', '+48 665 700 300');
 
-insert into rent(id,kwota,miejsce_Wypozyczenia,miejsce_Oddania,data_Wypozyczenia,data_Oddania,status) values (1, '1000', 'Kielce a', 'Kielce b', '2020-05-18', '2020-05-20', 'Rezerwacja');
+insert into rent(id,kwota,miejsce_Wypozyczenia,miejsce_Oddania,data_Wypozyczenia,data_Oddania, godzina_Wypozyczenia, godzina_Oddania, status) values (1, '1000', 'Kielce a', 'Kielce b', '2020-05-18', '2020-05-20', '12:00', '14:00', 'Rezerwacja');
 insert into offer_rents(rent_id,offer_id) values (1,1);
 insert into rent_users(rent_id, user_id) values (1,1);
 
