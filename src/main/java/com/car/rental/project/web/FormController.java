@@ -47,27 +47,30 @@ public class FormController {
         this.userRepository = userRepository;
     }
 
-    @GetMapping({"/carform", "/carform/{id}"})
-    public String carForm(@PathVariable Optional<Long> id, Model model) {
-        if (id.isEmpty()) {
-            Car newCar = new Car();
-            carRepository.save(newCar);
-            model.addAttribute("id", newCar.getId());
-        }
+    @GetMapping("/carform")
+    public String carForm(Model model) {
         return "carform";
     }
 
-    @PostMapping({"/addCar", "/addCar/{id}"})
-    public String addCar(@PathVariable long id, RedirectAttributes redirectAttributes, @ModelAttribute("carForm") Car carForm) {
-        Car c = carRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Empty car"));
-        c.setMark(carForm.getMark());
-        c.setModel(carForm.getModel());
-        c.setYearOfProduction(carForm.getYearOfProduction());
-        c.setFuelType(carForm.getFuelType());
-        c.setEngineCapacity(carForm.getEngineCapacity());
-        c.setBodyType(carForm.getBodyType());
-        c.setNumberOfPlaces(carForm.getNumberOfPlaces());
+    @PostMapping("/addCar")
+    public String addCar( @ModelAttribute("photos") List<MultipartFile> photos, RedirectAttributes redirectAttributes, HttpServletRequest carForm) {
+        Car c = new Car();
+        c.setMark(carForm.getParameter("mark"));
+        c.setModel(carForm.getParameter("model"));
+        c.setYearOfProduction(carForm.getParameter("yearOfProduction"));
+        c.setFuelType(carForm.getParameter("fuelType"));
+        c.setEngineCapacity(carForm.getParameter("engineCapacity"));
+        c.setBodyType(carForm.getParameter("bodyType"));
+        c.setNumberOfPlaces(carForm.getParameter("numberOfPlaces"));
         carRepository.save(c);
+        photos.forEach(x -> {
+            try {
+                byte[] xd = x.getBytes();
+                carPhotoRepository.save(new CarPhoto(xd, carRepository.findById(c.getId()).orElseThrow(() -> new IllegalArgumentException("Car is empty!"))));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
         redirectAttributes.addFlashAttribute("car", "true");
         return "redirect:/cars";
     }

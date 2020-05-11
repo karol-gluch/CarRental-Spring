@@ -54,15 +54,7 @@
         <a href="${contextPath}/users"><i class="fas fa-users"></i>Zarządzaj użytkownikami</a>
     </div>
     <center>
-        <div class="carform">
-            <h4>Dodaj samochód</h4>
-            <form class="column" action="${contextPath}/addImage/${id}" enctype="multipart/form-data" method="post">
-                <input type="file" accept="image/*" id="photos" name="photos" multiple="multiple">
-                <button type="submit" class="btn btn-dark">Dodaj zdjecia</button>
-            </form>
-        </div>
-
-        <form action="${contextPath}/addCar/${id}" method="post">
+        <form action="${contextPath}/addCar" method="post" enctype="multipart/form-data">
             <input type="text" class="form-control mb-2 mr-sm-2" id="mark" placeholder="Podaj marke samochodu"
                    name="mark" required>
             <input type="text" class="form-control mb-2 mr-sm-2" id="model" placeholder="Podaj model samochodu"
@@ -84,10 +76,11 @@
                    id="engineCapacity" name="engineCapacity" required>
             <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Podaj ilość miejsc w samochodzie:"
                    id="numberOfPlaces" name="numberOfPlaces" required>
+            <input type="file" class="padding-bottom35" accept="image/*" id="photos" name="photos" multiple="multiple">
             </br>
             <button type="submit" class="btn btn-dark">Dodaj samochód</button>
         </form></br>
-        <button onclick="window.location.href='/deleteCar/${id}'" class="btn btn-dark">Anuluj</button>
+        <button onclick="window.location.href='/index'" class="btn btn-dark">Anuluj</button>
     </center>
 </main>
 
