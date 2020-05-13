@@ -1,5 +1,4 @@
-
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -18,59 +17,67 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css">
 </head>
 <body>
-<nav class="navtop">
-    <img src="../../resources/images/newlogo.png">
-    <ul>
-        <c:if test="${isAdmin}">
-            <li><a class="active"  href="${contextPath}/adminPanel">Panel administratora</a></li>
-        </c:if>
-        <li><a href="${contextPath}/index">Strona Główna</a></li>
-        <li><a href="${contextPath}/flota">Flota</a></li>
-        <li><a href="${contextPath}/locations">Lokalizacje</a></li>
-        <li><a href="${contextPath}/ofirmie">O firmie</a></li>
-        <li><a href="${contextPath}/kontakt">Kontakt</a></li>
-        <li><a href="${contextPath}/offer">Oferta</a></li>
-    </ul>
-    <c:if test="${pageContext.request.userPrincipal.name != null}">
-        <form id="logoutForm" method="POST" action="${contextPath}/logout">
-        </form>
-        <div class="logreg">
-            <button type="button" class="btn btn-dark" onclick="window.location.href='/panel/${pageContext.request.userPrincipal.name}'">Otwórz profil</button>
-            <button type="button" class="btn btn-dark" onclick="document.forms['logoutForm'].submit()">Wyloguj się
-            </button>
-        </div>
-    </c:if>
-</nav>
-
 <header class="header">
     <h3>"Bądź wzorcem jakości. Niektórzy ludzie nie przywykli do środowiska, gdzie oczekuje się doskonałości."</h3>
 </header>
-
-<main class= "main offerform">
+<main class="main">
     <div class="adminMenu">
-        <a href="${contextPath}/carform"><i class="fas fa-car"></i>Dodaj samochód</a>
-        <a href="${contextPath}/cars"><i class="fas fa-list-ol"></i>Zarządzaj samochodami</a>
-        <a href="${contextPath}/offerform"><i class="fas fa-donate"></i>Dodaj ofertę</a>
-        <a href="${contextPath}/locationform"><i class="fas fa-home"></i>Dodaj lokalizacje</a>
-        <a href="${contextPath}/users"><i class="fas fa-users"></i>Zarządzaj użytkownikami</a>
+        <a href="${contextPath}/index"><i class="fas fa-home"></i>Strona główna</a>
+        <a href="${contextPath}/adminPanel"><i class="fas fa-user-cog"></i>Panel administratora</a>
+        <a href="${contextPath}/cars"><i class="fas fa-car"></i>Samochody</a>
+        <a href="${contextPath}/users"><i class="fas fa-users"></i>Użytkownicy</a>
+        <a href="${contextPath}/faults"><i class="fas fa-list-ol"></i>Usterki</a>
+        <a href="${contextPath}/offerform"><i class="fas fa-donate"></i>Oferty</a>
+        <a href="${contextPath}/locationform"><i class="fas fa-map-marker-alt"></i>Lokalizacje</a>
     </div>
-    <h2>Panel administratora:</h2>
-    <form action="${contextPath}/addOffer" method="post">
-        <select class="column centerform" name="car">
-            <c:forEach var="car" items="${cars}">
-                <option value="${car.id}"}>${car.mark} ${car.model}</option>
-            </c:forEach>
-        </select>
-        <div class="column">
-            <h2><a href="${contextPath}/carform">Dodaj samochód</a></h2>
-            <input type="text" id="description" placeholder="Podaj opis samochodu" name="description" required>
-            <input type="number" id="price" placeholder="Podaj cene samochodu" name="price" required>
+    <br>
+    <c:if test="${offer eq true}">
+        <div class="alert alert-success">Dodano nową ofertę!</div>
+    </c:if>
+    <center>
+        <h2>Oferty:</h2>
+
+        <form action="${contextPath}/addOffer" method="post" enctype="multipart/form-data">
+
+            <select class="custom-select my-1 mr-sm-2" name="car" style="width: 50%" required>
+                <option value="">Wybierz samochód</option>
+                <c:forEach var="car" items="${cars}">
+                    <option value="${car.id}" }>${car.mark} ${car.model}</option>
+                </c:forEach>
+            </select>
+
+            <input type="text" class="form-control mb-2 mr-sm-2" id="description" placeholder="Podaj opis samochodu"
+                   name="description" required>
+            <input type="number" class="form-control mb-2 mr-sm-2" id="price" placeholder="Podaj cene samochodu"
+                   name="price" style="width: 50%" required>
+
             <button type="submit" class="btn btn-dark">Dodaj ofertę</button>
+        </form><br><br><br><br>
+        <div class="margin-top15">
+            <h3>Lista ofert:</h3>
         </div>
-    </form>
+        <table class="table table-hover">
+            <thead class="thead-light">
+            <tr>
+                <th>Samochód</th>
+                <th>Cena</th>
+                <th>Opis</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${offerList}" var="offer">
+                <tr>
+                    <td>${offer.car.mark} ${offer.car.model}</td>
+                    <td>${offer.price}</td>
+                    <td>${offer.description}</td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </center>
 </main>
 
-<footer class = "footer">
+<footer class="footer">
     <p>Autorzy: Karol Głuch, Michał Galas, Sławomir Faron.</p>
     <p>Copyright &copy 2020 G-F-G CarRent. Wszelkie prawa zastrzeżone.</p>
 </footer>

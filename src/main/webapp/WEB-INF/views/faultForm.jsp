@@ -1,15 +1,8 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ page import="java.util.Base64" %>
-<%@ page import="com.car.rental.project.payment.PayUConnection" %>
-<%@ page import="com.car.rental.project.payment.Order" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-<% request.setAttribute("isAdmin", request.isUserInRole("ADMIN"));
-    PayUConnection payUConnection = new PayUConnection();
-    String url = payUConnection.payUUrl((Order)request.getAttribute("order"));
-%>
+<% request.setAttribute("isAdmin", request.isUserInRole("ADMIN")); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +14,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        .table tr {
+            text-align: center;
+        }
+
+        .table td {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 <nav class="navtop">
@@ -31,12 +34,11 @@
         </c:if>
         <li><a href="${contextPath}/index">Strona Główna</a></li>
         <li><a href="${contextPath}/flota">Flota</a></li>
-        <li><a href="${contextPath}/locations">Lokalizacje</a></li>
+        <li><a class="active" href="${contextPath}/locations">Lokalizacje</a></li>
         <li><a href="${contextPath}/ofirmie">O firmie</a></li>
         <li><a href="${contextPath}/kontakt">Kontakt</a></li>
-        <li><a class="active" href="${contextPath}/offer">Oferta</a></li>
+        <li><a href="${contextPath}/offer">Oferta</a></li>
     </ul>
-
     <c:if test="${pageContext.request.userPrincipal.name != null}">
         <form id="logoutForm" method="POST" action="${contextPath}/logout">
         </form>
@@ -46,6 +48,7 @@
             </button>
         </div>
     </c:if>
+
 
     <c:if test="${pageContext.request.userPrincipal.name == null}">
         <div class="logreg">
@@ -63,27 +66,29 @@
     <h3>"Bądź wzorcem jakości. Niektórzy ludzie nie przywykli do środowiska, gdzie oczekuje się doskonałości."</h3>
 </header>
 
-<main class="main">
+<main class = "main">
+    <h2>Zgłoś usterkę:</h2>
+    <form class="column" action="${contextPath}/addFault/${id}" method="post">
+        <center>
+            <input type="hidden" id="idRent" name="idRent" value="${ide}"
+                   required>
+            <select class="custom-select my-1 mr-sm-2" id="typeFault" name="typeFault" style="width: 50%" required>
+                <option value="">Rodzaj usterki</option>
+                <option value="Usterka przy wypożyczeniu">Usterka przy wypożyczeniu</option>
+                <option value="Usterka podczas użytkowania pojazdu">Usterka podczas użytkowania pojazdu </option>
+            </select>
 
-<center>
-    <br>
-    <h4>Podsumowanie wypożyczenia: </h4>
-    <b>Samochód: </b>${nameCar}<br>
-    <b>Kwota za wypożyczenie: </b>${kwota} zł<br>
-    <b>Data wypożyczenia: </b>${rentDate}, godzina: ${rentHour}<br>
-    <b>Data oddania: </b>${returnDate}, godzina: ${returnHour}<br>
-    <b>Miejsce wypożyczenia: </b>${rentLocation}<br>
-    <b>Miejsce oddania: </b>${returnLocation}<br><br>
+            <input type="text" class="form-control mb-2 mr-sm-2" id="titleFault" placeholder="Co zostało uszkodzone..." name="titleFault" required>
+            <textarea id="descriptionFault" name="descriptionFault" placeholder="Opis usterki..." style="height:200px" required></textarea><br>
+            <button class="btn btn-lg btn-dark" type="submit">Zgłoś usterkę</button>
+        </center>
+    </form>
 
-    <b>Informacja!</b><br>
-    Przed dokonaniem zakupu otrzymujesz rezerwację na 24h. Jeśli w tym czasie nie wykonasz płatności Twoje zamówienie zostaje usunięte.
-    <br><br>
-    <button type="button" class="btn btn-success" onclick="window.location.href='<%=url%>'">Przejdź do płatności</button>
-</center>
+
 
 </main>
 
-<footer class="footer">
+<footer class = "footer">
     <p>Autorzy: Karol Głuch, Michał Galas, Sławomir Faron.</p>
     <p>Copyright &copy 2020 G-F-G CarRent. Wszelkie prawa zastrzeżone.</p>
 </footer>

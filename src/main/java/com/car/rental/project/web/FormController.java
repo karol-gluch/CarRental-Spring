@@ -35,9 +35,10 @@ public class FormController {
     private final OfferRepository offerRepository;
     private final RentRepository rentRepository;
     private final UserRepository userRepository;
+    private final FaultRepository faultRepository;
 
 
-    public FormController(OfferService offerService, CarPhotoRepository carPhotoRepository, CarRepository carRepository, LocationRepository locationRepository, OfferRepository offerRepository, RentRepository rentRepository, UserRepository userRepository) {
+    public FormController(OfferService offerService, CarPhotoRepository carPhotoRepository, CarRepository carRepository, LocationRepository locationRepository, OfferRepository offerRepository, RentRepository rentRepository, UserRepository userRepository, FaultRepository faultRepository) {
         this.offerService = offerService;
         this.carPhotoRepository = carPhotoRepository;
         this.carRepository = carRepository;
@@ -45,6 +46,7 @@ public class FormController {
         this.offerRepository = offerRepository;
         this.rentRepository = rentRepository;
         this.userRepository = userRepository;
+        this.faultRepository = faultRepository;
     }
 
     @GetMapping("/carform")
@@ -53,7 +55,7 @@ public class FormController {
     }
 
     @PostMapping("/addCar")
-    public String addCar( @ModelAttribute("photos") List<MultipartFile> photos, RedirectAttributes redirectAttributes, HttpServletRequest carForm) {
+    public String addCar(@ModelAttribute("photos") List<MultipartFile> photos, RedirectAttributes redirectAttributes, HttpServletRequest carForm) {
         Car c = new Car();
         c.setMark(carForm.getParameter("mark"));
         c.setModel(carForm.getParameter("model"));
@@ -103,6 +105,8 @@ public class FormController {
     @GetMapping("/offerform")
     public String offerForm(Model model) {
         List<Car> cars = carRepository.find();
+        List<Offer>offers = offerService.findAll();
+        model.addAttribute ("offerList", offers);
         model.addAttribute("cars", cars);
         return "offerform";
     }
@@ -111,7 +115,7 @@ public class FormController {
     public String addOffer(@ModelAttribute("offerForm") Offer offerForm, RedirectAttributes redirectAttributes) {
         offerService.save(offerForm);
         redirectAttributes.addFlashAttribute("offer", "true");
-        return "redirect:/adminPanel";
+        return "redirect:/offerform";
     }
 
 
@@ -120,6 +124,8 @@ public class FormController {
         if (id.isEmpty()) {
             Location newLocation = new Location();
             locationRepository.save(newLocation);
+            List<Location> locations = locationRepository.findAll();
+            model.addAttribute("locations",locations);
             model.addAttribute("id", newLocation.getId());
         }
         return "locationform";
@@ -133,7 +139,7 @@ public class FormController {
         l.setTelefon(locationForm.getTelefon());
         locationRepository.save(l);
         redirectAttributes.addFlashAttribute("location", "true");
-        return "redirect:/adminPanel";
+        return "redirect:/locationform";
     }
 
     @PostMapping({"/wypozycz", "/wypozycz/{id}"})
@@ -188,23 +194,21 @@ public class FormController {
 
         Long kwota;
         int price = o.getPrice();
-        if (numberOfDays == 0)
-        {
+        if (numberOfDays == 0) {
             Long liczbaGodzin = Long.parseLong(returnHour) - Long.parseLong(rentHour);
 
-            if(liczbaGodzin == 0)
+            if (liczbaGodzin == 0)
                 liczbaGodzin = Long.valueOf(1);
 
             kwota = liczbaGodzin * price / 24;
-        }
-        else {
-            if(numberOfDays > 13 && numberOfDays < 30)
+        } else {
+            if (numberOfDays > 13 && numberOfDays < 30)
                 price = price * 9 / 10;
 
-            if(numberOfDays > 29)
+            if (numberOfDays > 29)
                 price = price * 8 / 10;
 
-             kwota = numberOfDays * price;
+            kwota = numberOfDays * price;
 
             //System.out.println("cena: " + price + " ile dni: " +numberOfDays);
         }
@@ -244,7 +248,7 @@ public class FormController {
         //add order
         List<Product> list = new ArrayList<>();
         list.add(new Product(nameCar, kwota.toString()));
-        Order order = new Order(r.getId().toString(),"Wypożyczenie " + nameCar, kwota.toString(), list);
+        Order order = new Order(r.getId().toString(), "Wypożyczenie " + nameCar, kwota.toString(), list);
 
 
         //show information in podsumowanieWypozyczenia.jsp
@@ -275,71 +279,71 @@ public class FormController {
         String liczbaOd = null;
         String liczbaDo = null;
 
-        if(request.getParameter("cenaOd") != null && !request.getParameter("cenaOd").isEmpty()) {
-             cenaOd = request.getParameter("cenaOd");
+        if (request.getParameter("cenaOd") != null && !request.getParameter("cenaOd").isEmpty()) {
+            cenaOd = request.getParameter("cenaOd");
         }
-        if(request.getParameter("cenaOd") == null && request.getParameter("cenaOd").isEmpty()) {
+        if (request.getParameter("cenaOd") == null && request.getParameter("cenaOd").isEmpty()) {
             cenaOd.concat("null");
         }
 
-        if(request.getParameter("cenaDo") != null && !request.getParameter("cenaDo").isEmpty()) {
+        if (request.getParameter("cenaDo") != null && !request.getParameter("cenaDo").isEmpty()) {
             cenaDo = request.getParameter("cenaDo");
         }
-        if(request.getParameter("cenaDo") == null && request.getParameter("cenaDo").isEmpty()) {
+        if (request.getParameter("cenaDo") == null && request.getParameter("cenaDo").isEmpty()) {
             cenaDo.concat("null");
         }
 
-        if(!request.getParameter("rodzajpaliwa").equals("Rodzaj paliwa")) {
+        if (!request.getParameter("rodzajpaliwa").equals("Rodzaj paliwa")) {
             rodzajPaliwa = request.getParameter("rodzajpaliwa");
         }
 
-        if(!request.getParameter("typnadwozia").equals("Typ nadwozia")) {
+        if (!request.getParameter("typnadwozia").equals("Typ nadwozia")) {
             typNadwozia = request.getParameter("typnadwozia");
         }
 
-        if(request.getParameter("rokOd") != null && !request.getParameter("rokOd").isEmpty()) {
+        if (request.getParameter("rokOd") != null && !request.getParameter("rokOd").isEmpty()) {
             rokOd = request.getParameter("rokOd");
         }
-        if(request.getParameter("rokOd") == null && request.getParameter("rokOd").isEmpty()) {
+        if (request.getParameter("rokOd") == null && request.getParameter("rokOd").isEmpty()) {
             rokOd.concat("null");
         }
 
-        if(request.getParameter("rokDo") != null && !request.getParameter("rokDo").isEmpty()) {
+        if (request.getParameter("rokDo") != null && !request.getParameter("rokDo").isEmpty()) {
             rokDo = request.getParameter("rokDo");
         }
-        if(request.getParameter("rokDo") == null && request.getParameter("rokDo").isEmpty()) {
+        if (request.getParameter("rokDo") == null && request.getParameter("rokDo").isEmpty()) {
             rokDo.concat("null");
         }
 
-        if(request.getParameter("pojemnoscOd") != null && !request.getParameter("pojemnoscOd").isEmpty()) {
+        if (request.getParameter("pojemnoscOd") != null && !request.getParameter("pojemnoscOd").isEmpty()) {
             pojemnoscOd = request.getParameter("pojemnoscOd");
         }
-        if(request.getParameter("pojemnoscOd") == null && request.getParameter("pojemnoscOd").isEmpty()) {
+        if (request.getParameter("pojemnoscOd") == null && request.getParameter("pojemnoscOd").isEmpty()) {
             pojemnoscOd.concat("null");
         }
 
-        if(request.getParameter("pojemnoscDo") != null && !request.getParameter("pojemnoscDo").isEmpty()) {
+        if (request.getParameter("pojemnoscDo") != null && !request.getParameter("pojemnoscDo").isEmpty()) {
             pojemnoscDo = request.getParameter("pojemnoscDo");
         }
-        if(request.getParameter("pojemnoscDo") == null && request.getParameter("pojemnoscDo").isEmpty()) {
+        if (request.getParameter("pojemnoscDo") == null && request.getParameter("pojemnoscDo").isEmpty()) {
             pojemnoscDo.concat("null");
         }
 
-        if(request.getParameter("liczbaOd") != null && !request.getParameter("liczbaOd").isEmpty()) {
+        if (request.getParameter("liczbaOd") != null && !request.getParameter("liczbaOd").isEmpty()) {
             liczbaOd = request.getParameter("liczbaOd");
         }
-        if(request.getParameter("liczbaOd") == null && request.getParameter("liczbaOd").isEmpty()) {
+        if (request.getParameter("liczbaOd") == null && request.getParameter("liczbaOd").isEmpty()) {
             liczbaOd.concat("null");
         }
 
-        if(request.getParameter("liczbaDo") != null && !request.getParameter("liczbaDo").isEmpty()) {
+        if (request.getParameter("liczbaDo") != null && !request.getParameter("liczbaDo").isEmpty()) {
             liczbaDo = request.getParameter("liczbaDo");
         }
-        if(request.getParameter("liczbaDo") == null && request.getParameter("liczbaDo").isEmpty()) {
+        if (request.getParameter("liczbaDo") == null && request.getParameter("liczbaDo").isEmpty()) {
             liczbaDo.concat("null");
         }
 
-        System.out.println(cenaOd + " " + cenaDo+ " " +rodzajPaliwa+ " " +typNadwozia+ " " +rokOd+ " " +rokDo+ " " +pojemnoscOd+ " " +pojemnoscDo+ " " +liczbaOd+ " " +liczbaDo);
+        System.out.println(cenaOd + " " + cenaDo + " " + rodzajPaliwa + " " + typNadwozia + " " + rokOd + " " + rokDo + " " + pojemnoscOd + " " + pojemnoscDo + " " + liczbaOd + " " + liczbaDo);
 
         List<Car> cars = carRepository.findOf(cenaOd, cenaDo, rodzajPaliwa, typNadwozia, rokOd, rokDo, pojemnoscOd, pojemnoscDo, liczbaOd, liczbaDo);
 
@@ -361,9 +365,9 @@ public class FormController {
 
     @GetMapping("/deletebyname/{name}")
     public String deleteUserByName(@PathVariable String name, RedirectAttributes redirectAttributes) {
-            User u = userRepository.findByUsername(name);
-            userRepository.deleteById(u.getId());
-            redirectAttributes.addFlashAttribute("success", "true");
+        User u = userRepository.findByUsername(name);
+        userRepository.deleteById(u.getId());
+        redirectAttributes.addFlashAttribute("success", "true");
         return "redirect:/logout";
     }
 
@@ -396,12 +400,12 @@ public class FormController {
     }
 
     @GetMapping("/callback/{id}")
-    public String callback(@PathVariable String id, HttpServletRequest request){
+    public String callback(@PathVariable String id, HttpServletRequest request) {
         Rent r = rentRepository.findById(Long.valueOf(id)).orElseThrow();
         r.setStatus("Opłacone");
         rentRepository.save(r);
         String userName = request.getUserPrincipal().getName();
-        return "redirect:/panel/"+userName;
+        return "redirect:/panel/" + userName;
     }
 
     @RequestMapping({"/modifyCar", "/modifyCar/{id}"})
@@ -420,4 +424,84 @@ public class FormController {
         redirectAttributes.addFlashAttribute("modifycar", "true");
         return "redirect:/cars";
     }
+
+    @GetMapping({"/faultForm", "/faultForm/{id}"})
+    public String faultForm(@PathVariable String id, Model model) {
+        model.addAttribute("ide", id);
+        return "faultForm";
+    }
+
+    @PostMapping({"/addFault", "/addFault/{id}"})
+    public String addFault(HttpServletRequest request, @ModelAttribute("faultForm") Fault faultForm, RedirectAttributes redirectAttributes) {
+
+        Fault f = new Fault();
+
+        String typeFault = request.getParameter("typeFault");
+        String titleFault = request.getParameter("titleFault");
+        String descriptionFault = request.getParameter("descriptionFault");
+        String idRent = request.getParameter("idRent");
+
+        Rent r = rentRepository.findById(Long.valueOf(idRent)).orElseThrow();
+
+        f.setTypeFault(typeFault);
+        f.setTitleFault(titleFault);
+        f.setDescriptionFault(descriptionFault);
+        f.setRent(r);
+
+        faultRepository.save(f);
+
+        String userName = request.getUserPrincipal().getName();
+
+        redirectAttributes.addFlashAttribute("fault", "true");
+        return "redirect:/panel/" + userName;
+    }
+
+    @PostMapping({"/payRes", "/payRes/{id}"})
+    public String payReservation(@PathVariable long id, Model model) {
+
+        Rent r = rentRepository.findById(id).orElseThrow();
+        String nameCar = r.getOffer().getCar().getMark() + " " + r.getOffer().getCar().getModel();
+        int kwota = r.getKwota();
+
+        //add order
+        List<Product> list = new ArrayList<>();
+        list.add(new Product(nameCar, Integer.toString(kwota)));
+        Order order = new Order(r.getId().toString(), "Wypożyczenie " + nameCar, Integer.toString(kwota), list);
+
+        String rentLocation = r.getMiejsceWypozyczenia();
+        String returnLocation = r.getMiejsceOddania();
+        String rentDate = r.getDataWypozyczenia();
+        String rentHour = r.getGodzinaWypozyczenia();
+        String returnDate = r.getDataOddania();
+        String returnHour = r.getGodzinaOddania();
+
+        model.addAttribute("kwota", kwota);
+        model.addAttribute("nameCar", nameCar);
+        model.addAttribute("order", order);
+        model.addAttribute("rentDate", rentDate);
+        model.addAttribute("returnDate", returnDate);
+        model.addAttribute("rentLocation", rentLocation);
+        model.addAttribute("returnLocation", returnLocation);
+        model.addAttribute("rentHour", rentHour);
+        model.addAttribute("returnHour", returnHour);
+        return "payRes";
+    }
+
+    @GetMapping("/endRent/{id}")
+    public String endRent(@PathVariable Long id, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+        Rent r = rentRepository.findById(id).orElseThrow();
+        r.setStatus("Zakończone");
+        rentRepository.save(r);
+        redirectAttributes.addFlashAttribute("end", "true");
+        return "redirect:/adminPanel";
+    }
+
+    @GetMapping("/deleteReservation/{id}")
+    public String deleteReservation(@PathVariable Long id, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+        rentRepository.deleteById(id);
+        redirectAttributes.addFlashAttribute("delete", "true");
+        return "redirect:/adminPanel";
+    }
+
+
 }

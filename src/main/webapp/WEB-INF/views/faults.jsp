@@ -1,7 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <% request.setAttribute("isAdmin", request.isUserInRole("ADMIN")); %>
 <!DOCTYPE html>
@@ -26,13 +25,12 @@
             text-align: center;
         }
     </style>
-
 </head>
 <body>
 <header class="header">
     <h3>"Bądź wzorcem jakości. Niektórzy ludzie nie przywykli do środowiska, gdzie oczekuje się doskonałości."</h3>
 </header>
-<main class="main">
+<main class = "main">
     <div class="adminMenu">
         <a href="${contextPath}/index"><i class="fas fa-home"></i>Strona główna</a>
         <a href="${contextPath}/adminPanel"><i class="fas fa-user-cog"></i>Panel administratora</a>
@@ -42,39 +40,39 @@
         <a href="${contextPath}/offerform"><i class="fas fa-donate"></i>Oferty</a>
         <a href="${contextPath}/locationform"><i class="fas fa-map-marker-alt"></i>Lokalizacje</a>
     </div>
-    </br>
-    <c:if test="${success eq true}">
-        <div class="alert alert-success">Usunięto użytkownika!</div>
-    </c:if>
-
-    <h2>Lista użytkowników:</h2>
+    <br>
+    <center>
+    <h2>Zgłoszenia usterek:</h2>
+    </center>
     <table class="table table-hover">
         <thead class="thead-light">
         <tr>
-            <th>Nazwa użytkownika</th>
-            <th>Działania</th>
+            <th>ID</th>
+            <th>Rodzaj usterki</th>
+            <th>Tytuł usterki</th>
+            <th>Opis usterki</th>
+            <th>Samochód</th>
+            <th>ID wypożyczenia</th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${users}" var="users">
+        <c:forEach items="${faults}" var="faults">
             <tr>
-                <td>${users.username}</td>
-                <td>
-                    <form action="${contextPath}/deleteUser/${users.getId()}" method="get">
-                        <button type="submit" class="btn btn-outline-danger btn-sm">Usuń</button>
-                    </form>
-                </td>
+                <td>${faults.id}</td>
+                <td>${faults.typeFault}</td>
+                <td>${faults.titleFault}</td>
+                <td>${faults.descriptionFault}</td>
+                <td>${faults.rent.offer.car.mark} ${faults.rent.offer.car.model}</td>
+                <td>${faults.rent.id}</td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
-
 </main>
 
-<footer class="footer">
+<footer class = "footer">
     <p>Autorzy: Karol Głuch, Michał Galas, Sławomir Faron.</p>
     <p>Copyright &copy 2020 G-F-G CarRent. Wszelkie prawa zastrzeżone.</p>
 </footer>
-
 </body>
 </html>

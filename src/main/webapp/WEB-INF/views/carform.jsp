@@ -17,42 +17,20 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css">
 </head>
 <body>
-<nav class="navtop">
-    <img src="../../resources/images/newlogo.png">
-    <ul>
-        <c:if test="${isAdmin}">
-            <li><a class="active" href="${contextPath}/adminPanel">Panel administratora</a></li>
-        </c:if>
-        <li><a href="${contextPath}/index">Strona Główna</a></li>
-        <li><a href="${contextPath}/flota">Flota</a></li>
-        <li><a href="${contextPath}/locations">Lokalizacje</a></li>
-        <li><a href="${contextPath}/ofirmie">O firmie</a></li>
-        <li><a href="${contextPath}/kontakt">Kontakt</a></li>
-        <li><a href="${contextPath}/offer">Oferta</a></li>
-    </ul>
-    <c:if test="${pageContext.request.userPrincipal.name != null}">
-        <form id="logoutForm" method="POST" action="${contextPath}/logout">
-        </form>
-        <div class="logreg">
-            <button type="button" class="btn btn-dark" onclick="window.location.href='/panel/${pageContext.request.userPrincipal.name}'">Otwórz profil</button>
-            <button type="button" class="btn btn-dark" onclick="document.forms['logoutForm'].submit()">Wyloguj się
-            </button>
-        </div>
-    </c:if>
-</nav>
-
 <header class="header">
     <h3>"Bądź wzorcem jakości. Niektórzy ludzie nie przywykli do środowiska, gdzie oczekuje się doskonałości."</h3>
 </header>
-
 <main class="main">
     <div class="adminMenu">
-        <a href="${contextPath}/carform"><i class="fas fa-car"></i>Dodaj samochód</a>
-        <a href="${contextPath}/cars"><i class="fas fa-list-ol"></i>Zarządzaj samochodami</a>
-        <a href="${contextPath}/offerform"><i class="fas fa-donate"></i>Dodaj ofertę</a>
-        <a href="${contextPath}/locationform"><i class="fas fa-home"></i>Dodaj lokalizacje</a>
-        <a href="${contextPath}/users"><i class="fas fa-users"></i>Zarządzaj użytkownikami</a>
+        <a href="${contextPath}/index"><i class="fas fa-home"></i>Strona główna</a>
+        <a href="${contextPath}/adminPanel"><i class="fas fa-user-cog"></i>Panel administratora</a>
+        <a href="${contextPath}/cars"><i class="fas fa-car"></i>Samochody</a>
+        <a href="${contextPath}/users"><i class="fas fa-users"></i>Użytkownicy</a>
+        <a href="${contextPath}/faults"><i class="fas fa-list-ol"></i>Usterki</a>
+        <a href="${contextPath}/offerform"><i class="fas fa-donate"></i>Oferty</a>
+        <a href="${contextPath}/locationform"><i class="fas fa-map-marker-alt"></i>Lokalizacje</a>
     </div>
+    <br>
     <center>
         <form action="${contextPath}/addCar" method="post" enctype="multipart/form-data">
             <input type="text" class="form-control mb-2 mr-sm-2" id="mark" placeholder="Podaj marke samochodu"
@@ -62,12 +40,12 @@
             <input type="text" class="form-control mb-2 mr-sm-2" id="yearOfProduction"
                    placeholder="Podaj rok produkcji samochodu" name="yearOfProduction" required>
             <select class="custom-select my-1 mr-sm-2" id="fuelType" name="fuelType" style="width: 50%" required>
-                <option selected>Rodzaj paliwa</option>
+                <option value="">Rodzaj paliwa</option>
                 <option value="Benzyna">Benzyna</option>
                 <option value="Ropa">Ropa</option>
             </select>
             <select class="custom-select my-1 mr-sm-2" id="bodyType" name="bodyType" style="width: 50%" required>
-                <option selected>Typ nadwozia</option>
+                <option value="">Typ nadwozia</option>
                 <option value="Sedan">Sedan</option>
                 <option value="Kombi">Kombi</option>
                 <option value="Hatchback">Hatchback</option>

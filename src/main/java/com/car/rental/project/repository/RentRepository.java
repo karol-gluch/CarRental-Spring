@@ -12,4 +12,7 @@ public interface RentRepository extends JpaRepository<Rent, Long> {
 
     @Query(value = "SELECT * FROM Rent r inner join rent_users u on u.rent_id = r.id inner join offer_rents o on o.rent_id=r.id where u.user_id = ?1", nativeQuery = true)
     List<Rent> findUserRents(Long id);
+
+    @Query(value = "SELECT SUM(KWOTA) FROM RENT WHERE STATUS='Opłacone' OR STATUS='Zakończone'", nativeQuery = true)
+    int sumMoney();
 }

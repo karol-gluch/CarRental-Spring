@@ -1,8 +1,10 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-<% request.setAttribute("isAdmin", request.isUserInRole("ADMIN")); %>
+<% request.setAttribute("isAdmin", request.isUserInRole("ADMIN"));
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,18 +68,23 @@
     <h3>"Bądź wzorcem jakości. Niektórzy ludzie nie przywykli do środowiska, gdzie oczekuje się doskonałości."</h3>
 </header>
 
-<main class = "main">
+<main class="main">
     <div class="column">
+        <c:if test="${changed eq true}">
+            <div class="alert alert-success">Hasło zostało zmienione!</div>
+        </c:if>
+        <c:if test="${notchanged eq true}">
+            <div class="alert alert-danger">Nie zmieniono hasła!</div>
+        </c:if>
+        <c:if test="${fault eq true}">
+            <div class="alert alert-success">Zgłoszono usterkę!</div>
+        </c:if>
         <h2>Ustawienia konta:</h2>
         <div class="row">
-            <c:if test="${changed eq true}">
-                <div class="alert alert-success">Hasło zostało zmienione!</div>
-            </c:if>
-            <c:if test="${notchanged eq true}">
-                <div class="alert alert-danger">Nie zmieniono hasła!</div>
-            </c:if>
-
-            <button class="btn btn-danger margin-right10" onclick="window.location.href='${contextPath}/deletebyname/${pageContext.request.userPrincipal.name}'">Usuń konto</button>
+            <button class="btn btn-danger margin-right10"
+                    onclick="window.location.href='${contextPath}/deletebyname/${pageContext.request.userPrincipal.name}'">
+                Usuń konto
+            </button>
             <button class="btn btn-success" data-toggle="modal" data-target="#changePasswordModal">Zmień hasło</button>
         </div>
     </div>
@@ -85,13 +92,14 @@
     <table class="table table-hover">
         <thead class="thead-light">
         <tr>
-            <th>Samochód </th>
+            <th>Samochód</th>
             <th>Miejsce wypożyczenia</th>
             <th>Miejsce oddania</th>
             <th>Data i godzina wypożyczenia</th>
             <th>Data i godzina oddania</th>
             <th>Status</th>
             <th>Kwota</th>
+            <th>Operacja</th>
         </tr>
         </thead>
         <tbody>
@@ -104,13 +112,26 @@
                 <td>${rent.dataOddania}, godz. ${rent.godzinaOddania}</td>
                 <td>${rent.status}</td>
                 <td>${rent.kwota}</td>
+                <td>
+                    <c:if test="${rent.status == 'Rezerwacja'}">
+                        <form action="${contextPath}/payRes/${rent.getId()}" method="post"><button class="btn btn-outline-success btn-sm" type="submit">Opłać rezerwację</button></form>
+                    </c:if>
+                    <c:if test="${rent.status == 'Opłacone'}">
+                        <a href="${contextPath}/faultForm/${rent.getId()}" class="btn btn-outline-danger btn-sm">Zgłoś usterkę</a>
+                    </c:if>
+                    <c:if test="${rent.status == 'Zakończone'}">
+                        <button class="btn btn-secondary btn-sm" disabled data-toggle="modal"
+                                data-target="#changePasswordModal">Zakończono
+                        </button>
+                    </c:if>
+                </td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
 </main>
 
-<footer class = "footer">
+<footer class="footer">
     <p>Autorzy: Karol Głuch, Michał Galas, Sławomir Faron.</p>
     <p>Copyright &copy 2020 G-F-G CarRent. Wszelkie prawa zastrzeżone.</p>
 </footer>
@@ -127,32 +148,34 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-                    <form method="POST" action="${contextPath}/changepassword" class="form-signin">
+                <form method="POST" action="${contextPath}/changepassword" class="form-signin">
 
-                        <input type="hidden" id="username" name="username" value="${pageContext.request.userPrincipal.name}" required>
+                    <input type="hidden" id="username" name="username" value="${pageContext.request.userPrincipal.name}"
+                           required>
 
-                        <div class="form-group ${error != null ? 'has-error' : ''}">
-                            <label for="oldPassword">Stare hasło:</label>
-                            <input type="password" class="form-control" id="oldPassword" placeholder="Podaj stare hasło"
-                                   name="oldPassword" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="newPassword">Hasło:</label>
-                            <input type="password" minlength="8" class="form-control" id="newPassword" placeholder="Podaj nowe hasło"
-                                   name="newPassword" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="passwordConfirm">Podaj ponownie nowe hasło:</label>
-                            <input type="password" minlength="8" class="form-control" id="passwordConfirm"
-                                   placeholder="Podaj ponownie nowe haslo" name="passwordConfirm" required>
-                            <div class="valid-feedback">Uzupełniono</div>
-                            <div class="invalid-feedback">Proszę wypełnić pole</div>
-                        </div>
-                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    <div class="form-group ${error != null ? 'has-error' : ''}">
+                        <label for="oldPassword">Stare hasło:</label>
+                        <input type="password" class="form-control" id="oldPassword" placeholder="Podaj stare hasło"
+                               name="oldPassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="newPassword">Hasło:</label>
+                        <input type="password" minlength="8" class="form-control" id="newPassword"
+                               placeholder="Podaj nowe hasło"
+                               name="newPassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="passwordConfirm">Podaj ponownie nowe hasło:</label>
+                        <input type="password" minlength="8" class="form-control" id="passwordConfirm"
+                               placeholder="Podaj ponownie nowe haslo" name="passwordConfirm" required>
+                        <div class="valid-feedback">Uzupełniono</div>
+                        <div class="invalid-feedback">Proszę wypełnić pole</div>
+                    </div>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
-                        <button class="btn btn-lg btn-dark btn-block" type="submit">Zmień hasło</button>
+                    <button class="btn btn-lg btn-dark btn-block" type="submit">Zmień hasło</button>
 
-                    </form>
+                </form>
             </div>
             <!-- Modal footer -->
             <div class="modal-footer">
@@ -162,5 +185,6 @@
         </div>
     </div>
 </div>
+
 </body>
 </html>

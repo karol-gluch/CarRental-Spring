@@ -27,41 +27,18 @@
     </style>
 </head>
 <body>
-<nav class="navtop">
-    <img src="../../resources/images/newlogo.png">
-    <ul>
-        <c:if test="${isAdmin}">
-            <li><a class="active" href="${contextPath}/adminPanel">Panel administratora</a></li>
-        </c:if>
-        <li><a href="${contextPath}/index">Strona Główna</a></li>
-        <li><a href="${contextPath}/flota">Flota</a></li>
-        <li><a href="${contextPath}/locations">Lokalizacje</a></li>
-        <li><a href="${contextPath}/ofirmie">O firmie</a></li>
-        <li><a href="${contextPath}/kontakt">Kontakt</a></li>
-        <li><a href="${contextPath}/offer">Oferta</a></li>
-    </ul>
-    <c:if test="${pageContext.request.userPrincipal.name != null}">
-        <form id="logoutForm" method="POST" action="${contextPath}/logout">
-        </form>
-        <div class="logreg">
-            <button type="button" class="btn btn-dark" onclick="window.location.href='/panel/${pageContext.request.userPrincipal.name}'">Otwórz profil</button>
-            <button type="button" class="btn btn-dark" onclick="document.forms['logoutForm'].submit()">Wyloguj się
-            </button>
-        </div>
-    </c:if>
-</nav>
-
 <header class="header">
     <h3>"Bądź wzorcem jakości. Niektórzy ludzie nie przywykli do środowiska, gdzie oczekuje się doskonałości."</h3>
 </header>
-
 <main class="main">
     <div class="adminMenu">
-        <a href="${contextPath}/carform"><i class="fas fa-car"></i>Dodaj samochód</a>
-        <a href="${contextPath}/cars"><i class="fas fa-list-ol"></i>Zarządzaj samochodami</a>
-        <a href="${contextPath}/offerform"><i class="fas fa-donate"></i>Dodaj ofertę</a>
-        <a href="${contextPath}/locationform"><i class="fas fa-home"></i>Dodaj lokalizacje</a>
-        <a href="${contextPath}/users"><i class="fas fa-users"></i>Zarządzaj użytkownikami</a>
+        <a href="${contextPath}/index"><i class="fas fa-home"></i>Strona główna</a>
+        <a href="${contextPath}/adminPanel"><i class="fas fa-user-cog"></i>Panel administratora</a>
+        <a href="${contextPath}/cars"><i class="fas fa-car"></i>Samochody</a>
+        <a href="${contextPath}/users"><i class="fas fa-users"></i>Użytkownicy</a>
+        <a href="${contextPath}/faults"><i class="fas fa-list-ol"></i>Usterki</a>
+        <a href="${contextPath}/offerform"><i class="fas fa-donate"></i>Oferty</a>
+        <a href="${contextPath}/locationform"><i class="fas fa-map-marker-alt"></i>Lokalizacje</a>
     </div>
     </br>
     <c:if test="${deletecar eq true}">

@@ -18,6 +18,7 @@ public class Rent {
     private String godzinaOddania;
     private String status; //rezerwacja lub wypozyczenie
 
+
     @ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     @JoinTable(
             name = "Rent_users",
@@ -33,6 +34,9 @@ public class Rent {
             inverseJoinColumns = @JoinColumn( name="offer_id")
     )
     private Offer offer;
+
+    @OneToMany(mappedBy = "rent")
+    private Set<Fault> fault;
 
     public Long getId() {
         return id;
@@ -120,5 +124,13 @@ public class Rent {
 
     public void setGodzinaOddania(String godzinaOddania) {
         this.godzinaOddania = godzinaOddania;
+    }
+
+    public Set<Fault> getFault() {
+        return fault;
+    }
+
+    public void setFault(Set<Fault> fault) {
+        this.fault = fault;
     }
 }

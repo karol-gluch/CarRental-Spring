@@ -65,21 +65,17 @@
 
 <main class="main">
 
-<center>
-    <br>
-    <h4>Podsumowanie wypożyczenia: </h4>
-    <b>Samochód: </b>${nameCar}<br>
-    <b>Kwota za wypożyczenie: </b>${kwota} zł<br>
-    <b>Data wypożyczenia: </b>${rentDate}, godzina: ${rentHour}<br>
-    <b>Data oddania: </b>${returnDate}, godzina: ${returnHour}<br>
-    <b>Miejsce wypożyczenia: </b>${rentLocation}<br>
-    <b>Miejsce oddania: </b>${returnLocation}<br><br>
-
-    <b>Informacja!</b><br>
-    Przed dokonaniem zakupu otrzymujesz rezerwację na 24h. Jeśli w tym czasie nie wykonasz płatności Twoje zamówienie zostaje usunięte.
-    <br><br>
-    <button type="button" class="btn btn-success" onclick="window.location.href='<%=url%>'">Przejdź do płatności</button>
-</center>
+    <center>
+        <br>
+        <h4>Opłacenie zamówienia: </h4>
+        <b>Samochód: </b>${nameCar}<br>
+        <b>Kwota za wypożyczenie: </b>${kwota} zł<br>
+        <b>Data wypożyczenia: </b>${rentDate}, godzina: ${rentHour}:00<br>
+        <b>Data oddania: </b>${returnDate}, godzina: ${returnHour}:00<br>
+        <b>Miejsce wypożyczenia: </b>${rentLocation}<br>
+        <b>Miejsce oddania: </b>${returnLocation}<br><br>
+        <br>
+        <button type="button" class="btn btn-success" onclick="window.location.href='<%=url%>'">Przejdź do płatności</button>
 
 </main>
 

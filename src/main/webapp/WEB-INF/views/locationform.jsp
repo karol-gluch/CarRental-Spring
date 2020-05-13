@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -17,53 +17,60 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css">
 </head>
 <body>
-<nav class="navtop">
-    <img src="../../resources/images/newlogo.png">
-    <ul>
-        <c:if test="${isAdmin}">
-            <li><a class="active"  href="${contextPath}/adminPanel">Panel administratora</a></li>
-        </c:if>
-        <li><a href="${contextPath}/index">Strona Główna</a></li>
-        <li><a href="${contextPath}/flota">Flota</a></li>
-        <li><a href="${contextPath}/locations">Lokalizacje</a></li>
-        <li><a href="${contextPath}/ofirmie">O firmie</a></li>
-        <li><a href="${contextPath}/kontakt">Kontakt</a></li>
-        <li><a href="${contextPath}/offer">Oferta</a></li>
-    </ul>
-    <c:if test="${pageContext.request.userPrincipal.name != null}">
-        <form id="logoutForm" method="POST" action="${contextPath}/logout">
-        </form>
-        <div class="logreg">
-            <button type="button" class="btn btn-dark" onclick="window.location.href='/panel/${pageContext.request.userPrincipal.name}'">Otwórz profil</button>
-            <button type="button" class="btn btn-dark" onclick="document.forms['logoutForm'].submit()">Wyloguj się
-            </button>
-        </div>
-    </c:if>
-</nav>
-
 <header class="header">
     <h3>"Bądź wzorcem jakości. Niektórzy ludzie nie przywykli do środowiska, gdzie oczekuje się doskonałości."</h3>
 </header>
-
-<main class= "main locationform">
+<main class="main locationform">
     <div class="adminMenu">
-        <a href="${contextPath}/carform"><i class="fas fa-car"></i>Dodaj samochód</a>
-        <a href="${contextPath}/cars"><i class="fas fa-list-ol"></i>Zarządzaj samochodami</a>
-        <a href="${contextPath}/offerform"><i class="fas fa-donate"></i>Dodaj ofertę</a>
-        <a href="${contextPath}/locationform"><i class="fas fa-home"></i>Dodaj lokalizacje</a>
-        <a href="${contextPath}/users"><i class="fas fa-users"></i>Zarządzaj użytkownikami</a>
+        <a href="${contextPath}/index"><i class="fas fa-home"></i>Strona główna</a>
+        <a href="${contextPath}/adminPanel"><i class="fas fa-user-cog"></i>Panel administratora</a>
+        <a href="${contextPath}/cars"><i class="fas fa-car"></i>Samochody</a>
+        <a href="${contextPath}/users"><i class="fas fa-users"></i>Użytkownicy</a>
+        <a href="${contextPath}/faults"><i class="fas fa-list-ol"></i>Usterki</a>
+        <a href="${contextPath}/offerform"><i class="fas fa-donate"></i>Oferty</a>
+        <a href="${contextPath}/locationform"><i class="fas fa-map-marker-alt"></i>Lokalizacje</a>
     </div>
-    <h2>Panel administratora:</h2>
-    <form class="column" action="${contextPath}/addLocation/${id}" method="post">
-        <input type="text" id="miasto" placeholder="Podaj miasto" name="miasto" required>
-        <input type="text" id="adres" placeholder="Podaj ulice" name="adres" required>
-        <input type="text" id="telefon" placeholder="Podaj numer kontaktowy" name="telefon" required>
-        <button type="submit" class="btn btn-dark">Dodaj lokalizacje</button>
-    </form>
+    <br>
+    <c:if test="${location eq true}">
+        <div class="alert alert-success">Dodano nową lokalizację!</div>
+    </c:if>
+    <center>
+        <h2>Lokalizacje:</h2>
 
+        <form class="column" action="${contextPath}/addLocation/${id}" method="post">
+            <input type="text" class="form-control mb-2 mr-sm-2" id="miasto" placeholder="Podaj miasto" name="miasto"
+                   required>
+            <input type="text" class="form-control mb-2 mr-sm-2" id="adres" placeholder="Podaj ulice" name="adres"
+                   required>
+            <input type="text" class="form-control mb-2 mr-sm-2" id="telefon" placeholder="Podaj numer kontaktowy"
+                   name="telefon" required>
+            <button type="submit" class="btn btn-dark">Dodaj lokalizacje</button>
+        </form><br><br><br><br>
+        <div class="margin-top15">
+            <h3>Lista lokalizacji:</h3>
+        </div>
+        <table class="table table-hover">
+            <thead class="thead-light">
+            <tr>
+                <th>Miasto</th>
+                <th>Ulica</th>
+                <th>Telefon kontaktowy</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${locations}" var="locations">
+                <tr>
+                    <td>${locations.miasto}</td>
+                    <td>${locations.adres}</td>
+                    <td>${locations.telefon}</td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </center>
 </main>
 
-<footer class = "footer">
+<footer class="footer">
     <p>Autorzy: Karol Głuch, Michał Galas, Sławomir Faron.</p>
     <p>Copyright &copy 2020 G-F-G CarRent. Wszelkie prawa zastrzeżone.</p>
 </footer>

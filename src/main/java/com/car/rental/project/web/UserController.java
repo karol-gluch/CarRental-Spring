@@ -1,9 +1,7 @@
 package com.car.rental.project.web;
 
 import com.car.rental.project.model.*;
-import com.car.rental.project.repository.CarRepository;
-import com.car.rental.project.repository.LocationRepository;
-import com.car.rental.project.repository.UserRepository;
+import com.car.rental.project.repository.*;
 import com.car.rental.project.service.OfferService;
 import com.car.rental.project.social.FBConnection;
 import com.car.rental.project.social.FBGraph;
@@ -33,9 +31,11 @@ public class UserController {
     private final LocationRepository locationRepository;
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final FaultRepository faultRepository;
+    private final RentRepository rentRepository;
 
     @Autowired
-    public UserController(UserService userService, SecurityService securityService, UserValidator userValidator, OfferService offerService, CarRepository carRepository, LocationRepository locationRepository, UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserController(UserService userService, SecurityService securityService, UserValidator userValidator, OfferService offerService, CarRepository carRepository, LocationRepository locationRepository, UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, FaultRepository faultRepository, RentRepository rentRepository) {
         this.userService = userService;
         this.securityService = securityService;
         this.userValidator = userValidator;
@@ -44,6 +44,8 @@ public class UserController {
         this.locationRepository = locationRepository;
         this.userRepository = userRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.faultRepository = faultRepository;
+        this.rentRepository = rentRepository;
     }
 
     @GetMapping("/registration")
@@ -136,6 +138,10 @@ public class UserController {
     }
     @GetMapping("/adminPanel")
     public String adminPanel(Model model) {
+        List<Rent> rents = rentRepository.findAll();
+        model.addAttribute("rents", rents);
+        int money = rentRepository.sumMoney();
+        model.addAttribute("money",money);
         return "adminPanel";
     }
 
@@ -165,5 +171,12 @@ public class UserController {
         List<Car> cars = carRepository.findAll();
         model.addAttribute("cars", cars);
         return "cars";
+    }
+
+    @GetMapping("/faults")
+    public String faults(Model model) {
+        List <Fault> faults = faultRepository.findAll();
+        model.addAttribute("faults", faults);
+        return "faults";
     }
 }

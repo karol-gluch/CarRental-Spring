@@ -16,53 +16,86 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css">
+    <style>
+        .table tr {
+            text-align: center;
+        }
+
+        .table td {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <nav class="navtop">
-        <img src="../../resources/images/newlogo.png">
-        <ul>
-            <c:if test="${isAdmin}">
-                <li><a class="active"  href="${contextPath}/adminPanel">Panel administratora</a></li>
-            </c:if>
-            <li><a href="${contextPath}/index">Strona Główna</a></li>
-            <li><a href="${contextPath}/flota">Flota</a></li>
-            <li><a href="${contextPath}/locations">Lokalizacje</a></li>
-            <li><a href="${contextPath}/ofirmie">O firmie</a></li>
-            <li><a href="${contextPath}/kontakt">Kontakt</a></li>
-            <li><a href="${contextPath}/offer">Oferta</a></li>
-        </ul>
-            <c:if test="${pageContext.request.userPrincipal.name != null}">
-                <form id="logoutForm" method="POST" action="${contextPath}/logout">
-                </form>
-                <div class="logreg">
-                    <button type="button" class="btn btn-dark" onclick="window.location.href='/panel/${pageContext.request.userPrincipal.name}'">Otwórz profil</button>
-                    <button type="button" class="btn btn-dark" onclick="document.forms['logoutForm'].submit()">Wyloguj się
-                    </button>
-                </div>
-            </c:if>
-    </nav>
-
-    <header class="header">
-        <h3>"Bądź wzorcem jakości. Niektórzy ludzie nie przywykli do środowiska, gdzie oczekuje się doskonałości."</h3>
-    </header>
-
+<header class="header">
+    <h3>"Bądź wzorcem jakości. Niektórzy ludzie nie przywykli do środowiska, gdzie oczekuje się doskonałości."</h3>
+</header>
     <main class= "main">
-           <div class="adminMenu">
-               <a href="${contextPath}/carform"><i class="fas fa-car"></i>Dodaj samochód</a>
-               <a href="${contextPath}/cars"><i class="fas fa-list-ol"></i>Zarządzaj samochodami</a>
-               <a href="${contextPath}/offerform"><i class="fas fa-donate"></i>Dodaj ofertę</a>
-               <a href="${contextPath}/locationform"><i class="fas fa-home"></i>Dodaj lokalizacje</a>
-               <a href="${contextPath}/users"><i class="fas fa-users"></i>Zarządzaj użytkownikami</a>
-           </div>
+        <div class="adminMenu">
+            <a href="${contextPath}/index"><i class="fas fa-home"></i>Strona główna</a>
+            <a href="${contextPath}/adminPanel"><i class="fas fa-user-cog"></i>Panel administratora</a>
+            <a href="${contextPath}/cars"><i class="fas fa-car"></i>Samochody</a>
+            <a href="${contextPath}/users"><i class="fas fa-users"></i>Użytkownicy</a>
+            <a href="${contextPath}/faults"><i class="fas fa-list-ol"></i>Usterki</a>
+            <a href="${contextPath}/offerform"><i class="fas fa-donate"></i>Oferty</a>
+            <a href="${contextPath}/locationform"><i class="fas fa-map-marker-alt"></i>Lokalizacje</a>
+        </div>
             <div class="margin-top15">
-                <c:if test="${location eq true}">
-                    <div class="alert alert-success">Dodano nową lokalizację!</div>
+                <c:if test="${delete eq true}">
+                    <div class="alert alert-success">Usunięto rezerwację!</div>
                 </c:if>
-                <c:if test="${offer eq true}">
-                    <div class="alert alert-success">Dodano nową ofertę!</div>
+                <c:if test="${end eq true}">
+                    <div class="alert alert-success">Zakończono wypożyczenie!</div>
                 </c:if>
-                <h2>Panel administratora:</h2>
+                <br>
+                <center><h6><b>Zarobki za opłacone wypożyczenia:</b> ${money} zł</h6></center>
+                <br>
+                <h2>Wypożyczenia:</h2>
             </div>
+
+        <table class="table table-hover">
+            <thead class="thead-light">
+            <tr>
+                <th>ID</th>
+                <th>Samochód</th>
+                <th>Miejsce wypożyczenia</th>
+                <th>Miejsce oddania</th>
+                <th>Data i godzina wypożyczenia</th>
+                <th>Data i godzina oddania</th>
+                <th>Status</th>
+                <th>Kwota</th>
+                <th>Operacja</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${rents}" var="rent">
+                <tr>
+                    <td>${rent.id}</td>
+                    <td>${rent.offer.car.mark} ${rent.offer.car.model}</td>
+                    <td>${rent.miejsceWypozyczenia}</td>
+                    <td>${rent.miejsceOddania}</td>
+                    <td>${rent.dataWypozyczenia}, godz. ${rent.godzinaWypozyczenia}</td>
+                    <td>${rent.dataOddania}, godz. ${rent.godzinaOddania}</td>
+                    <td>${rent.status}</td>
+                    <td>${rent.kwota}</td>
+                    <td>
+                        <c:if test="${rent.status == 'Rezerwacja'}">
+                            <form action="${contextPath}/deleteReservation/${rent.getId()}" method="get"><button class="btn btn-outline-success btn-sm" type="submit">Usuń rezerwację</button></form>
+                        </c:if>
+                        <c:if test="${rent.status == 'Opłacone'}">
+                            <form action="${contextPath}/endRent/${rent.getId()}" method="get"><button class="btn btn-outline-danger btn-sm" type="submit">Zakończ</button></form>
+                        </c:if>
+                        <c:if test="${rent.status == 'Zakończone'}">
+                            <button class="btn btn-secondary btn-sm" disabled data-toggle="modal"
+                                    data-target="#changePasswordModal">Zakończono
+                            </button>
+                        </c:if>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+
     </main>
 
     <footer class = "footer">
