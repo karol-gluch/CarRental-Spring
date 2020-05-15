@@ -12,10 +12,13 @@ insert into car (id,mark,model,year_Of_Production,fuel_Type, engine_Capacity, bo
 insert into car (id,mark,model,year_Of_Production,fuel_Type, engine_Capacity, body_Type, number_Of_Places) values (3,'Audi', 'S3', '2019', 'Benzyna', '2.5', 'Hatchback', '5');
 insert into car (id,mark,model,year_Of_Production,fuel_Type, engine_Capacity, body_Type, number_Of_Places) values (4,'Toyota', 'Avensis', '2013', 'Ropa', '1.6', 'Kombi', '5');
 
-insert into car_photo(id,photo,car_id) values (1,FILE_READ('classpath:static/Audi-A6.png'),1);
+
+insert into car_photo(id,photo,car_id) values (1,FILE_READ('classpath:static/Audi-S3.png'),1);
 insert into car_photo(id,photo,car_id) values (2,FILE_READ('classpath:static/BMW-M3.png'),2);
 insert into car_photo(id,photo,car_id) values (3,FILE_READ('classpath:static/Audi-S3.png'),3);
 insert into car_photo(id,photo,car_id) values (4,FILE_READ('classpath:static/Toyota-Avensis.png'),4);
+insert into car_photo(id,photo,car_id) values (5,FILE_READ('classpath:static/BMW-M3.png'),1);
+insert into car_photo(id,photo,car_id) values (6,FILE_READ('classpath:static/Audi-A6.png'),1);
 
 insert into offer(id,description,price,car_id) values (1,'Samochody Audi A6  wyposażone są w nadwozie sedan lub kombi, pięć siedzeń i od 4 do 5 drzwi. Auta mają długość od 4,5 do ok. 5 metrów, szerokość w przedziale 1775–1992 mm, a wysokość może wynosić 1425–1480 mm. Pojemność bagażnika to 630–1660 litrów.',500,1);
 insert into offer(id,description,price,car_id) values (2,'Wśród samochodów BMW serii 3 znajdziemy modele jeżdżące na benzynę, benzynowo-elektryczne oraz wersje z dieslem. Posiadane wersje wyposażane są w 2–5 drzwi i 4 lub 5 siedzeń, natomiast pojemność bagażnika miesi się do 1500 litrów. ',300,2);

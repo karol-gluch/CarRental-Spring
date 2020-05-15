@@ -66,7 +66,11 @@
                     <img src="../../resources/images/cross.png"  data-dismiss="modal">
                 </div>
                 <div class="modal-body">
-                    <img id="modal-image" src=""/>
+                    <div id="modal-gallery"></div>
+                    <div class="row row--space-between margin-bot20">
+                        <button id="modal-gallery-arrow-prev"><---</button>
+                        <button id="modal-gallery-arrow-next">---></button>
+                    </div>
                     <p id="modal-description"></p>
                     <div class="informations">
                         <div class="info">
@@ -91,12 +95,19 @@
     </div>
 
     <main class="main">
+        <c:forEach items="${car_photoList}" var="offer">
+        </c:forEach>
         <c:forEach items="${offerList}" var="offer">
             <section class="offers">
                 <div class="offer offer-data offer-button-show" data-toggle="modal" data-target="#mymodal">
                     <c:forEach var="img" items="${offer.car.carPhoto}" end="0">
                         <img class="offer-image" src="data:image/*;base64,${Base64.getEncoder().encodeToString(img.photo)}"/>
                     </c:forEach>
+                    <div class="offer-gallery display-none">
+                        <c:forEach var="img" items="${offer.car.carPhoto}">
+                                 <img src="data:image/*;base64,${Base64.getEncoder().encodeToString(img.photo)}"/>
+                        </c:forEach>
+                    </div>
                     <div class="description">
                         <h2 class="offer-header">${offer.car.mark} ${offer.car.model}</h2>
                         <p class="offer-description">${offer.description}</p>
