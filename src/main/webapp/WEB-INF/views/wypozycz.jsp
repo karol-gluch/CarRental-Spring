@@ -101,7 +101,7 @@
 <main class="main">
 
     <center>
-        <form action="${contextPath}/podsumowanieWypozyczenia/${ide}" method="post">
+        <form class="margin-top15" action="${contextPath}/podsumowanieWypozyczenia/${ide}" method="post">
             Data wypożyczenia: </br>
             <input type="text" class="form-control mb-2 mr-sm-2" id="rentDate" name="rentDate" placeholder="Data wypożyczenia" required>
             Data zwrotu:

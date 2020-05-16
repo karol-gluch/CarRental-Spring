@@ -16,6 +16,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="${contextPath}/resources/scripts/main.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css">
 </head>
 <body>
     <nav class="navtop">
@@ -66,11 +67,9 @@
                     <img src="../../resources/images/cross.png"  data-dismiss="modal">
                 </div>
                 <div class="modal-body">
-                    <div id="modal-gallery"></div>
-                    <div class="row row--space-between margin-bot20">
-                        <button id="modal-gallery-arrow-prev"><---</button>
-                        <button id="modal-gallery-arrow-next">---></button>
-                    </div>
+                    <div id="modal-gallery" class="modal-gallery"></div>
+                    <button id="modal-gallery-arrow-prev" class="button-prev"><i class="fas fa-arrow-left"></i></button>
+                    <button id="modal-gallery-arrow-next" class="button-next"><i class="fas fa-arrow-right"></i></button>
                     <p id="modal-description"></p>
                     <div class="informations">
                         <div class="info">
