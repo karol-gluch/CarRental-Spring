@@ -36,9 +36,10 @@ public class FormController {
     private final RentRepository rentRepository;
     private final UserRepository userRepository;
     private final FaultRepository faultRepository;
+    private final OpinionRepository opinionRepository;
 
 
-    public FormController(OfferService offerService, CarPhotoRepository carPhotoRepository, CarRepository carRepository, LocationRepository locationRepository, OfferRepository offerRepository, RentRepository rentRepository, UserRepository userRepository, FaultRepository faultRepository) {
+    public FormController(OfferService offerService, CarPhotoRepository carPhotoRepository, CarRepository carRepository, LocationRepository locationRepository, OfferRepository offerRepository, RentRepository rentRepository, UserRepository userRepository, FaultRepository faultRepository, OpinionRepository opinionRepository) {
         this.offerService = offerService;
         this.carPhotoRepository = carPhotoRepository;
         this.carRepository = carRepository;
@@ -47,6 +48,7 @@ public class FormController {
         this.rentRepository = rentRepository;
         this.userRepository = userRepository;
         this.faultRepository = faultRepository;
+        this.opinionRepository = opinionRepository;
     }
 
     @GetMapping("/carform")
@@ -501,6 +503,29 @@ public class FormController {
         rentRepository.deleteById(id);
         redirectAttributes.addFlashAttribute("delete", "true");
         return "redirect:/adminPanel";
+    }
+
+    @PostMapping({"/writeOpinion", "/writeOpinion/{id}"})
+    public String addFault(HttpServletRequest request, @ModelAttribute("opinionForm") Opinion opinionForm, RedirectAttributes redirectAttributes) {
+
+        Opinion o = new Opinion();
+
+        String stars = request.getParameter("stars");
+        String comment = request.getParameter("comment");
+        String uname = request.getParameter("uname");
+
+        User u = userRepository.findByUsername(uname);
+
+
+        o.setStars(stars);
+        o.setComment(comment);
+        o.setUser(u);
+
+        opinionRepository.save(o);
+
+        String userName = request.getUserPrincipal().getName();
+        redirectAttributes.addFlashAttribute("opinion", "true");
+        return "redirect:/panel/" + userName;
     }
 
 

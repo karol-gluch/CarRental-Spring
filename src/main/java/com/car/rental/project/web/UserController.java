@@ -33,9 +33,10 @@ public class UserController {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final FaultRepository faultRepository;
     private final RentRepository rentRepository;
+    private final OpinionRepository opinionRepository;
 
     @Autowired
-    public UserController(UserService userService, SecurityService securityService, UserValidator userValidator, OfferService offerService, CarRepository carRepository, LocationRepository locationRepository, UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, FaultRepository faultRepository, RentRepository rentRepository) {
+    public UserController(UserService userService, SecurityService securityService, UserValidator userValidator, OfferService offerService, CarRepository carRepository, LocationRepository locationRepository, UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, FaultRepository faultRepository, RentRepository rentRepository, OpinionRepository opinionRepository) {
         this.userService = userService;
         this.securityService = securityService;
         this.userValidator = userValidator;
@@ -46,6 +47,7 @@ public class UserController {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.faultRepository = faultRepository;
         this.rentRepository = rentRepository;
+        this.opinionRepository = opinionRepository;
     }
 
     @GetMapping("/registration")
@@ -130,6 +132,8 @@ public class UserController {
     }
     @GetMapping("/ofirmie")
     public String ofirmie(Model model) {
+        List<Opinion> opinion = opinionRepository.findAll();
+        model.addAttribute("opinion",opinion);
         return "ofirmie";
     }
     @GetMapping("/welcome")

@@ -88,3 +88,6 @@ insert into offer_rents(rent_id,offer_id) values (1,1);
 insert into rent_users(rent_id, user_id) values (1,1);
 
 insert into fault(id, type_fault, title_fault, description_fault, rent_id) values (1, 'Usterka przy wypożyczeniu', 'Porysowany zderzak', 'Zderzak z przodu porysowany przy wypozyczeniu samochodu', 1);
+
+insert into opinion(id,stars,comment,user_id) values (1,'5','Polecam tą firmę, niskie ceny i profesjonalna obsługa', 2);
+insert into opinion(id,stars,comment,user_id) values (2,'4','Duży wybór pojazdów, niskie ceny, polecam!', 2);

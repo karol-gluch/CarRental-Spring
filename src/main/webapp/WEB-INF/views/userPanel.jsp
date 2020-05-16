@@ -79,6 +79,9 @@
         <c:if test="${fault eq true}">
             <div class="alert alert-success">Zgłoszono usterkę!</div>
         </c:if>
+        <c:if test="${opinion eq true}">
+            <div class="alert alert-success">Wystawiono opinię!</div>
+        </c:if>
         <h2>Ustawienia konta:</h2>
         <div class="row">
             <button class="btn btn-danger margin-right10"
@@ -86,6 +89,10 @@
                 Usuń konto
             </button>
             <button class="btn btn-success" data-toggle="modal" data-target="#changePasswordModal">Zmień hasło</button>
+            <button class="btn btn-warning" data-toggle="modal" data-target="#writeOpinion" style="margin-left:10px">
+                Napisz opinię
+            </button>
+
         </div>
     </div>
     <h2>Twoje wypożyczenia:</h2>
@@ -114,10 +121,13 @@
                 <td>${rent.kwota}</td>
                 <td>
                     <c:if test="${rent.status == 'Rezerwacja'}">
-                        <form action="${contextPath}/payRes/${rent.getId()}" method="post"><button class="btn btn-outline-success btn-sm" type="submit">Opłać rezerwację</button></form>
+                        <form action="${contextPath}/payRes/${rent.getId()}" method="post">
+                            <button class="btn btn-outline-success btn-sm" type="submit">Opłać rezerwację</button>
+                        </form>
                     </c:if>
                     <c:if test="${rent.status == 'Opłacone'}">
-                        <a href="${contextPath}/faultForm/${rent.getId()}" class="btn btn-outline-danger btn-sm">Zgłoś usterkę</a>
+                        <a href="${contextPath}/faultForm/${rent.getId()}" class="btn btn-outline-danger btn-sm">Zgłoś
+                            usterkę</a>
                     </c:if>
                     <c:if test="${rent.status == 'Zakończone'}">
                         <button class="btn btn-secondary btn-sm" disabled data-toggle="modal"
@@ -175,6 +185,47 @@
 
                     <button class="btn btn-lg btn-dark btn-block" type="submit">Zmień hasło</button>
 
+                </form>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="writeOpinion">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Opinia o naszej pracy</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form method="POST" action="${contextPath}/writeOpinion" class="form-signin">
+                    <center>
+                        <input type="hidden" id="uname" name="uname" value="${pageContext.request.userPrincipal.name}"
+                               required>
+
+                        <select class="custom-select my-1 mr-sm-2" id="stars" name="stars" style="width: 50%" required>
+                            <option value="">Liczba gwiazdek</option>
+                            <option value="1">*</option>
+                            <option value="2">**</option>
+                            <option value="3">***</option>
+                            <option value="4">****</option>
+                            <option value="5">*****</option>
+                        </select>
+
+                        <textarea id="comment" name="comment" placeholder="Zostaw komentarz..." style="height:200px"
+                                  required></textarea><br>
+                        <button class="btn btn-lg btn-dark btn-block" type="submit">Napisz opinię</button>
+                    </center>
                 </form>
             </div>
             <!-- Modal footer -->

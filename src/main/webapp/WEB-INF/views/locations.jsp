@@ -4,7 +4,7 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <% request.setAttribute("isAdmin", request.isUserInRole("ADMIN")); %>
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="app">
 <head>
     <meta charset="UTF-8">
     <title>G-F-G CarRent - Wypożyczalnia samochodów</title>
@@ -14,6 +14,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.4/angular.min.js"></script>
+
 
     <style>
         .table tr {
@@ -25,7 +29,7 @@
         }
     </style>
 </head>
-<body>
+<body ng-app>
 <nav class="navtop">
     <img src="../../resources/images/newlogo.png">
     <ul>
@@ -86,6 +90,8 @@
         </c:forEach>
         </tbody>
     </table>
+
+
 </main>
 
 <footer class = "footer">

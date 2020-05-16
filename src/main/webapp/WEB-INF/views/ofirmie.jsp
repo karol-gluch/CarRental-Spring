@@ -14,6 +14,16 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        .table tr {
+            text-align: center;
+        }
+
+        .table td {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
       <nav class="navtop">
@@ -65,28 +75,27 @@
           <p>- Podczas wypożyczenia jeśli w Twoim samochodzie powstała jakaś usterka, zgłoś ją  </p>
           <p> w swoim profilu. </p>
           <p></p><p></p>
-          <h2>Wynajem aut w G-F-G CarRent ma szereg atutów:</h2>
 
-          <p>- elastyczna oferta najmu krótkoterminowego i średnioterminowego,</p>
-          <p>- zróżnicowana flota sprawdzonych marek w różnych klasach wielkościowych (łącznie ponad 1500 modeli),</p>
-          <p>- dział samochodów luksusowych specjalnie dla najbardziej wymagających Klientów,</p>
-          <p>- możliwość wynajmu samochodu klasy Premium wraz z zawodowym kierowcą,</p>
-          <p>- najlepsze ceny w mieście,</p>
-          <p>- jasne zasady rozliczeń</p>
 
-          <h2>Krótkoterminowy wynajem samochodów</h2>
-          <p>Prowadzimy wynajem samochodów na okres od 1 do 30 dni. Ofertę tę polecamy dla osób, które potrzebują auta zastępczego na czas przeglądu lub naprawy.</p>
-          <p>W naszej flocie dostępne są przestronne modele z nadwoziem typu kombi oraz SUV, które doskonale sprawdzą się na wycieczki czy rodzinne wyjazdy.</p>
-          <p>Wynajem vana to idealna opcja dla firm,które potrzebują środka transportu dla pracowników wyjeżdżających na konferencję, szkolenie lub imprezę integracyjną.</p>
-          <p>Niewielkie i zwrotne samochody kompaktowe klasy B to doskonała opcja dla wszystkich, którzy chcą wygodnie poruszać się po zakorkowanych ulicach,</p>
-          <p>zobaczyć najciekawsze miejsca w mieście lub dojechać na spotkania  służbowe.</p>
-
-          <h2>Średnioterminowy wynajem samochodów</h2>
-          <p>Przedsiębiorcom polecamy korzystny wynajem średnioterminowy. Umowy podpisujemy na okres od 1 miesiąca do 2 lat.</p>
-          <p>W ramach miesięcznej raty zapewniamy polisy ubezpieczeniowe dla wypożyczonego samochodu, obsługę serwisową,</p>
-          <p>Assistance 24h oraz auto zastępcze na wypadek awarii. Istnieje możliwość wynajmu vana lub aut osobowych wielu różnych klas,</p>
-          <p>dzięki czemu firmy mogą uzupełnić swoją służbową flotę o pojazdy najlepiej dopasowane do ich indywidualnych potrzeb.</p>
-
+          <h2>Opinie na nasz temat:</h2>
+          <table class="table table-hover">
+              <thead class="thead-light">
+              <tr>
+                  <th>Użytkownik</th>
+                  <th>Liczba gwiazdek</th>
+                  <th>Komentarz</th>
+              </tr>
+              </thead>
+              <tbody>
+              <c:forEach items="${opinion}" var="opinion">
+                  <tr>
+                      <td>${opinion.user.username}</td>
+                      <td>${opinion.stars}/5</td>
+                      <td>${opinion.comment}</td>
+                  </tr>
+              </c:forEach>
+              </tbody>
+          </table>
       </div>
 
       <footer class = "footer">

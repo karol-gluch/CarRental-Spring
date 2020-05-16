@@ -27,6 +27,10 @@ public class User {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Rent> rent;
 
+    @OneToMany(mappedBy = "user")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Set<Opinion> opinion;
+
     public User(String username, String password) {
         this.username = username;
         this.password = password;
@@ -79,5 +83,13 @@ public class User {
 
     public void setRent(Set<Rent> rent) {
         this.rent = rent;
+    }
+
+    public Set<Opinion> getOpinion() {
+        return opinion;
+    }
+
+    public void setOpinion(Set<Opinion> opinion) {
+        this.opinion = opinion;
     }
 }
