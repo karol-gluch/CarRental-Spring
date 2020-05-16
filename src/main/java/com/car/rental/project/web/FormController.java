@@ -19,10 +19,7 @@ import java.io.IOException;
 import java.net.http.HttpRequest;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -77,20 +74,6 @@ public class FormController {
         });
         redirectAttributes.addFlashAttribute("car", "true");
         return "redirect:/cars";
-    }
-
-    @PostMapping({"/addImage", "/addImage/{id}"})
-    public String addImage(@PathVariable long id, @ModelAttribute("photos") List<MultipartFile> photos, Model model) {
-        photos.forEach(x -> {
-            try {
-                byte[] xd = x.getBytes();
-                carPhotoRepository.save(new CarPhoto(xd, carRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Car is empty!"))));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        model.addAttribute("id", id);
-        return "carform";
     }
 
     @GetMapping({"/deleteCar", "/deleteCar/{id}"})
@@ -348,10 +331,15 @@ public class FormController {
         System.out.println(cenaOd + " " + cenaDo + " " + rodzajPaliwa + " " + typNadwozia + " " + rokOd + " " + rokDo + " " + pojemnoscOd + " " + pojemnoscDo + " " + liczbaOd + " " + liczbaDo);
 
         List<Car> cars = carRepository.findOf(cenaOd, cenaDo, rodzajPaliwa, typNadwozia, rokOd, rokDo, pojemnoscOd, pojemnoscDo, liczbaOd, liczbaDo);
+        List<Offer> offers = cars.stream().map(Car::getOffer).collect(Collectors.toList());
+        offers.forEach(e -> {
+            Set<CarPhoto> p = new TreeSet<>(Comparator.comparing(CarPhoto::getId));
+            p.addAll(e.getCar().getCarPhoto());
+            e.getCar().setCarPhoto(p);
+        });
+        model.addAttribute("offerList", offers);
 
-        model.addAttribute("cars", cars);
-
-        return "searchCar";
+        return "offer";
     }
 
     @GetMapping({"/deleteUser", "/deleteUser/{id}"})

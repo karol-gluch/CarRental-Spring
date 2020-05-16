@@ -152,6 +152,11 @@ public class UserController {
     @GetMapping("/offer")
     public String offer(Model model) {
         List<Offer>offers = offerService.findAll();
+        offers.forEach(e -> {
+            Set<CarPhoto> p = new TreeSet<>(Comparator.comparing(CarPhoto::getId));
+            p.addAll(e.getCar().getCarPhoto());
+            e.getCar().setCarPhoto(p);
+        });
         model.addAttribute ("offerList", offers);
         return "offer";
     }
