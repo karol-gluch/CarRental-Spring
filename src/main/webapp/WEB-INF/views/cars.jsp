@@ -30,7 +30,7 @@
 <header class="header">
     <h3>"Bądź wzorcem jakości. Niektórzy ludzie nie przywykli do środowiska, gdzie oczekuje się doskonałości."</h3>
 </header>
-<main class="main">
+<main class="main padding-bottom35">
     <div class="adminMenu">
         <a href="${contextPath}/index"><i class="fas fa-home"></i>Strona główna</a>
         <a href="${contextPath}/adminPanel"><i class="fas fa-user-cog"></i>Panel administratora</a>

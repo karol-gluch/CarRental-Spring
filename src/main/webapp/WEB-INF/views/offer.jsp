@@ -93,9 +93,7 @@
         </div>
     </div>
 
-    <main class="main">
-        <c:forEach items="${car_photoList}" var="offer">
-        </c:forEach>
+    <main class="main-offers">
         <c:forEach items="${offerList}" var="offer">
             <section class="offers">
                 <div class="offer offer-data offer-button-show" data-toggle="modal" data-target="#mymodal">
@@ -120,7 +118,7 @@
                             <form class="offer-id" action="${contextPath}/wypozycz/${offer.id}" method="post"> </form>
                         </div>
                     </div>
-                </div
+                </div>
             </section>
         </c:forEach>
     </main>

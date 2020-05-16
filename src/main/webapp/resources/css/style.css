@@ -266,27 +266,41 @@ input[type=submit]:hover {
 
 /*Oferty*/
 .offers{
-    max-width:1440px;
-    margin:0 auto;
-    background:rgba(216, 211, 211);
+    width:400px;
+    height:600px;
+    max-height: 700px;
+    margin-left:15px;
+    margin-bottom:20px;
+}
+
+.main-offers{
     display:flex;
-    flex-direction: column;
-    width:100%;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap:wrap;
+    margin:0 auto;
+    padding:20px 10px;
+    background:rgba(216, 211, 211, .8);
 }
 
 .offer{
     display: flex;
-    height:300px;
-    width:90%;
-    margin:10px auto;
-    border: 2px solid black;
+    flex-direction: column;
+    width:400px;
+    height:600px;
+    max-height: 700px;
+    border: 1px solid rgb(216, 212, 212);
     background-color: white;
     cursor: pointer;
 }
 
+.offer:hover{
+    background-color: rgb(245, 204, 94);
+}
+
 .offer img{
-    width:290px;
-    margin:  10px 20px;
+    width:398px;
+    height:250px;
 }
 
 .description{
@@ -294,31 +308,27 @@ input[type=submit]:hover {
     flex-direction: column;
     justify-content: flex-start;
     align-content: flex-start;
-    width:875px;
     margin-top: 10px;
 }
 
 .description h2{
-    font-size: 50px;
-    font-family: 'Roboto', sans-serif;
-    margin: 10px 0;
-    text-align: left;
+    text-align: center;
+    font-family: 'Roboto', Arial, sans-serif;
 }
 
 .description h3{
-    margin-top:20px;
-    padding-right: 10px;
-    font-size: 40px;
-    text-align:right;
+    width:100%;
+    padding:0;
+    text-align: center;
+    font-family: Georgia, Times, 'Times New Roman', serif;
 }
 
 .description p{
-    height: 220px;
-    font-size: 20px;
+    height:200px;
+    padding:0 10px 10px 20px;;
+    font-size: 16px;
+    line-height: 28px;
     text-align: left;
-    font-family: 'Roboto', sans-serif;
-    padding:0;
-    line-height:25px;
 }
 
 .modal-offer .modal {
@@ -356,7 +366,8 @@ input[type=submit]:hover {
 
 .modal-offer .modal-body {
     position:relative;
-    background-color: rgb(250, 237, 237);
+    background-color: #fff;
+    /*background-color: rgb(250, 237, 237);*/
     padding: 20px;
 }
 
@@ -367,7 +378,6 @@ input[type=submit]:hover {
 
 .modal-offer .modal-body img{
     width:760px;
-    height: 300px;
     padding-left:30px;
 }
 
