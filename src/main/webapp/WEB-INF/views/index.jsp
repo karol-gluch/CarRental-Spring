@@ -26,12 +26,17 @@
         });
         </c:if>
 
-        <c:if test="${pageContext.request.userPrincipal.name == null}">
+        <c:if test="${pageContext.request.getAttribute('blad')eq 'login'}">
         $(document).ready(function () {
             $("#myModalLogin").modal('show');
         });
         </c:if>
 
+        <c:if test="${pageContext.request.userPrincipal.name == null}">
+        $(document).ready(function () {
+            $("#myModalLogin").modal('show');
+        });
+        </c:if>
     </script>
 </head>
 <body>
@@ -72,6 +77,7 @@
         </div>
     </c:if>
 </nav>
+<div class="alert" th:if="${errorMessage}" th:text="${errorMessage}"></div>
 
 <header class="header">
     <h3>"Bądź wzorcem jakości. Niektórzy ludzie nie przywykli do środowiska, gdzie oczekuje się doskonałości."</h3>
@@ -138,6 +144,9 @@
 
             <!-- Modal body -->
             <div class="modal-body">
+                <c:if test="${pageContext.request.getAttribute('blad')eq 'login'}">
+                    <div class="alert alert-danger">Nieprawidłowe dane logowania!</div>
+                </c:if>
                 <c:if test="${pageContext.request.userPrincipal.name == null}">
                     <form method="POST" action="${contextPath}/login" class="form-signin">
 
@@ -197,13 +206,15 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-                <c:if test="${pageContext.request.getAttribute('blad')eq 'haslo'}"><h1>blad</h1></c:if>
+                <c:if test="${pageContext.request.getAttribute('blad')eq 'haslo'}">
+                    <div class="alert alert-danger">Należy podać dwa razy to same hasło!</div>
+                </c:if>
                 <form action="/registration" method="post">
                     <div class="form-group">
                         <label for="username">Nazwa użytkownika:</label>
                         <input type="text" minlength="6" class="form-control" id="RegisterUsername"
                                placeholder="Podaj nazwe uzytkownika"
-                               name="username" required>
+                               name="username" style="width: 100%" required>
                         <div class="valid-feedback">Uzupełniono</div>
                         <div class="invalid-feedback">Proszę wypełnić pole</div>
                     </div>

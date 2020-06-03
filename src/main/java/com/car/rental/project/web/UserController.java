@@ -76,6 +76,12 @@ public class UserController {
         return "index";
     }
 
+    @GetMapping("/login-error")
+    public String login(RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("blad","login");
+        return "redirect:/index";
+    }
+
     @GetMapping("/fblogin")
     public String service(HttpServletRequest req, HttpServletResponse res) {
         String code = req.getParameter("code");
