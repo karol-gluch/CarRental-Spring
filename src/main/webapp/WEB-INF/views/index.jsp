@@ -20,11 +20,18 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script>
+        <c:if test="${pageContext.request.getAttribute('blad')eq 'haslo'}">
+        $(document).ready(function () {
+            $("#myModalRegister").modal('show');
+        });
+        </c:if>
+
         <c:if test="${pageContext.request.userPrincipal.name == null}">
         $(document).ready(function () {
             $("#myModalLogin").modal('show');
         });
         </c:if>
+
     </script>
 </head>
 <body>
@@ -190,7 +197,7 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-
+                <c:if test="${pageContext.request.getAttribute('blad')eq 'haslo'}"><h1>blad</h1></c:if>
                 <form action="/registration" method="post">
                     <div class="form-group">
                         <label for="username">Nazwa użytkownika:</label>
