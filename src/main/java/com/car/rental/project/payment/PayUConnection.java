@@ -9,8 +9,8 @@ import java.util.Collections;
 
 
 public class PayUConnection {
-    public static final String CLIENT_ID ="383389";
-    public static final String CLIENT_SECRET = "1b23ba89578d8f5c557792e58c777655";
+    public static final String CLIENT_ID ="";
+    public static final String CLIENT_SECRET = "";
 
     public String payUUrl(Order order) throws JsonProcessingException {
         RestTemplate client = new RestTemplate();

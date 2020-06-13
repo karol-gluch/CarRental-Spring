@@ -46,6 +46,16 @@ public class Car {
     public Car() {
     }
 
+    public Car(String mark, String model, String yearOfProduction, String fuelType, String engineCapacity, String bodyType, String numberOfPlaces) {
+        this.mark = mark;
+        this.model = model;
+        this.yearOfProduction = yearOfProduction;
+        this.fuelType = fuelType;
+        this.engineCapacity = engineCapacity;
+        this.bodyType = bodyType;
+        this.numberOfPlaces = numberOfPlaces;
+    }
+
     public Long getId() {
         return id;
     }

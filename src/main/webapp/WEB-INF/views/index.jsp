@@ -207,7 +207,7 @@
             <!-- Modal body -->
             <div class="modal-body">
                 <c:if test="${pageContext.request.getAttribute('blad')eq 'haslo'}">
-                    <div class="alert alert-danger">Należy podać dwa razy to same hasło!</div>
+                    <div class="alert alert-danger">Należy podać dwa razy to samo hasło!</div>
                 </c:if>
                 <form action="/registration" method="post">
                     <div class="form-group">

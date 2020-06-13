@@ -32,6 +32,11 @@ public class Offer {
     public Offer() {
     }
 
+    public Offer(String description, Integer price) {
+        this.description = description;
+        this.price = price;
+    }
+
     public Long getId() {
         return id;
     }

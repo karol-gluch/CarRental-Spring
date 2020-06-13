@@ -13,9 +13,9 @@ import java.nio.charset.StandardCharsets;
 
 public class FBConnection {
 
-    public static final String FB_APP_ID ="228175701665524";
-    public static final String FB_APP_SECRET = "11a490d60c0e9fba44b38bc440555872";
-    public static final String REDIRECT_URI = "http://localhost:9090/fblogin";
+    public static final String FB_APP_ID ="";
+    public static final String FB_APP_SECRET = "";
+    public static final String REDIRECT_URI = "";
 
     String accessToken = "";
 

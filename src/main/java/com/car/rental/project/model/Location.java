@@ -15,6 +15,15 @@ public class Location {
     private String adres;
     private String telefon;
 
+    public Location() {
+
+    }
+
+    public Location(String miasto, String adres, String telefon) {
+        this.miasto = miasto;
+        this.adres = adres;
+        this.telefon = telefon;
+    }
 
     public Long getId() {
         return id;

@@ -70,8 +70,8 @@
     <h4>Podsumowanie wypożyczenia: </h4>
     <b>Samochód: </b>${nameCar}<br>
     <b>Kwota za wypożyczenie: </b>${kwota} zł<br>
-    <b>Data wypożyczenia: </b>${rentDate}, godzina: ${rentHour}<br>
-    <b>Data oddania: </b>${returnDate}, godzina: ${returnHour}<br>
+    <b>Data wypożyczenia: </b>${rentDate}, godzina: ${rentHour}:00<br>
+    <b>Data oddania: </b>${returnDate}, godzina: ${returnHour}:00<br>
     <b>Miejsce wypożyczenia: </b>${rentLocation}<br>
     <b>Miejsce oddania: </b>${returnLocation}<br><br>
 

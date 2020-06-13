@@ -64,14 +64,17 @@ public class FormController {
         c.setBodyType(carForm.getParameter("bodyType"));
         c.setNumberOfPlaces(carForm.getParameter("numberOfPlaces"));
         carRepository.save(c);
-        photos.forEach(x -> {
-            try {
-                byte[] xd = x.getBytes();
-                carPhotoRepository.save(new CarPhoto(xd, carRepository.findById(c.getId()).orElseThrow(() -> new IllegalArgumentException("Car is empty!"))));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+        if(photos!=null) {//
+
+            photos.forEach(x -> {
+                try {
+                    byte[] xd = x.getBytes();
+                    carPhotoRepository.save(new CarPhoto(xd, carRepository.findById(c.getId()).orElseThrow(() -> new IllegalArgumentException("Car is empty!"))));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+        }//
         redirectAttributes.addFlashAttribute("car", "true");
         return "redirect:/cars";
     }
@@ -176,27 +179,8 @@ public class FormController {
 
         //calculate price
         Offer o = offerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Empty offer"));
-
-        Long kwota;
         int price = o.getPrice();
-        if (numberOfDays == 0) {
-            Long liczbaGodzin = Long.parseLong(returnHour) - Long.parseLong(rentHour);
-
-            if (liczbaGodzin == 0)
-                liczbaGodzin = Long.valueOf(1);
-
-            kwota = liczbaGodzin * price / 24;
-        } else {
-            if (numberOfDays > 13 && numberOfDays < 30)
-                price = price * 9 / 10;
-
-            if (numberOfDays > 29)
-                price = price * 8 / 10;
-
-            kwota = numberOfDays * price;
-
-            //System.out.println("cena: " + price + " ile dni: " +numberOfDays);
-        }
+        Long kwota = calculatePriceForRent(price, numberOfDays, rentHour, returnHour);
 
         //show location
         Location lRent = locationRepository.findById(Long.valueOf(idRentLocation)).orElseThrow(() -> new IllegalArgumentException("Empty rent location"));
@@ -248,6 +232,29 @@ public class FormController {
         model.addAttribute("nameCar", nameCar);
 
         return "podsumowanieWypozyczenia";
+    }
+
+    public Long calculatePriceForRent(int price, long numberOfDays, String rentHour, String returnHour) {
+        Long kwota;
+
+        if (numberOfDays == 0) {
+            Long liczbaGodzin = Long.parseLong(returnHour) - Long.parseLong(rentHour);
+
+            if (liczbaGodzin == 0)
+                liczbaGodzin = Long.valueOf(1);
+
+            kwota = liczbaGodzin * price / 24;
+        } else {
+            if (numberOfDays > 13 && numberOfDays < 30)
+                price = price * 9 / 10;
+
+            if (numberOfDays > 29)
+                price = price * 8 / 10;
+
+            kwota = numberOfDays * price;
+        }
+
+        return kwota;
     }
 
     @PostMapping({"/searchCar"})
@@ -478,7 +485,7 @@ public class FormController {
     }
 
     @GetMapping("/endRent/{id}")
-    public String endRent(@PathVariable Long id, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+    public String endRent(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         Rent r = rentRepository.findById(id).orElseThrow();
         r.setStatus("Zakończone");
         rentRepository.save(r);
@@ -487,7 +494,7 @@ public class FormController {
     }
 
     @GetMapping("/deleteReservation/{id}")
-    public String deleteReservation(@PathVariable Long id, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+    public String deleteReservation(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         rentRepository.deleteById(id);
         redirectAttributes.addFlashAttribute("delete", "true");
         return "redirect:/adminPanel";
