@@ -1,8 +1,7 @@
-package com.car.rental.project;
+package com.car.rental.project.service;
+
 
 import com.car.rental.project.model.User;
-import com.car.rental.project.repository.UserRepository;
-import com.car.rental.project.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -11,14 +10,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.Collections;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
-
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -27,9 +22,6 @@ class UserServiceTest {
 
     @Mock
     private UserService userService;
-
-    @Mock
-    private UserRepository userRepository;
 
     private User user = new User();
 
@@ -66,20 +58,6 @@ class UserServiceTest {
         when(userService.existsByUsername(user.getUsername())).thenReturn(true);
 
         assertTrue(userService.existsByUsername("user"));
-    }
-
-    @Test
-    void shouldFindByUsername() throws Exception {
-        User user = new User();
-        user.setUsername("usertest");
-        user.setPassword("user123123");
-        user.setPasswordConfirm("user123123");
-
-        userRepository.save(user);
-
-        List<User> queryRes = Collections.singletonList(userRepository.findByUsername("usertest"));
-
-        assertFalse(queryRes.isEmpty());
     }
 
 }

@@ -29,13 +29,14 @@ public class Offer {
         this.car = car;
     }
 
-    public Offer() {
-    }
-
     public Offer(String description, Integer price) {
         this.description = description;
         this.price = price;
     }
+
+    public Offer() {
+    }
+
 
     public Long getId() {
         return id;

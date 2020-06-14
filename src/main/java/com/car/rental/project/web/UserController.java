@@ -10,7 +10,6 @@ import com.car.rental.project.service.UserService;
 import com.car.rental.project.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.oauth2.common.util.RandomValueStringGenerator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -50,18 +49,12 @@ public class UserController {
         this.opinionRepository = opinionRepository;
     }
 
-    @GetMapping("/registration")
-    public String registration(Model model) {
-        model.addAttribute("userForm", new User());
-        return "registration";
-    }
-
     @PostMapping("/registration")
     public String registration(@ModelAttribute("userForm") User userForm, RedirectAttributes redirectAttributes, BindingResult bindingResult) {
         userValidator.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("blad","haslo");
+            redirectAttributes.addFlashAttribute("error","password");
             return "redirect:/index";
         }
         userService.save(userForm);
@@ -91,7 +84,7 @@ public class UserController {
         }
         FBConnection fbConnection = new FBConnection();
         String accessToken = fbConnection.getAccessToken(code);
-
+System.out.println(accessToken+" "+code);
         FBGraph fbGraph = new FBGraph(accessToken);
         String graph = fbGraph.getFBGraph();
         Map<String, String> fbProfileData = fbGraph.getGraphData(graph);
@@ -143,10 +136,7 @@ public class UserController {
         model.addAttribute("opinion",opinion);
         return "ofirmie";
     }
-    @GetMapping("/welcome")
-    public String welcome(Model model) {
-        return "welcome";
-    }
+
     @GetMapping("/adminPanel")
     public String adminPanel(Model model) {
         List<Rent> rents = rentRepository.findAll();

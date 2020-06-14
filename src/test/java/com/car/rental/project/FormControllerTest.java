@@ -7,10 +7,11 @@ import com.car.rental.project.repository.OfferRepository;
 import com.car.rental.project.web.FormController;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDate;
@@ -24,9 +25,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@RunWith(SpringRunner.class)
+@SpringBootTest
 @AutoConfigureMockMvc
-public class FormControllerTest {
+class FormControllerTest {
 
 
     @Autowired
@@ -146,7 +148,7 @@ public class FormControllerTest {
         Rent r = new Rent();
         r.setStatus("Opłacone");
         this.mockMvc.perform(get("/callback/{id}", 1L)
-                .with(user("user").roles("ADMIN"))
+                .with(user("user").roles("USER"))
                 .param("status", r.getStatus()))
                 .andExpect(status().isFound());
 
@@ -181,7 +183,7 @@ public class FormControllerTest {
 
     @Test
     void modifyCarShouldReturnOk() throws Exception {
-        this.mockMvc.perform(get("/modifyCar/{id}", 1L).with(user("user").roles("USER"))).andExpect(status().isOk());
+        this.mockMvc.perform(get("/modifyCar/{id}", 1L).with(user("admin").roles("ADMIN"))).andExpect(status().isOk());
     }
 
     @Test
