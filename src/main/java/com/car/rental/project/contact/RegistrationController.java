@@ -27,7 +27,18 @@ public class RegistrationController {
         String tresc = request.getParameter("tresc");
 
         // create user
+        sendMail(email,temat,tresc);
+
+        redirectAttributes.addFlashAttribute("mail", "true");
+
+        return new RedirectView("kontakt");
+    }
+
+    @PostMapping("/sendMessage")
+    public void sendMail(String email, String temat, String tresc)
+    {
         Mail mail = new Mail();
+
         mail.setEmail(email);
         mail.setTemat(temat);
         mail.setTresc(tresc);
@@ -39,9 +50,6 @@ public class RegistrationController {
             // catch error
             logger.info("Error Sending Email: " + e.getMessage());
         }
-        redirectAttributes.addFlashAttribute("mail", "true");
-
-        return new RedirectView("kontakt");
     }
 
 }

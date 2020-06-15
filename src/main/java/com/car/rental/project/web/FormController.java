@@ -12,11 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.persistence.EntityManager;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.net.http.HttpRequest;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -175,6 +172,12 @@ public class FormController {
         //calculate number of days
         LocalDate rentDateL = LocalDate.parse(rentDate);
         LocalDate returnDateL = LocalDate.parse(returnDate);
+
+        /*
+        if(rentDate.compareTo(returnDate) <= 0)
+            throw new IllegalArgumentException("The rental date must be earlier than the date of return ");
+        */
+
         long numberOfDays = ChronoUnit.DAYS.between(rentDateL, returnDateL);
 
         //calculate price
@@ -236,6 +239,15 @@ public class FormController {
 
     public Long calculatePriceForRent(int price, long numberOfDays, String rentHour, String returnHour) {
         Long kwota;
+
+        if(numberOfDays < 0) {
+            throw new IllegalArgumentException("Number of days must be >= 0");
+        }
+
+        if(numberOfDays > 365) {
+            throw new IllegalArgumentException("Number of days must be <= 365");
+
+        }
 
         if (numberOfDays == 0) {
             Long liczbaGodzin = Long.parseLong(returnHour) - Long.parseLong(rentHour);

@@ -6,6 +6,7 @@ public class Mail {
     private String temat;
     private String tresc;
 
+
     public String getEmail() {
         return email;
     }

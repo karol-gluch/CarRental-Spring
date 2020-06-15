@@ -3,12 +3,19 @@
 server:
   port: 9090
 
+#testsendMail
 spring:
   mail:
-    host: smtp.mailtrap.io
-    port: 2525
-    username: 0a80830b2e0ee3
-    password: 9e642451d7cebe
+    host: localhost
+    port: 25
+
+#mailtrap.io send message
+#spring:
+#  mail:
+#    host: smtp.mailtrap.io
+#    port: 2525
+#    username: 0a80830b2e0ee3
+#    password: 9e642451d7cebe
 
   datasource:
     url: jdbc:h2:mem:testdb

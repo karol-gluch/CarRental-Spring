@@ -18,8 +18,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-import static org.junit.Assert.*;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -28,14 +27,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
+
 class FormControllerTest {
 
 
     @Autowired
     private MockMvc mockMvc;
-
-    @Autowired
-    private LocationRepository locationRepository;
 
     @Autowired
     private CarRepository carRepository;
@@ -269,6 +266,16 @@ class FormControllerTest {
         assertEquals(500, (long)(formController.calculatePriceForRent(1000, 0, "8", "20"))); //rent for hours
         assertEquals(13500, (long)(formController.calculatePriceForRent(1000, 15, "8", "20"))); //rent with discount 10%
         assertEquals(24000, (long)(formController.calculatePriceForRent(1000, 30, "8", "20"))); //rent with discount 20%
+    }
+
+    @Test
+    void shouldCalculatePriceWithNegativeNumberOfDays() throws Exception {
+        assertThrows(Exception.class, () -> formController.calculatePriceForRent(500, -1, "8", "12"));
+    }
+
+    @Test
+    void shouldCalculatePriceWithToBigNumberOfDays() throws Exception {
+        assertThrows(Exception.class, () -> formController.calculatePriceForRent(500, 366, "8", "12"));
     }
 
 
