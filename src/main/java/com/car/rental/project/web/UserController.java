@@ -84,7 +84,6 @@ public class UserController {
         }
         FBConnection fbConnection = new FBConnection();
         String accessToken = fbConnection.getAccessToken(code);
-System.out.println(accessToken+" "+code);
         FBGraph fbGraph = new FBGraph(accessToken);
         String graph = fbGraph.getFBGraph();
         Map<String, String> fbProfileData = fbGraph.getGraphData(graph);

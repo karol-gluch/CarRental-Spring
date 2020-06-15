@@ -2,8 +2,9 @@ package com.car.rental.project;
 
 import com.car.rental.project.model.*;
 import com.car.rental.project.repository.CarRepository;
-import com.car.rental.project.repository.LocationRepository;
+
 import com.car.rental.project.repository.OfferRepository;
+import com.car.rental.project.repository.RentRepository;
 import com.car.rental.project.web.FormController;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.util.NestedServletException;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -27,12 +29,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-
 class FormControllerTest {
 
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private RentRepository rentRepository;
 
     @Autowired
     private CarRepository carRepository;
@@ -268,15 +272,44 @@ class FormControllerTest {
         assertEquals(24000, (long)(formController.calculatePriceForRent(1000, 30, "8", "20"))); //rent with discount 20%
     }
 
+
     @Test
-    void shouldCalculatePriceWithNegativeNumberOfDays() throws Exception {
-        assertThrows(Exception.class, () -> formController.calculatePriceForRent(500, -1, "8", "12"));
+    void shouldThrowExceptionIllegalArgument() throws Exception {
+        String rentDate = "2020-06-15";
+        String returnDate = "2020-06-18";
+        String idRentLocation = "1";
+        String idReturnLocation = "1";
+
+        Exception exception = assertThrows(NestedServletException.class, () -> {
+            this.mockMvc.perform(post("/podsumowanieWypozyczenia/{id}", 19L)
+                .with(user("user").roles("USER"))
+                .param("rentDate", rentDate)
+                .param("returnDate", returnDate)
+                .param("locationsW", idRentLocation)
+                .param("locationsZ", idReturnLocation));
+        });
+        assertTrue(exception.getCause() instanceof IllegalArgumentException);
+        assertEquals(exception.getCause().getMessage(),"Empty offer");
     }
 
     @Test
-    void shouldCalculatePriceWithToBigNumberOfDays() throws Exception {
-        assertThrows(Exception.class, () -> formController.calculatePriceForRent(500, 366, "8", "12"));
+    void shouldAddNewRent() throws Exception {
+        String rentDate = "2020-06-15";
+        String returnDate = "2020-06-18";
+        String idRentLocation = "1";
+        String idReturnLocation = "1";
+
+            this.mockMvc.perform(post("/podsumowanieWypozyczenia/{id}", 1L)
+                    .with(user("user").roles("USER"))
+                    .param("rentDate", rentDate)
+                    .param("returnDate", returnDate)
+                    .param("locationsW", idRentLocation)
+                    .param("locationsZ", idReturnLocation))
+            .andExpect(status().isOk())
+            .andExpect(view().name("podsumowanieWypozyczenia"))
+            .andExpect(model().attributeExists("kwota","rentDate","returnDate","rentLocation","returnLocation","nameCar"));
+
+            int size = rentRepository.findAll().size();
+            assertEquals(2,size);
     }
-
-
 }

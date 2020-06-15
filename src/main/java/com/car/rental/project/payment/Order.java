@@ -12,15 +12,6 @@ public class Order {
     private String totalAmount;
     private List<Product> products;
 
-    public Order(String continueUrl, String customoerIp, String merchantPosId, String description, String currencyCode, String totalAmount, List<Product> products) {
-        this.continueUrl = continueUrl;
-        this.customerIp = customoerIp;
-        this.merchantPosId = merchantPosId;
-        this.description = description;
-        this.currencyCode = currencyCode;
-        this.totalAmount = totalAmount;
-        this.products = products;
-    }
 
     public Order(String extOrderId,String description, String totalAmount, List<Product> products) {
         this.continueUrl = "http://localhost:9090/callback/"+extOrderId;

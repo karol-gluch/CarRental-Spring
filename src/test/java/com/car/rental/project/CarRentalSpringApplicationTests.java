@@ -8,5 +8,4 @@ import org.springframework.boot.test.context.SpringBootTest;
 @AutoConfigureMockMvc
 class CarRentalSpringApplicationTests {
 
-
 }
