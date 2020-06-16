@@ -390,6 +390,17 @@ public class FormController {
         return "userPanel";
     }
 
+    @GetMapping("/panel")
+    public String usersPanel(HttpServletRequest request, Model model) {
+        String userName = request.getUserPrincipal().getName();
+        User u = userRepository.findByUsername(userName);
+        Long id = u.getId();
+        List<Rent> rents = rentRepository.findUserRents(id);
+        model.addAttribute("rents", rents);
+
+        return "userPanel";
+    }
+
     @GetMapping({"/deleteCarPanel", "/deleteCarPanel/{id}"})
     public String deleteCar(@PathVariable Optional<Long> id, RedirectAttributes redirectAttributes) {
         if (id.isPresent()) {

@@ -44,7 +44,7 @@
               <form id="logoutForm" method="POST" action="${contextPath}/logout">
               </form>
               <div class="logreg">
-                  <button type="button" class="btn btn-dark" onclick="window.location.href='/panel/${pageContext.request.userPrincipal.name}'">Otwórz profil</button>
+                  <button type="button" class="btn btn-dark" onclick="window.location.href='/panel'">Otwórz profil</button>
                   <button type="button" class="btn btn-dark" onclick="document.forms['logoutForm'].submit()">Wyloguj się
                   </button>
               </div>
